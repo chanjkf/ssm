@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>oa_maven</display-name>
+	<welcome-file-list>
+	</welcome-file-list>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.gif</url-pattern>
+		<url-pattern>*.jpeg</url-pattern>
+		<url-pattern>*.bmp</url-pattern>
+		<url-pattern>*.ico</url-pattern>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.woff</url-pattern>
+		<url-pattern>*.ttf</url-pattern>
+	</servlet-mapping>
+	 <filter>
+		<filter-name>CharSetFilter</filter-name> 
+    	<filter-class>xyz.chanjkf.filter.CharsetFilter</filter-class>
+    	<init-param>
+			<param-name>charset</param-name>
+			<param-value>utf-8</param-value>    	
+    	</init-param>
+    </filter>
+    <filter-mapping>
+    	<filter-name>CharSetFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/applicationContext.xml</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>ProfessionServlet</servlet-name>
+		<servlet-class>xyz.chanjkf.servlet.ProfessionServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProfessionServlet</servlet-name>
+		<url-pattern>/profession/doprofession</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring_mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>52428800</max-file-size>
+			<max-request-size>52428800</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+</web-app>

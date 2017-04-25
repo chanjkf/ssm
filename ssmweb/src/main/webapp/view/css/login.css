@@ -1,0 +1,251 @@
+body {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    color: #989898;
+}
+
+ul, li, a {
+    border: none;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+/* 页面头 */
+.home {
+    margin: 0 auto;
+    height: 100px;
+}
+
+.logo {
+    float: left;
+    height: 100px;
+}
+
+.logo a {
+    float: left;
+    padding: 29px 15px 32px 95px;
+}
+
+.logo span {
+    float: left;
+    line-height: 100px;
+    font-size: 30px;
+}
+
+.header {
+    float: right;
+    line-height: 100px;
+    height: 100px;
+    padding-right: 8%;
+}
+
+.header span a {
+    color: #666666;
+    padding: 0 14px;
+    font-size: 16px;
+}
+
+/*登录*/
+.banner {
+    width: 100%;
+    margin: 0;
+    height: 600px;
+    position: relative;
+}
+
+/*............*/
+.img_left {
+    width: 65%;
+    height: 400px;
+    float: left;
+    background: red;
+    position: absolute;
+    top: 100px;
+}
+
+.login_right {
+    width: 30%;
+    height: 400px;
+    float: right;
+    background: orange;
+    position: absolute;
+    top: 100px;
+    right: 0%;
+}
+
+/*...........*/
+
+.banner .img_bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1
+}
+
+.banner .img_bg img {
+    width: 100%;
+    height: 100%;
+}
+
+.login {
+    width: 320px;
+    height: 360px;
+    float: right;
+    position: absolute;
+    /*top: 100px;*/
+    right: 35%;
+}
+
+.login_head {
+    width: 320px;
+    background: #fff;
+    height: 50px
+}
+
+.login_head h3 {
+    border: none;
+    padding-left: 20px;
+    padding-top: 25px;
+    font-family: "Arial", "Hiragino Sans GB", \5fae\8f6f\96c5\9ed1, "Helvetica", "sans-serif";
+    font-weight: bold;
+    font-size: 1.17em;
+    line-height: 25px;
+    text-align: left
+}
+
+.login-tab {
+    height: 320px;
+    width: 320px;
+    background: #fff
+}
+
+.tab {
+    width: 280px;
+    height: 280px;
+    margin: 20px;
+    float: left;
+}
+
+.tab-one {
+    width: 280px;
+    height: 48px;
+    background: #fff no-repeat scroll left top;
+    margin-bottom: 10px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.tab-one input {
+    border: none;
+    background: #fff;
+    height: 40px;
+    width: 280px;
+    line-height: 25px;
+    outline: none;
+    overflow: hidden;
+    border: 1px solid #AAAAAA;
+}
+
+#username {
+    float: left
+}
+
+#password {
+    float: left
+}
+
+.tab-three {
+    width: 280px;
+    height: 48px;
+    background: #fff no-repeat scroll left top;
+    margin-bottom: 10px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.tab-three input.text1 {
+    outline: none;
+    line-height: 25px;
+    float: left;
+    width: 150px;
+    padding: 5px;
+    height: 40px;
+    background: #fff no-repeat scroll left top;
+    border: 1px solid #AAAAAA;
+    margin-bottom: 10px;
+}
+
+.code_img {
+    float: right;
+    width: 120px;
+    height: 40px;
+}
+
+#get_password {
+    width: 70px;
+    height: 10px;
+    float: left;
+    font-size: 14px;
+}
+
+#find_password {
+    font-size: 10px;
+    float: left;
+}
+
+.tab-button input.btn {
+    width: 280px;
+    height: 40px;
+    line-height: 20px;
+    font-size: 26px;
+    border: none;
+    background: #437ff3;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 20px
+}
+
+/*.text_bg{width:35%;height:143px;position:absolute;top:205px;right:51%;background:no-repeat scroll left top;overflow:hidden;text-indent:-40px;}*/
+.img_left {
+    width: 720px;
+    height: 370px;
+    float: left;
+    postion: absolute;
+    top: 120px;
+    left: 0;
+    overflow: hidden;
+}
+
+.img_left img {
+    width: 100%;
+    height: 100%;
+}
+
+.last {
+    height: 145px;
+    text-align: center;
+    margin: 0 auto;
+    background: #ebebeb;
+    border-top: 2px solid #cecece;
+}
+
+.last p {
+    line-height: 20px;
+    color: #666;
+    margin: 0;
+    font-size: 12px;
+    padding-top: 60px;
+}

@@ -1,0 +1,145 @@
+/*����*/
+.score_word {
+	display: block;
+	position: absolute;
+	width: 83px;
+	height: 17px;
+	/* left: 60px; */
+	top: 2px;
+	text-align: center;
+	padding: 5px 10px;
+	background-color: #FFF;
+	border: 1px solid #CCC;
+}
+.big_star, .big_star_index {
+	float: left;
+	width: 105px;
+	height: 17px;
+	/*cursor: pointer;*/
+	display: inline-block;
+	background: url("../../view/img/bigstar_white.png") no-repeat scroll 0 -26px transparent;
+}
+.big_star_index {
+    background-position: 0 0;
+}
+.app-star-box .app-grade {
+	width: 22px;
+    height: 17px;
+    text-align: right;
+}
+.app-star-box p {
+    float: left;
+    width: 100%;
+    margin-top: 4px;
+    position: relative;
+}
+.app_gscore b {
+    float: left;
+    width: 9px;
+    height: 17px;
+    cursor: pointer;
+    background: none repeat scroll 0 0 transparent;
+}
+.app_gscore b.odd {
+    width: 21px;
+}
+.app_gscore b.odd.last {
+    /*width: 9px;*/
+}
+.app_gscore b.star.odd {
+	/*background-position: -9px 0;*/
+}
+.app-star-box dt,.app-star-box dd{
+	float: left;
+}
+.score_num {
+	width: 18px;
+    height: 17px;
+    text-align: right;
+    display: inline-block;
+}
+.app-tags {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.big_star b.star {
+    background: url("../../view/img/bigstar_white.png") no-repeat scroll 0 0 rgb(255,255,255);
+}
+.app-score {
+    width: 64px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: -3px;
+    background: url("../../view/img/bigstar_white.png") no-repeat scroll 0 -16px transparent;
+}
+
+.app-score {
+    display: inline-block;
+    height: 16px;
+    vertical-align: -3px;
+    width: 64px;
+    background: url("../../view/img/bigstar_white.png") no-repeat scroll 0 -16px rgb(255,255,255);
+}
+.app-score-color {
+    background-position: 0 0;
+}
+
+.app-tags {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.type_selected {
+    /*float: left;*/
+}
+.type_selected ul {
+    /*display:inline-block;*/
+    list-style:none outside none;
+}
+.type_selected ul li {
+    float: left;
+    list-style:none outside none;
+    min-width: 60px;
+    margin-left: 15px;
+    line-height: 28px;
+}
+.type_selected ul a {
+    font-size: 12px;
+    cursor: pointer;
+    position: relative;
+    padding: 2px 15px 2px 3px;
+    border: 1px solid #FF8040;
+    background: none repeat scroll 0 0 white;
+}
+.s_close {
+    top: 1px;
+    right: 1px;
+    position: absolute;
+}
+
+.close_min{
+    width:13px;
+    height:13px;
+    background:url("../../view/img/close_min.png");
+}
+
+
+.sort a {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sort a:hover,
+.sort a:focus {
+    color: #017aff;
+    text-decoration: none;
+}
+
+.sort a.active{
+    color: #017aff;
+}
