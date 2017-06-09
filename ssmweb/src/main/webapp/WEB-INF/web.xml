@@ -4,9 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>oa_maven</display-name>
-	<welcome-file-list>
-	</welcome-file-list>
-
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.html</url-pattern>
@@ -20,6 +17,7 @@
 		<url-pattern>*.css</url-pattern>
 		<url-pattern>*.woff</url-pattern>
 		<url-pattern>*.ttf</url-pattern>
+		<url-pattern>*.mp4</url-pattern>
 	</servlet-mapping>
 	 <filter>
 		<filter-name>CharSetFilter</filter-name> 
@@ -33,20 +31,31 @@
     	<filter-name>CharSetFilter</filter-name>
     	<url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+	<!--&lt;!&ndash;登陆拦截器&ndash;&gt;-->
+	<!--<filter>-->
+		<!--<filter-name>LoginFilter</filter-name>-->
+		<!--<filter-class>xyz.chanjkf.filter.LoginFilter</filter-class>-->
+	<!--</filter>-->
+	<!--<filter-mapping>-->
+		<!--<filter-name>LoginFilter</filter-name>-->
+		<!--<url-pattern>/*</url-pattern>-->
+	<!--</filter-mapping>-->
+
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/applicationContext.xml</param-value>
+		<param-value>classpath:spring/applicationContext.xml,classpath:spring-security.xml</param-value>
 	</context-param>
-	<servlet>
-		<servlet-name>ProfessionServlet</servlet-name>
-		<servlet-class>xyz.chanjkf.servlet.ProfessionServlet</servlet-class>
-	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>ProfessionServlet</servlet-name>
-		<url-pattern>/profession/doprofession</url-pattern>
-	</servlet-mapping>
+	<!--<servlet>-->
+		<!--<servlet-name>ProfessionServlet</servlet-name>-->
+		<!--<servlet-class>xyz.chanjkf.servlet.ProfessionServlet</servlet-class>-->
+	<!--</servlet>-->
+
+	<!--<servlet-mapping>-->
+		<!--<servlet-name>ProfessionServlet</servlet-name>-->
+		<!--<url-pattern>/profession/doprofession</url-pattern>-->
+	<!--</servlet-mapping>-->
 
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -69,4 +78,13 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

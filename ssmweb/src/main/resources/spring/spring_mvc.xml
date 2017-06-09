@@ -15,6 +15,7 @@
 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
 	-->
     <mvc:annotation-driven />
+    <mvc:default-servlet-handler/>
     <mvc:resources location="/view/img/" mapping="/webapp/view/img/**"/>
 	<mvc:resources location="/view/css/" mapping="/webapp/view/css/**"/>
 	<mvc:resources location="/view/js/" mapping="/webapp/view/js/**"/>
@@ -58,5 +59,7 @@
                 <ref bean="jsonConverter" />  
             </list>  
         </property>  
-    </bean>  
+    </bean>
+    <!-- 设置默认主页 -->
+    <!--<mvc:view-controller path="/" view-name="redirect:/index"/>-->
 </beans>

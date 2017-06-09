@@ -9,7 +9,7 @@
         <module name="oa_maven" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="oa_maven" target="1.6" />
     </bytecodeTargetLevel>
   </component>

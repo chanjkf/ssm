@@ -1,0 +1,45 @@
+package xyz.chanjkf.entity;
+
+import xyz.chanjkf.entity.common.DXPEntity;
+
+import javax.persistence.*;
+
+@Entity(name = "user")
+public class UserEntity extends DXPEntity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name = "password")
+    private String userPassword;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+}
