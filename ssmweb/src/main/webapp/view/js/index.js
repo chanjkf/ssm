@@ -1,4 +1,17 @@
-
+var pathname = window.location.pathname;
+var arr = pathname.split("/");
+var proName = arr[1];
+var rootPath = "http://" + window.location.host + "/" + proName;
+$().ready(function () {
+    $.get("/video/address",
+        function (data, status) {
+            if (data.result == "success") {
+                console.log(123);
+            } else {
+            }
+        },
+        "json");
+})
 function showRegisterForm(){
     $('.loginBox').fadeOut('fast',function(){
         $('.registerBox').fadeIn('fast');
@@ -56,31 +69,7 @@ function loginAjax(){
         "json");
 
 }
-function register(){
-    var userName = $("#userName").val();
-    var password1 = $("#password_r").val();
-    var password2 = $("#password_confirmation").val();
-    if(password1!=password2){
-        shakeModal("两次密码不一致");
-    }
-    $.post("/register",
-        {
-            username:userName,
-            password:password1
-        },
-        function (data, status) {
 
-            if (data.result == "success") {
-                setTimeout(function(){
-                    $('#loginModal').modal('hide');
-                }, 230);
-            } else {
-                dmallError(data.result);
-            }
-        },
-        "json");
-
-}
 
 function shakeModal(message){
     $('#loginModal .modal-dialog').addClass('shake');

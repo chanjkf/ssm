@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:security="http://www.springframework.org/schema/security"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
     <debug />
-    <http pattern="/login.ftl" security="none" />
-    <http pattern="/index" security="none"></http>
     <http security="none" pattern="/view/img/index/*.*" />
+    <http security="none" pattern="/view/img/video/*.*" />
     <http security="none" pattern="/**/*.css" />
-    <http security="none" pattern="/**/login.ftl" />
+    <http security="none" pattern="/**/login.html" />
     <http security="none" pattern="/**/*.js" />
     <http security="none" pattern="/**/*.json" />
     <http security="none" pattern="/**/*.jpg" />
@@ -22,18 +23,30 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <http security="none" pattern="/**/*.ico" />
     <http security="none" pattern="/**/*.jsp" />
     <http security="none" pattern="/**/*.ttf" />
+    <http security="none" pattern="/**/*.map" />
     <http security="none" pattern="/view/fonts/*" />
 
     <http use-expressions="true" auto-config="true">
+        <security:csrf disabled="true"/>
+        <security:intercept-url pattern="/index" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/video/address" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/toLogin/page*" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/register/page" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/register/data" method="POST" access="permitAll"/>
+        <security:intercept-url pattern="/register/checkName" method="GET" access="permitAll"/>
+        <!--<security:intercept-url pattern="/toLogin/page" method="GET" access="permitAll"/>-->
+        <security:form-login login-page="/toLogin/page"/>
+        <logout invalidate-session="true" logout-url="/logout"
+                    logout-success-url="/index" />
         <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+        <!--指定登录页面-->
 
-        <form-login login-page="/view/ftl/login.ftl" authentication-failure-url="/view/ftl/login.ftl"
-                    default-target-url="/view/ftl/index.ftl"/>
+        <form-login default-target-url="/index"/>
 
         <!-- 同一时间内允许同一账号保持1个在线,error-if-maximum-exceeded="true"表示第1个以后的登不进去 -->
-        <session-management>
-            <concurrency-control max-sessions="1"
-                                 error-if-maximum-exceeded="true" />
+        <session-management invalid-session-url="/index">
+            <concurrency-control max-sessions="2"
+                                 error-if-maximum-exceeded="false" />
         </session-management>
         <csrf disabled="true"/>
 

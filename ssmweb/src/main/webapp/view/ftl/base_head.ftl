@@ -1,45 +1,43 @@
 
 <#assign rootRoute=request.contextPath />
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>photo</title>
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/bootstrap.css">
+<nav class="fh5co-nav" role="navigation">
+    <div class="top-menu">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-2">
+                    <div id="fh5co-logo" style="margin-left: 50px;"><a href="index.ftl">Air<span>.</span></a></div>
+                </div>
+                <div class="col-xs-10 text-right menu-1">
+                    <ul>
+                        <li class="" id="home"><a href="index.ftl">Home</a></li>
+                        <li class="" id="video123"><a href="${rootRoute}/video/page">视频中心</a></li>
+                        <li class="has-dropdown" id="photo">
+                            <a href="blog.html">Blog</a>
+                            <ul class="dropdown">
+                                <li><a href="${rootRoute}/photo/index">个人图片</a></li>
+                                <li><a href="#">日志</a></li>
+                                <li><a href="#">笔记</a></li>
+                                <li><a href="#">API</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="btn-cta" style="margin-left: 50px">
+                        <#if SPRING_SECURITY_CONTEXT.authentication.principal.username == "">
+                            <a href="${rootRoute}/toLogin/page" ><span>Login</span></a>
+                        <#else>
+                            <a href="javascript:void(0)">
+										<span>
+                                        ${SPRING_SECURITY_CONTEXT.authentication.principal.username}
+										</span>
+                            </a>
+                            <a href="${rootRoute}/logout"><span>LogOut</a></span>
+                        </#if>
+                        </li>
 
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/style.css">
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/dt-style.css">
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/shelve.css">
+                    </ul>
+                </div>
+            </div>
 
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/bootstrap-datetimepicker.min.css">
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/bootstrap-treeview.min.css">
-
-    <link type="text/css" rel="stylesheet" href="${rootRoute}/view/css/fontawesome-stars.css">
-    <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
-
-
-
-    <link href="${rootRoute}/view/css/test/bootstrap.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="${rootRoute}/view/css/test/screen.css">
-    <link rel="stylesheet" href="${rootRoute}/view/css/test/animation.css">
-    <!--[if IE 7]>
-
-    <![endif]-->
-    <link rel="stylesheet" href="${rootRoute}/view/css/test/font-awesome.css">
-    <![endif]-->
-    <link href="${rootRoute}/view/css/test/lity.css" rel="stylesheet">
-</head>
-
-<body style="min-width:1320px;">
-    <script src="${rootRoute}/view/js/jquery-1.9.1.js"></script>
-    <script src="${rootRoute}/view/js/jquery.ui.js"></script>
-    <script src="${rootRoute}/view/js/jquery.cookie.js"></script>
-    <script src="${rootRoute}/view/js/bootstrap.min.js"></script>
-    <script src="${rootRoute}/view/js/common.js"></script>
-    <script src="${rootRoute}/view/js/list.js"></script>
-    <script src="${rootRoute}/view/js/modal.js"></script>
-    <script src="${rootRoute}/view/js/bootstrap-notify.js"></script>
-    <script src="http://vjs.zencdn.net/c/video.js"></script>
-
+        </div>
+    </div>
+</nav>

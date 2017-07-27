@@ -2,36 +2,7 @@
 <#include "base1.ftl">
 <div class="fh5co-loader"></div>
 <div id="page">
-<nav class="fh5co-nav" role="navigation">
-	<div class="top-menu">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-2">
-					<div id="fh5co-logo"><a href="index.ftl">Air<span>.</span></a></div>
-				</div>
-				<div class="col-xs-10 text-right menu-1">
-					<ul>
-						<li class="active"><a href="index.ftl">Home</a></li>
-						<li><a href="portfolio.html">Portfolio</a></li>
-						<li class="has-dropdown">
-							<a href="blog.html">Blog</a>
-							<ul class="dropdown">
-								<li><a href="#">Web Design</a></li>
-								<li><a href="#">eCommerce</a></li>
-								<li><a href="#">Branding</a></li>
-								<li><a href="#">API</a></li>
-							</ul>
-						</li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="contact.html">Contact</a></li>
-						<li class="btn-cta"><a href="javascript:void(0)" onclick="openLoginModal()";><span>Login</span></a></li>
-					</ul>
-				</div>
-			</div>
-
-		</div>
-	</div>
-</nav>
+<#include "base_head.ftl">
 
 <header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner">
 	<div class="overlay"></div>
@@ -40,9 +11,9 @@
 			<div class="col-md-8 col-md-offset-2 text-center">
 				<div class="display-t js-fullheight">
 					<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
-						<h1>Creativity Is A Wild Mind &amp; A Disciplined Eye</h1>
-						<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
-						<p><a class="btn btn-primary btn-lg btn-demo" href="#"></i> View Demo</a> <a class="btn btn-primary btn-lg btn-learn">Learn More</a></p>
+						<h1>记录生活的点点滴滴，什么都留不住起码还有回忆</h1>
+						<h2>傻逼可爱的搞笑生活</h2>
+						<p><a class="btn btn-primary btn-lg btn-demo" href="#"></i>视频</a> <a class="btn btn-primary btn-lg btn-learn">图片</a></p>
 					</div>
 				</div>
 			</div>
@@ -56,41 +27,32 @@
 			<div class="row">
 				<div class="col-md-4 animate-box">
 					<div class="feature-left">
-						<span class="icon">
-							<i class="icon-hotairballoon"></i>
-						</span>
-						<div class="feature-copy">
-							<h3>Marketing</h3>
-							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit.</p>
-							<p><a href="#">Learn More <i class="icon-arrow-right22"></i></a></p>
-						</div>
+                        <#--<h2>Default Skin</h2>-->
+
+                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               controls="controls" preload="none"></video>
 					</div>
 				</div>
 
 				<div class="col-md-4 animate-box">
-					<div class="feature-left">
-						<span class="icon">
-							<i class="icon-search"></i>
-						</span>
-						<div class="feature-copy">
-							<h3>Search Engine</h3>
-							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit.</p>
-							<p><a href="#">Learn More <i class="icon-arrow-right22"></i></a></p>
-						</div>
+                    <div class="feature-left">
+                        <#--<h2>Default Skin</h2>-->
+
+                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               controls="controls" preload="none"></video>
 					</div>
 
 				</div>
 				<div class="col-md-4 animate-box">
-					<div class="feature-left">
-						<span class="icon">
-							<i class="icon-wallet"></i>
-						</span>
-						<div class="feature-copy">
-							<h3>Earn Money</h3>
-							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit.</p>
-							<p><a href="#">Learn More <i class="icon-arrow-right22"></i></a></p>
-						</div>
-					</div>
+                    <div class="feature-left">
+                        <#--<h2>Default Skin</h2>-->
+
+                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               controls="controls" preload="none"></video>
+                    </div>
 				</div>
 			</div>
 
@@ -98,43 +60,34 @@
 			<div class="row">
 				<div class="col-md-4 animate-box">
 
-					<div class="feature-left">
-						<span class="icon">
-							<i class="icon-wine"></i>
-						</span>
-						<div class="feature-copy">
-							<h3>Entrepreneur</h3>
-							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit.</p>
-							<p><a href="#">Learn More <i class="icon-arrow-right22"></i></a></p>
-						</div>
-					</div>
+                    <div class="feature-left">
+                        <#--<h2>Default Skin</h2>-->
+
+                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               controls="controls" preload="none"></video>
+                    </div>
 
 				</div>
 
 				<div class="col-md-4 animate-box">
-					<div class="feature-left">
-						<span class="icon">
-							<i class="icon-genius"></i>
-						</span>
-						<div class="feature-copy">
-							<h3>Stragic Plan</h3>
-							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit.</p>
-							<p><a href="#">Learn More <i class="icon-arrow-right22"></i></a></p>
-						</div>
-					</div>
+                    <div class="feature-left">
+                        <#--<h2>Default Skin</h2>-->
+
+                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               controls="controls" preload="none"></video>
+                    </div>
 
 				</div>
 				<div class="col-md-4 animate-box">
-					<div class="feature-left">
-						<span class="icon">
-							<i class="icon-chat"></i>
-						</span>
-						<div class="feature-copy">
-							<h3>Support</h3>
-							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit.</p>
-							<p><a href="#">Learn More <i class="icon-arrow-right22"></i></a></p>
-						</div>
-					</div>
+                    <div class="feature-left">
+                        <#--<h2>Default Skin</h2>-->
+
+                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               controls="controls" preload="none"></video>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -145,37 +98,37 @@
 	<div class="container">
 		<div class="row animate-box">
 			<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-				<h2>Wireframe Connects the Underlying Conceptual Structure</h2>
+				<h2>《换一种姿势》</h2>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-5 animate-box">
 				<div class="user-frame">
-					<h3>Wireframe Connects the Underlying Conceptual Structure</h3>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-					<span>Louie Jie Mahusay</span><br>
-					<small>CEO, Founder</small>
+					<span>一个老太太有两个女儿，大女儿嫁给一个开伞店的；二女儿成为洗衣店的主管。这样，老太太晴天怕大女儿家雨伞卖不出去，雨天又担心二女儿家衣服晒不干，整天忧心忡忡。后来，有人对老太太说：“老太太，您真有福气，晴天二女儿家顾客盈门，雨天大女儿家生意兴隆。”老太太这么一想，哎，还真是啊！就这么简单的换个角度看问题，从此整天担忧的老太太就变得无忧无虑了。</span>
 				</div>
 			</div>
 			<div class="col-md-7 animate-box">
-				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				<blockquote>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</blockquote>
-				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+				<p>阿明非常讨厌挤公交，特别讨厌两排座位之间空隙太窄，出入非常不便。所以每次他尽量坐靠窗的位子，可以避免一些人入座时直扑座位，屁股都快贴着他的脸。</p>
+
+				<p>一天，阿明站在车上，见一位胖老人要下车，扭动着肥大的屁股要往外挤。出人意料的是，坐在他身边的小伙子迅速站起来，礼貌地让老人出去。老人一愣，接着满脸笑容，向小伙子连说“谢谢”。阿明恍然醒悟：原来，让别人愉悦的办法，仅仅是换一种“起立”的姿势那么简单。</p>
+
+				<p>那如何入坐呢？这天，又有一位微胖的女孩给阿明指点了迷津。女孩上车时，还有一个靠窗的空位，外侧坐着一位男士，好像知道这个女孩入座要费一番折腾，所以他皱起眉头、微微斜了一下身子，做了让开的姿势。</p>
+
+				<p>可是，那女孩对他微微一笑，不是屁股对着他，而是面对着他，轻轻向里面的座位移动脚步。女孩到了座位里面，再慢慢转过身来坐下。那位男士很惊讶，继而舒展开了眉头。原来，也可以换这个姿势入座啊！</p>
+
+                <p>生活中我们遇到问题，总是抱怨环境和条件，可有时候换一种姿势，就会有一种好心情；换一种姿势，也可以避免别人的难受和尴尬。</p>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >手机网站模板</a></div>
 
 <div id="fh5co-slider">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 animate-box">
 				<div class="heading">
-					<h2>Download Our Latest Free HTML5 Bootstrap Template</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+					<h2>哦哦</h2>
+					<p>正义从来不会缺席,只会迟到— —休尼特</p>
 				</div>
 			</div>
 			<div class="col-md-6 col-md-push-1 animate-box">
@@ -189,8 +142,8 @@
 								<div class="col-md-12 col-md-offset-0 col-md-pull-10 slider-text slider-text-bg">
 									<div class="slider-text-inner">
 										<div class="desc">
-												<h2>Air Free HTML5 Bootstrap Template</h2>
-												<p>Ink is a free html5 bootstrap and a multi-purpose template perfect for any type of websites. A combination of a minimal and modern design template. The features are big slider on homepage, smooth animation, product listing and many more</p>
+												<h2>德奥弗拉斯多</h2>
+												<p>时间是一切财富中最宝贵的财富</p>
 										</div>
 									</div>
 								</div>
@@ -204,8 +157,8 @@
 								<div class="col-md-12 col-md-offset-0 col-md-pull-10 slider-text slider-text-bg">
 									<div class="slider-text-inner">
 										<div class="desc">
-												<h2>Ink Free HTML5 Bootstrap Template</h2>
-												<p>Ink is a free html5 bootstrap and a multi-purpose template perfect for any type of websites. A combination of a minimal and modern design template. The features are big slider on homepage, smooth animation, product listing and many more</p>
+                                            <h2>斯里兰卡</h2>
+                                            <p>世界上一成不变的东西，只有任何事物都是在不断变化的这条真理</p>
 										</div>
 									</div>
 								</div>
@@ -219,8 +172,8 @@
 								<div class="col-md-12 col-md-offset-0 col-md-pull-10 slider-text slider-text-bg">
 									<div class="slider-text-inner">
 										<div class="desc">
-												<h2>Travel Free HTML5 Bootstrap Template</h2>
-												<p>Ink is a free html5 bootstrap and a multi-purpose template perfect for any type of websites. A combination of a minimal and modern design template. The features are big slider on homepage, smooth animation, product listing and many more</p>
+												<h2>卢梭</h2>
+												<p>成功的秘诀，在永不改变既定的目的</p>
 										</div>
 									</div>
 								</div>
@@ -239,21 +192,21 @@
 	<div class="container">
 		<div class="row animate-box">
 			<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-				<h2>Recent Post</h2>
-				<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+				<h2>这个世界需要更多菜鸡</h2>
+				<p>你来不来，反正我来了</p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="fh5co-blog animate-box">
-					<a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/blog-1.jpg);"></a>
+					<a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/dva1.jpg);"></a>
 					<div class="blog-text">
 						<span class="posted_on">Feb. 15th 2016</span>
-						<h3><a href="#">Photoshoot On The Street</a></h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<h3><a href="#">D.VA</a></h3>
+						<p>D.VA爱你哟</p>
 						<ul class="stuff">
-							<li><i class="icon-heart2"></i>249</li>
-							<li><i class="icon-eye2"></i>1,308</li>
+							<li><i class="icon-heart2"></i>0</li>
+							<li><i class="icon-eye2"></i>0</li>
 							<li><a href="#">Read More<i class="icon-arrow-right22"></i></a></li>
 						</ul>
 					</div>
@@ -261,14 +214,14 @@
 			</div>
 			<div class="col-md-4">
 				<div class="fh5co-blog animate-box">
-					<a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/blog-2.jpg);"></a>
+					<a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/maidie1.jpg);"></a>
 					<div class="blog-text">
 						<span class="posted_on">Feb. 15th 2016</span>
-						<h3><a href="#">Surfing at Philippines</a></h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<h3><a href="#">杰西·麦克雷</a></h3>
+						<p>你爹还是你爹</p>
 						<ul class="stuff">
-							<li><i class="icon-heart2"></i>249</li>
-							<li><i class="icon-eye2"></i>1,308</li>
+							<li><i class="icon-heart2"></i>0</li>
+							<li><i class="icon-eye2"></i>1,0</li>
 							<li><a href="#">Read More<i class="icon-arrow-right22"></i></a></li>
 						</ul>
 					</div>
@@ -276,14 +229,14 @@
 			</div>
 			<div class="col-md-4">
 				<div class="fh5co-blog animate-box">
-					<a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/blog-3.jpg);"></a>
+					<a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/tianshi1.jpg);"></a>
 					<div class="blog-text">
 						<span class="posted_on">Feb. 15th 2016</span>
-						<h3><a href="#">Focus On Uderwater</a></h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<h3><a href="#">安吉拉·齐格勒</a></h3>
+						<p> Heros never die</p>
 						<ul class="stuff">
-							<li><i class="icon-heart2"></i>249</li>
-							<li><i class="icon-eye2"></i>1,308</li>
+							<li><i class="icon-heart2"></i>0</li>
+							<li><i class="icon-eye2"></i>0</li>
 							<li><a href="#">Read More<i class="icon-arrow-right22"></i></a></li>
 						</ul>
 					</div>
@@ -349,8 +302,8 @@
 		<div class="row copyright">
 			<div class="col-md-12 text-center">
 				<p>
-					<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-					<small class="block">More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></small>
+					<small class="block">&copy; 2017 All Rights Reserved.</small>
+					<small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
 				</p>
 				<p>
 					<ul class="fh5co-social-icons">

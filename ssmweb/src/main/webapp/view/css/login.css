@@ -121,7 +121,10 @@ input[type="text"] {
 	  border: none;
 	  font-weight: 100;
 	  border-bottom: 1px solid#484856;
-	  margin-bottom: 3em;
+	  margin-bottom: 0em;
+ }
+ input[class="password2"]{
+	 margin-bottom: 2em;
  }
 .key {
    background: url(/view/img/login/pass.png) no-repeat 447px 17px;
@@ -155,6 +158,39 @@ input[type="submit"]:hover {
 	-moz-border-bottom-right-radius: 15px;
 	-o-border-bottom-right-radius: 15px;
   	transition: 1s all;
+	-webkit-transition: 1s all;
+	-moz-transition: 1s all;
+	-o-transition: 1s all;
+}
+input[class="button_big"]{
+	font-size: 30px;
+	color: #fff;
+	outline: none;
+	border: none;
+	background: #3ea751;
+	width: 100%;
+	padding: 18px 0;
+	border-bottom-left-radius: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-bottom-left-radius: 15px;
+	-o-border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	-moz-border-bottom-right-radius: 15px;
+	-o-border-bottom-right-radius: 15px;
+	cursor: pointer;
+}
+input[class="button_big"]:hover{
+	background: #ff2775;
+	border-bottom-left-radius: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-bottom-left-radius: 15px;
+	-o-border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	-moz-border-bottom-right-radius: 15px;
+	-o-border-bottom-right-radius: 15px;
+	transition: 1s all;
 	-webkit-transition: 1s all;
 	-moz-transition: 1s all;
 	-o-transition: 1s all;

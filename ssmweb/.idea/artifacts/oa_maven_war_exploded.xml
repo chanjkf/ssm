@@ -36,7 +36,6 @@
           <element id="library" level="project" name="Maven: net.java.dev.jna:jna:3.3.0" />
           <element id="library" level="project" name="Maven: net.java.dev.jna:jna:platform:3.3.0" />
           <element id="library" level="project" name="Maven: commons-dbcp:commons-dbcp:1.4" />
-          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.5.4" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.4.RELEASE" />
@@ -96,6 +95,11 @@
           <element id="library" level="project" name="Maven: xalan:serializer:2.7.1" />
           <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.7.4" />
+          <element id="library" level="project" name="Maven: redis.clients:jedis:2.1.0" />
+          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.5.5" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.1" />
+          <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.1" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.2.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

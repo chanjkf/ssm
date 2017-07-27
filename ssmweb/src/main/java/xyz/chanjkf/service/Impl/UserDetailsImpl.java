@@ -57,10 +57,10 @@ public class UserDetailsImpl implements UserDetailsService {
 
         User user = new User(userEntity.getUserName(), userEntity.getUserPassword(), auths);
 
-        if (null != session) {
-            session.setAttribute(DXPConst.SESSION_USERNAME, userEntity.getUserName());
-            session.setAttribute(DXPConst.SESSION_USERID, userEntity.getId());
-        }
+//        if (null != session) {
+//            session.setAttribute(DXPConst.SESSION_USERNAME, userEntity.getUserName());
+//            session.setAttribute(DXPConst.SESSION_USERID, userEntity.getId());
+//        }
         return user;
     }
 
