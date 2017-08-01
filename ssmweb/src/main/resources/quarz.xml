@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- 定义目标bean和bean中的方法 -->
+    <!-- =====================日常任务job========================== -->
+    <bean id="DailyTaskQtzJob" class="xyz.chanjkf.utils.quarz.WriteVideoAddrJob">
+    </bean>
+    <bean id="DailyTaskQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="DailyTaskQtzJob"/>
+        </property>
+        <property name="targetMethod" value="execute"/>
+    </bean>
+
+    <!-- ======================== 调度触发器 ======================== -->
+    <bean id="DailyTaskCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="DailyTaskQtzJobMethod"></property>
+        <!-- 每天下午16:30触发   -->
+        <property name="cronExpression" value="0 30 16 ? * *"></property>
+    </bean>
+
+    <!-- ======================== 调度工厂 ======================== -->
+    <bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="DailyTaskCronTriggerBean"/>
+            </list>
+        </property>
+    </bean>
+</beans>

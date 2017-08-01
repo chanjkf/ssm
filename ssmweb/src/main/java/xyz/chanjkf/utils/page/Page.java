@@ -11,7 +11,9 @@ public class Page<E> {
     private long totalRows;
     private int totalPages;
     private List<E> result;
+    public Page(){
 
+    }
     public Page(int curPage, int pageSize) {
         this.curPage = curPage;
         this.pageSize = pageSize;

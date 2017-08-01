@@ -30,7 +30,7 @@
                         <#--<h2>Default Skin</h2>-->
 
                         <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
-                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
 					</div>
 				</div>
@@ -40,7 +40,7 @@
                         <#--<h2>Default Skin</h2>-->
 
                         <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
-                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
 					</div>
 
@@ -50,7 +50,7 @@
                         <#--<h2>Default Skin</h2>-->
 
                         <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
-                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
 				</div>
@@ -64,7 +64,7 @@
                         <#--<h2>Default Skin</h2>-->
 
                         <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
-                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
 
@@ -75,7 +75,7 @@
                         <#--<h2>Default Skin</h2>-->
 
                         <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
-                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
 
@@ -85,7 +85,7 @@
                         <#--<h2>Default Skin</h2>-->
 
                         <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
-                               id="player1" poster="${rootRoute}/view/img/video/libinke.png"
+                               id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
 				</div>

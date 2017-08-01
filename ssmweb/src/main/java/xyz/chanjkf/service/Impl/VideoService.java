@@ -41,4 +41,18 @@ public class VideoService extends AbstractService<VideoEntity> implements IVideo
         return getDistinctActivePage(page,builder);
 
     }
+
+    @Override
+    public Long getMaxIdFromDb() {
+        DBCriteriaBuilder builder = new DBCriteriaBuilder();
+        CrParams params = new CrParams("VideoEntity");
+        builder.getFilterParams().add(params);
+        builder.addOrderBy("id",true);
+        List<VideoEntity> entityList = getDistinctActive(builder);
+        if(entityList == null || entityList.size() == 0){
+            return 1l;
+        } else {
+            return entityList.get(0).getId();
+        }
+    }
 }

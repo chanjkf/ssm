@@ -10,4 +10,6 @@ import xyz.chanjkf.utils.page.Page;
  */
 public interface IVideoService extends IOperations<VideoEntity> {
     Page<VideoEntity> getVideoPage(int pageNum, int size);
+
+    Long getMaxIdFromDb();
 }
