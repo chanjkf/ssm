@@ -22,7 +22,7 @@
                                 <li><a href="#">API</a></li>
                             </ul>
                         </li>
-                        <li><a href="about.html">管理</a></li>
+                        <li><a href="${rootRoute}/manage/index">管理</a></li>
                         <li class="btn-cta" style="margin-left: 50px">
                         <#if SPRING_SECURITY_CONTEXT.authentication.principal.username == "">
                             <a href="${rootRoute}/toLogin/page" ><span>Login</span></a>

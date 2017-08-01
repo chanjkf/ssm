@@ -26,10 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 pull-right">
-        <ul class="pagination mtm mb pull-right" id="pageNum">
-        </ul>
-    </div>
+    <div class="box"></div>
 </div>
     <footer id="fh5co-footer" role="contentinfo">
         <div class="container">
@@ -91,3 +88,4 @@
         </div>
     </footer>
     <script src="${rootRoute}/view/js/video-center.js"></script>
+    <script src="${rootRoute}/view/js/jquery.pagination.js"></script>

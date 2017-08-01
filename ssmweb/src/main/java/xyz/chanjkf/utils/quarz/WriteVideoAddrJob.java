@@ -1,7 +1,10 @@
 package xyz.chanjkf.utils.quarz;
 
 import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 import xyz.chanjkf.utils.DXPLog;
+
+import javax.servlet.ServletContext;
 
 /**
  * Created by yi on 2017/7/31.
@@ -16,6 +19,18 @@ public class WriteVideoAddrJob implements InterruptableJob{
             logger.info("[TableLinkageCheckJob] quzrtz interrupted");
             return;
         }
+        Scheduler sched = null;
+        try {
+            sched = new StdSchedulerFactory().getScheduler();
+            ServletContext context = (ServletContext)sched.getContext().get("servletContext");
+            context.getRealPath("");
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
     }
     @Override

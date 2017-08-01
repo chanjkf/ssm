@@ -104,7 +104,7 @@ public class VideoController {
 
         return mv;
     }
-    @RequestMapping(value = "/upload",method = RequestMethod.GET)
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
     private String toVideoPage(HttpServletRequest request, HttpServletResponse response){
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("result","success");
