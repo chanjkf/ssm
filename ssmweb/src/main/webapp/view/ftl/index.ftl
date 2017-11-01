@@ -11,7 +11,7 @@
 			<div class="col-md-8 col-md-offset-2 text-center">
 				<div class="display-t js-fullheight">
 					<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
-						<h1>记录生活的点点滴滴，什么都留不住起码还有回忆</h1>
+						<h1>记录生活的点点滴滴，什么都留不住?或许还有回忆</h1>
 						<h2>傻逼可爱的搞笑生活</h2>
 						<p><a class="btn btn-primary btn-lg btn-demo" href="#"></i>视频</a> <a class="btn btn-primary btn-lg btn-learn">图片</a></p>
 					</div>

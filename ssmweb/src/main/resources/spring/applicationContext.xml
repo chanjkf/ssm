@@ -21,21 +21,21 @@
 	<context:property-placeholder location="classpath:persistence-*.properties" ignore-unresolvable="true"/>
 
 
-	<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
+	<!--<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>-->
 
-	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxIdle" value="${redis.maxIdle}" />
-		<property name="maxActive" value="${redis.maxActive}" />
-		<property name="maxWait" value="${redis.maxWait}" />
-		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
-	</bean>
+	<!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+		<!--<property name="maxIdle" value="${redis.maxIdle}" />-->
+		<!--<property name="maxActive" value="${redis.maxActive}" />-->
+		<!--<property name="maxWait" value="${redis.maxWait}" />-->
+		<!--<property name="testOnBorrow" value="${redis.testOnBorrow}" />-->
+	<!--</bean>-->
 
-	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		  p:host-name="${redis.host}" p:port="${redis.port}"  p:pool-config-ref="poolConfig"/>
+	<!--<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
+		  <!--p:host-name="${redis.host}" p:port="${redis.port}"  p:pool-config-ref="poolConfig"/>-->
 
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-		<property name="connectionFactory"   ref="connectionFactory" />
-	</bean>
+	<!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
+		<!--<property name="connectionFactory"   ref="connectionFactory" />-->
+	<!--</bean>-->
 
 
 
@@ -53,57 +53,44 @@
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.connection.isolation">${hibernate.connection.isolation}</prop>
-				<!--<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>-->
-				<!-- 开启查询缓存 -->
-				<!--<prop key="hibernate.cache.use_query_cache">false</prop>-->
-				<!-- 开启二级缓存 -->
-				<!--<prop key="hibernate.cache.use_second_level_cache">true</prop>-->
-				<!--&lt;!&ndash; 高速缓存提供程序 &ndash;&gt;-->
-				<!--&lt;!&ndash;由于spring也使用了Ehcache, 保证双方都使用同一个缓存管理器 &ndash;&gt;-->
-				<!--<prop key="hibernate.cache.region.factory_class">-->
-				<!--org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory-->
-				<!--</prop>-->
-				<!--<prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop>-->
-				<!--<prop key="hibernate.generate_statistics">true</prop>-->
 			</props>
 		</property>
 
-		<!--<property name="mappingResources">-->
-			<!--<list>-->
-				<!--<value>hbm/snaker.task.hbm.xml</value>-->
-				<!--<value>hbm/snaker.order.hbm.xml</value>-->
-				<!--<value>hbm/snaker.ccorder.hbm.xml</value>-->
-				<!--<value>hbm/snaker.process.hbm.xml</value>-->
-				<!--<value>hbm/snaker.taskactor.hbm.xml</value>-->
-				<!--<value>hbm/snaker.workitem.hbm.xml</value>-->
-				<!--<value>hbm/snaker.surrogate.hbm.xml</value>-->
-			<!--</list>-->
-		<!--</property>-->
 
 	</bean>
+	<bean id="dataSource" class="xyz.chanjkf.aop.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="master" value-ref="masterDataSource"/>
+				<entry key="slave" value-ref="slave01DataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="masterDataSource"/>
+	</bean>
 
-	<!-- 数据库映射 -->
-	<!--  class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" -->
-	<!--  class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
-	<!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-	<!--<property name="driverClassName" value="${hibernate.connection.driverClass}" />-->
-	<!--<property name="url" value="${hibernate.connection.url}" />-->
-	<!--<property name="username" value="${hibernate.connection.username}" />-->
-	<!--<property name="password" value="${hibernate.connection.password}" />-->
-	<!--</bean>-->
-
-	<!-- 数据库映射 -->
-	<!--  class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" -->
-	<!--  class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
-
-	<bean id="dataSource"
-		  class="com.zaxxer.hikari.HikariDataSource" destroy-method="shutdown">
+	<bean id="slave01DataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg>
 			<bean class="com.zaxxer.hikari.HikariConfig">
-				<property name="driverClassName" value="${hibernate.connection.driverClass}"/>
-				<property name="jdbcUrl" value="${hibernate.connection.url}"/>
-				<property name="username" value="${hibernate.connection.username}"/>
-				<property name="password" value="${hibernate.connection.password}"/>
+				<property name="driverClassName" value="${hibernate.master.connection.driverClass}"/>
+				<property name="jdbcUrl" value="${hibernate.master.connection.url}"/>
+				<property name="username" value="${hibernate.master.connection.username}"/>
+				<property name="password" value="${hibernate.master.connection.password}"/>
+				<property name="readOnly" value="false" />
+				<property name="connectionTimeout" value="${jdbc.connectionTimeout}"/>
+				<property name="idleTimeout" value="${jdbc.idleTimeout}"/>
+				<property name="maxLifetime" value="${jdbc.maxLifetime}"/>
+				<property name="maximumPoolSize" value="${jdbc.maximumPoolSize}"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="masterDataSource"
+		  class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg>
+			<bean class="com.zaxxer.hikari.HikariConfig">
+				<property name="driverClassName" value="${hibernate.slave.connection.driverClass}"/>
+				<property name="jdbcUrl" value="${hibernate.slave.connection.url}"/>
+				<property name="username" value="${hibernate.slave.connection.username}"/>
+				<property name="password" value="${hibernate.slave.connection.password}"/>
 				<property name="readOnly" value="false" />
 				<property name="connectionTimeout" value="${jdbc.connectionTimeout}"/>
 				<property name="idleTimeout" value="${jdbc.idleTimeout}"/>
@@ -113,11 +100,13 @@
 		</constructor-arg>
 	</bean>
 
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!-- 配置Hibernate事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	<bean class="xyz.chanjkf.aop.dataSourceAspect" id="dataSourceAspect" />
 	<!-- 单数据源事务 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -135,8 +124,13 @@
 	</tx:advice>
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<aop:config expose-proxy="true">
-		<aop:pointcut id="allManagerMethod" expression="execution(* xyz.chanjkf.service..*.*(..))" />
+		<!--<aop:pointcut id="allManagerMethod" expression="execution(* xyz.chanjkf.service..*.*(..))" />-->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod"/>
+		<aop:aspect ref="dataSourceAspect" order="1">
+			<aop:pointcut id="allManagerMethod" expression="execution(* xyz.chanjkf.service..*.*(..))" />
+			<aop:before method="before" pointcut-ref="allManagerMethod"/>
+		</aop:aspect>
+
 	</aop:config>
 
 

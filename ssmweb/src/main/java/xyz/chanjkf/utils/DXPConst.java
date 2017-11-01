@@ -23,7 +23,10 @@ public class DXPConst {
 
     // 用户管理模块及本地角色表存放的角色名称，必须与roleConfig.xml中一致
     public static final String DXP_PLATADMIN_ROLE_NAME = "平台管理员";
-
+    // 索引库的别名
+    public final static String INDEX_ALIAS = "photo_ga";
+    // es中的存储目录的type名称
+    public final static String USER_TABLE = "user";
 
     //Session信息
     public static final String SESSION_USERID = "Id";

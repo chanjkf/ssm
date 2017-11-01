@@ -1,5 +1,7 @@
 package xyz.chanjkf.service.Impl;
 
+import com.sun.jna.platform.win32.Netapi32Util;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Service;
 import xyz.chanjkf.dao.IUserDao;
 import xyz.chanjkf.dao.common.IOperations;
@@ -12,6 +14,7 @@ import xyz.chanjkf.utils.page.Parameter;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by yi on 2017/6/7.
@@ -47,5 +50,12 @@ public class UserService extends AbstractService<UserEntity> implements IUserSer
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Long findMaxId() {
+        String sql = "select max(id) from user ";
+        Long id = (Long) getCurrentSession().createSQLQuery(sql).uniqueResult();
+        return id;
     }
 }

@@ -43,7 +43,6 @@ public class UserDetailsImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Set<GrantedAuthority> auths = new HashSet<GrantedAuthority>();
 
-//        userService = (UserService) ToolSpring.getBean("userService");
         UserEntity userEntity = userService.findUser(userName);
 
         if (userEntity == null) {
@@ -62,7 +61,4 @@ public class UserDetailsImpl implements UserDetailsService {
         }
         return user;
     }
-
-
-
 }

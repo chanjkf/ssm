@@ -8,4 +8,6 @@ import xyz.chanjkf.entity.UserEntity;
  */
 public interface IUserService extends IOperations<UserEntity> {
     UserEntity findUser(String userName);
+
+    Long findMaxId();
 }

@@ -43,9 +43,13 @@ public class RegisterController {
                           @RequestParam(value = "password", required = false) String password){
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("result","success");
+        if (true) {
+            registerService.createRandomData();
+        } else {
+            UserEntity entity = registerService.registerUser(name,password);
+            request.getSession().setAttribute("user",entity);
+        }
 
-        UserEntity entity = registerService.registerUser(name,password);
-        request.getSession().setAttribute("user",entity);
 
         return JsonUtil.getJsonStr(map);
     }

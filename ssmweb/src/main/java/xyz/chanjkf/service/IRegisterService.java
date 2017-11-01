@@ -7,4 +7,6 @@ import xyz.chanjkf.entity.UserEntity;
  */
 public interface IRegisterService {
     UserEntity registerUser(String name, String password);
+
+    void createRandomData();
 }

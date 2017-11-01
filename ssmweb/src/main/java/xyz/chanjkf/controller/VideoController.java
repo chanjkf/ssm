@@ -15,7 +15,7 @@ import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IVideoService;
 import xyz.chanjkf.utils.DXPConst;
 import xyz.chanjkf.utils.JsonUtil;
-import xyz.chanjkf.utils.RedisCacheUtil;
+//import xyz.chanjkf.utils.RedisCacheUtil;
 import xyz.chanjkf.utils.page.Page;
 
 import javax.annotation.Resource;
@@ -39,8 +39,8 @@ public class VideoController {
     @Resource(name = "VideoService")
     private IVideoService service;
 
-    @Autowired
-    private RedisCacheUtil<String> util;
+//    @Autowired
+//    private RedisCacheUtil<String> util;
 
     @RequestMapping(value = "/address",method = RequestMethod.GET)
     @ResponseBody
@@ -84,18 +84,18 @@ public class VideoController {
                                      @RequestParam(value = "pageSize", required = false) String pageSize){
         ModelAndView mv= new ModelAndView("video-center");
         Page<VideoEntity> entityPage = null;
-        try {
-            String videoAddr = util.getCacheObject("movieAddr");
-            if (videoAddr == null){
+//        try {
+//            String videoAddr = util.getCacheObject("movieAddr");
+//            if (videoAddr == null){
                 entityPage = getMovieAddrFromDb(pageNumber,pageSize);
-                String viedoEntity = mapper.writeValueAsString(entityPage);
-                util.setCacheObject("movieAddr",viedoEntity);
-            } else {
-                entityPage = mapper.readValue(videoAddr,Page.class);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//                String viedoEntity = mapper.writeValueAsString(entityPage);
+//                util.setCacheObject("movieAddr",viedoEntity);
+//            } else {
+//                entityPage = mapper.readValue(videoAddr,Page.class);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         int totalPages = entityPage.getPageSize();
         List<VideoEntity> entityList = entityPage.getResult();
         mv.addObject("totalPages",totalPages);
