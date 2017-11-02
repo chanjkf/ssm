@@ -68,7 +68,8 @@
 		<property name="defaultTargetDataSource" ref="masterDataSource"/>
 	</bean>
 
-	<bean id="slave01DataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<!--<bean id="slave01DataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
+	<bean id="slave01DataSource" class="com.zaxxer.hikari.HikariDataSource" >
 		<constructor-arg>
 			<bean class="com.zaxxer.hikari.HikariConfig">
 				<property name="driverClassName" value="${hibernate.master.connection.driverClass}"/>
@@ -83,8 +84,10 @@
 			</bean>
 		</constructor-arg>
 	</bean>
+	<!--<bean id="masterDataSource"-->
+		  <!--class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">	-->
 	<bean id="masterDataSource"
-		  class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		  class="com.zaxxer.hikari.HikariDataSource" >
 		<constructor-arg>
 			<bean class="com.zaxxer.hikari.HikariConfig">
 				<property name="driverClassName" value="${hibernate.slave.connection.driverClass}"/>
