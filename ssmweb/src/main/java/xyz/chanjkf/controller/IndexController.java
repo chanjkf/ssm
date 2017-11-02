@@ -16,8 +16,8 @@ import java.util.Enumeration;
  */
 @Controller
 public class IndexController {
-    @Resource(name = "RestfulService")
-    private IRestfulService restfulService;
+//    @Resource(name = "RestfulService")
+//    private IRestfulService restfulService;
 
     @RequestMapping("/index")
     public ModelAndView toIndex(HttpServletRequest request, HttpServletResponse response){
@@ -26,9 +26,9 @@ public class IndexController {
         return mv;
     }
 
-    private String testHttpClient() {
-        String url = restfulService.getRequestUrl("code/industrys/tree");
-        String result = restfulService.get(url,"123");
-        return result;
-    }
+//    private String testHttpClient() {
+//        String url = restfulService.getRequestUrl("code/industrys/tree");
+//        String result = restfulService.get(url,"123");
+//        return result;
+//    }
 }
