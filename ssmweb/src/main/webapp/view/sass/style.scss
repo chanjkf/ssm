@@ -674,13 +674,19 @@ h1, h2, h3, h4, h5, h6, figure {
 .fh5co-bg-section{
 	background: rgba($brand-primary,.03);
 }
+#fh5co-blog{
+	padding: 7em -1;
+	clear: both;
+	@media screen and (max-width: $screen-sm) {
+		padding: 3em 0;
+	}
+}
 
 #fh5co-slider,
 #fh5co-about,
 #fh5co-wireframe,
 #fh5co-started,
 #fh5co-portfolio,
-#fh5co-blog,
 #fh5co-content-section,
 #fh5co-contact,
 #fh5co-footer{

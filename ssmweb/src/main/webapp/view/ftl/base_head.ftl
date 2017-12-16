@@ -9,14 +9,14 @@
                 </div>
                 <div class="col-xs-10 text-right menu-1">
                     <ul>
-                        <li class="" id="home"><a href="/index">Home</a></li>
+                        <li class="" id="home"><a href="${rootRoute}/index">Home</a></li>
                         <li class="" id="video123">
                             <a href="${rootRoute}/video/page">视频中心</a>
                         </li>
                         <li class="has-dropdown" id="photo">
                             <a href="blog.html">Blog</a>
                             <ul class="dropdown">
-                                <li><a href="${rootRoute}/photo/index">个人图片</a></li>
+                                <li><a href="${rootRoute}/album/index">个人图片</a></li>
                                 <li><a href="#">日志</a></li>
                                 <li><a href="#">笔记</a></li>
                                 <li><a href="#">API</a></li>

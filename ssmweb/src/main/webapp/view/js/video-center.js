@@ -8,14 +8,14 @@ $().ready(function () {
 
     }
 
-    $.get("/video/page",
-        function (data, status) {
-            if (data.result == "success") {
-                initDirectoryPage(data.pageNumber,data.totalPages);
-            } else {
-            }
-        },
-        "json");
+    // $.get("/video/page",
+    //     function (data, status) {
+    //         if (data.result == "success") {
+    //             initDirectoryPage(data.pageNumber,data.totalPages);
+    //         } else {
+    //         }
+    //     },
+    //     "json");
 })
 
 

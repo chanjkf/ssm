@@ -61,7 +61,7 @@
 	<bean id="dataSource" class="xyz.chanjkf.aop.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
-				<entry key="master" value-ref="masterDataSource"/>
+				<entry key="master" value-ref="masterDataSource" />
 				<entry key="slave" value-ref="slave01DataSource" />
 			</map>
 		</property>

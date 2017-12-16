@@ -10,6 +10,14 @@
 * 	Template Style 
 *
 * ======================================================= */
+.blog_css{
+  font-family: "Inconsolata", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #333333;
+  background: #fff;
+}
 body {
   font-family: "Inconsolata", Arial, sans-serif;
   font-weight: 400;
@@ -625,6 +633,7 @@ h1, h2, h3, h4, h5, h6, figure {
   padding: 7em 0;
   clear: both;
 }
+
 @media screen and (max-width: 768px) {
   #fh5co-slider,
   #fh5co-about,

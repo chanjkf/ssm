@@ -5,7 +5,9 @@
 
     <bean id="printJobTimer" class="xyz.chanjkf.utils.quarz.PrintJobTimer"/>
     <bean id="printJobTimerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--  被调度类：PrintJobTimer -->
         <property name="targetObject" ref="printJobTimer"/>
+        <!--  被调度方法：print（） -->
         <property name="targetMethod" value="print"/>
         <property name="concurrent" value="false"/>
     </bean>

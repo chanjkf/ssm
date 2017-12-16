@@ -1,237 +1,88 @@
 <#assign rootRoute=request.contextPath />
-<#include "base_photo.ftl">
+<#include "base1.ftl">
+<div class="fh5co-loader"></div>
+<div id="page">
+
 <#include "base_head.ftl">
-<div class="container-fluid">
-
-    <section id="welcome" class="tm-content-box tm-banner margin-b-10">
-        <div class="tm-banner-inner">
-            <h1 class="tm-banner-title">Pipeline</h1>
-        </div>
-    </section>
-
-    <div class="tm-body">
-        <div class="tm-sidebar">
-            <nav class="tm-main-nav">
-                <ul class="tm-main-nav-ul">
-                    <li class="tm-nav-item"><a href="#welcome" class="tm-nav-item-link tm-button">
-                        <i class="fa fa-smile-o tm-nav-fa"></i>Welcome</a>
-                    </li>
-                    <li class="tm-nav-item"><a href="#gallery" class="tm-nav-item-link tm-button">
-                        <i class="fa fa-image tm-nav-fa"></i>Image Gallery</a>
-                    </li>
-                    <li class="tm-nav-item"><a href="#services" class="tm-nav-item-link tm-button">
-                        <i class="fa fa-tasks tm-nav-fa"></i>Our Services</a>
-                    </li>
-                    <li class="tm-nav-item"><a href="#about" class="tm-nav-item-link tm-button">
-                        <i class="fa fa-sitemap tm-nav-fa"></i>About Company</a>
-                    </li>
-                    <li class="tm-nav-item"><a href="#contact" class="tm-nav-item-link tm-button">
-                        <i class="fa fa-envelope-o tm-nav-fa"></i>Contact Us</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
-        <div class="tm-main-content">
-
-            <div class="tm-content-box tm-content-box-home">
-                <img src="${rootRoute}/view/img/photo/1200x800-01.jpg" alt="Image 1" class="img-fluid tm-welcome-img">
-                <div class="tm-welcome-boxes-container">
-                    <div class="tm-welcome-box">
-                        <div class="tm-welcome-text">
-                            <h2 class="tm-section-title">Aliquam ante sapien</h2>
-                            <p>Duis vel elit eu eros dapibus vestibulum vel vel nibh. Nulla id ornare eros, at efficitur risus.</p>
+    <div id="fh5co-blog">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <h2>这个世界需要更多菜鸡</h2>
+                    <p>你来不来，反正我来了</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="fh5co-blog animate-box">
+                        <a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/dva1.jpg);"></a>
+                        <div class="blog-text">
+                            <span class="posted_on">Feb. 15th 2016</span>
+                            <h3><a href="#">D.VA</a></h3>
+                            <p>D.VA爱你哟</p>
+                            <ul class="stuff">
+                                <li><i class="icon-heart2"></i>0</li>
+                                <li><i class="icon-eye2"></i>0</li>
+                                <li><a href="#">Read More<i class="icon-arrow-right22"></i></a></li>
+                            </ul>
                         </div>
-                        <a href="#" class="tm-welcome-link tm-button">Learn More</a>
                     </div>
-                    <div class="tm-welcome-box">
-                        <div class="tm-welcome-text">
-                            <h2 class="tm-section-title">Lorem ipsum dolor</h2>
-                            <p>Vivamus eleifend ac turpis sit amet maximus. Nulla in faucibus nisl, ut ultrices magna.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="fh5co-blog animate-box">
+                        <a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/maidie1.jpg);"></a>
+                        <div class="blog-text">
+                            <span class="posted_on">Feb. 15th 2016</span>
+                            <h3><a href="#">杰西·麦克雷</a></h3>
+                            <p>你爹还是你爹</p>
+                            <ul class="stuff">
+                                <li><i class="icon-heart2"></i>0</li>
+                                <li><i class="icon-eye2"></i>1,0</li>
+                                <li><a href="#">Read More<i class="icon-arrow-right22"></i></a></li>
+                            </ul>
                         </div>
-                        <a href="#" class="tm-welcome-link tm-button">Read Details</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fh5co-blog animate-box">
+                        <a href="#" class="blog-bg" style="background-image: url(${rootRoute}/view/img/index/tianshi1.jpg);"></a>
+                        <div class="blog-text">
+                            <span class="posted_on">Feb. 15th 2016</span>
+                            <h3><a href="#">安吉拉·齐格勒</a></h3>
+                            <p> Heros never die</p>
+                            <ul class="stuff">
+                                <li><i class="icon-heart2"></i>0</li>
+                                <li><i class="icon-eye2"></i>0</li>
+                                <li><a href="#">Read More<i class="icon-arrow-right22"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
-
-            <div id="gallery" class="tm-content-box">
-                <div class="grid tm-gallery">
-                    <figure class="effect-bubba">
-                        <img src="${rootRoute}/view/img/photo/img-11-08.jpg" alt="Image 8" class="img-fluid">
-                        <figcaption>
-                            <h2>Light <span>Bridge</span></h2>
-                            <p>Fusce faucibus metus in augue</p>
-                            <a href="${rootRoute}/view/img/photo/img-11-08.jpg">View more</a>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="effect-bubba">
-                        <img src="${rootRoute}/view/img/photo/img-11-07.jpg" alt="Image 7" class="img-fluid">
-                        <figcaption>
-                            <h2>Glass <span>Tower</span></h2>
-                            <p>Sed ut ipsum eu purus ullamcorper</p>
-                            <a href="${rootRoute}/view/img/photo/img-11-07.jpg">View more</a>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="effect-bubba">
-                        <img src="${rootRoute}/view/img/photo/img-11-05.jpg" alt="Image 5" class="img-fluid">
-                        <figcaption>
-                            <h2>Jump <span>Higher</span></h2>
-                            <p>Morbi fermentum eget libero sed</p>
-                            <a href="${rootRoute}/view/img/photo/img-11-05.jpg">View more</a>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="effect-bubba">
-                        <img src="${rootRoute}/view/img/photo/img-11-03.jpg" alt="Image 3" class="img-fluid">
-                        <figcaption>
-                            <h2>Forest <span>Park</span></h2>
-                            <p>Aenean rutrum enim a tellus suscipit</p>
-                            <a href="${rootRoute}/view/img/photo/img-11-03.jpg">View more</a>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="effect-bubba">
-                        <img src="${rootRoute}/view/img/photo/img-11-02.jpg" alt="Image 2" class="img-fluid">
-                        <figcaption>
-                            <h2>Ice <span>Mountain</span></h2>
-                            <p>Curabitur a ipsum eget eros sodales</p>
-                            <a href="${rootRoute}/view/img/photo/img-11-02.jpg">View more</a>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="effect-bubba">
-                        <img src="${rootRoute}/view/img/photo/img-11-04.jpg" alt="Image 4" class="img-fluid">
-                        <figcaption>
-                            <h2>Green <span>Field</span></h2>
-                            <p>Duis eget tortor et mauris tempus</p>
-                            <a href="${rootRoute}/view/img/photo/img-11-04.jpg">View more</a>
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-
-            <div id="services" class="tm-content-box tm-gray-bg tm-services">
-
-                <div class="tm-services-img-container">
-                    <img src="${rootRoute}/view/img/photo/450x900-01.jpg" alt="Green Field" class="img-fluid tm-services-img">
-                </div>
-
-                <div class="tm-box-pad tm-services-description-container">
-                    <h2 class="tm-section-title">Vivamus eget convallis tellus</h2>
-                    <p class="tm-section-description">Pipeline Bootstrap 4.0 Template is provided by <a href="http://templatemo.com" target="_parent">templatemo</a> website. You may use this HTML CSS template and also share it to friends. Thank you for visiting our site.</p>
-                <p class="tm-section-description">Duis vel elit eu eros dapibus vestibulum vel vel nibh. Morbi efficitur erat nulla, id tempor mi accumsan sed. Suspendisse sollicitudin condimentum interdum. <span class="tm-blue-text">BG #F4F4F4 Button BG #936</span> <span class="tm-red-text">Button Hover BG #C33</span></p>
-                    <p class="tm-section-description">Nulla id ornare eros, at efficitur risus. Fusce sodales lorem magna, id tempor justo mattis eget. Aenean accumsan semper commodo. Aliquam ante sapien, tincidunt sed vaius et, luctus condimentum sapien.</p>
-                </div>
-
-            </div>
-
-            <!-- slider -->
-            <div id="about" class="tm-content-box">
-                <div class="tm-box-pad tm-bordered-box">
-                    <h2 class="tm-section-title">Mauris sollicitudin a nibh ut sollicitudin</h2>
-                    <p>Pellentesque quam libero, hendrerit pretium feugiat sed, rhoncus ac nunc. Etiam eget dui vel ex eleifend mattis eget vitae risus. Nullam eu libero sit amet quam finibus condimentum. Aenean vulputate dictum suscipit. Morbi efficitur erat nulla, id tempor mi accumsan sed.</p>
-                    <a href="#" class="tm-button tm-button-normal">Read More</a>
-                </div>
-                <div class="tm-flex">
-                    <div class="tm-purple-bg tm-box-pad tm-bordered-box tm-no-border-top">
-                        <h2 class="tm-section-title">Cras volutpat fermentum</h2>
-                        <p>Aliquam ante sapien, tincidunt sed varius et, luctus condimentum sapien. Duis vel elit eu eros dapibus vestibulum vel vel nibh. Nulla id ornare eros.</p>
-                    </div>
-                    <div class="tm-gray-bg tm-box-pad tm-bordered-box tm-no-border-top">
-                        <h2 class="tm-section-title">Aenean vulputate dictum</h2>
-                        <p>Suspendisse ultricies egestas nulla, non vestibulum quam suscipit et. Sed sit amet enim ultricies, auctor nisl eu, porta augue. Cras et tristique augue.</p>
-                    </div>
-                </div>
-            </div>
-
-            <section id="contact" class="tm-content-box">
-
-                <div class="tm-flex">
-                    <div class="tm-contact-left-half tm-gray-bg">
-                        <div class="tm-contact-inner-pad">
-                            <h2 class="tm-section-title">Contact Us</h2>
-                            <form action="#contact" method="post" class="contact-form">
-
-                                <div class="form-group">
-                                    <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name"  required/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email"  required/>
-                                </div>
-                                <div class="form-group">
-                                    <textarea id="contact_message" name="contact_message" class="form-control" rows="9" placeholder="Message" required></textarea>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary pull-xs-right tm-button tm-button-normal">Submit</button>
-
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="tm-contact-right-half tm-purple-bg">
-                        <div class="tm-address-box">
-                            <h2 class="tm-section-title">Our Location</h2>
-                            <address>110 tellus ut fringilla ornare,<br>
-                                     velit arcu rutrum metus<br>
-                                     id elementum 10990
-                            </address>
-                        </div>
-                        <div id="">map</div>
-                    </div>
-                </div>
-
-            </section>
-
-            <footer class="tm-footer">
-                <p class="text-xs-center">Copyright &copy; 2016 Your Company | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-            </footer>
-
         </div>
     </div>
+    <footer id="fh5co-footer" role="contentinfo">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2017 All Rights Reserved.</small>
+                        <small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
+                    </p>
+                    <p>
+                    <ul class="fh5co-social-icons">
+                        <li><a href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                        <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
 </div>
 
-<!-- load JS files -->
-<!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+<script src="${rootRoute}/view/js/photo.js"></script>
 
-<!-- Templatemo scripts -->
-<script>
-
-
-
-function setNavbar() {
-    if ($(document).scrollTop() > 160) {
-        $('.tm-sidebar').addClass('sticky');
-    } else {
-        $('.tm-sidebar').removeClass('sticky');
-    }
-}
-
-$(document).ready(function(){
-
-    // Single page nav
-    $('.tm-main-nav').singlePageNav({
-        'currentClass' : "active",
-        offset : 20
-    });
-
-    // Detect window scroll and change navbar
-    setNavbar();
-
-    $(window).scroll(function() {
-      setNavbar();
-    });
-
-    // Magnific pop up
-    $('.tm-gallery').magnificPopup({
-      delegate: 'a', // child items selector, by clicking on it popup will open
-      type: 'image',
-      gallery: {enabled:true}
-      // other options
-    });
-
-});
-
-</script>

@@ -5,6 +5,6 @@ package xyz.chanjkf.utils.quarz;
  */
 public class PrintJobTimer {
     public void print(){
-
+        System.out.println("hello");
     }
 }

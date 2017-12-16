@@ -25,9 +25,9 @@
 </head>
 
 <body style="min-width:1320px;">
+<script src="${rootRoute}/view/js/jquery.min.js"></script>
 <script src="${rootRoute}/view/js/modernizr-2.6.2.min.js"></script>
 <script src="http://vjs.zencdn.net/c/video.js"></script>
-<script src="${rootRoute}/view/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
 <script src="${rootRoute}/view/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->

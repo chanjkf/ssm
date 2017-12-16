@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ManageController {
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     private ModelAndView toVideoPage(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView mv = new ModelAndView("manageupload");
+        ModelAndView mv = new ModelAndView("manage");
 
         return mv;
     }
