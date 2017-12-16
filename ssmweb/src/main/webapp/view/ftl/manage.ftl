@@ -7,11 +7,11 @@
 <div id="fh5co-blog" class="blog_css" style="">
 	<div class="container">
     	<div class="bg-white form-horizontal">
-			<form name="form1" method="post" enctype="multipart/form-data" action="${rootRoute}/album/upload">
+			<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="${rootRoute}/album/upload">
 				<div class="form-group">
 					<label class="control-label col-md-3"><span class="required">*</span>文件:</label>
 					<div class="col-md-6">
-						<input type="file" name="files" id="inputDepartName" style="width:80%; height: 35px;margin-top: 10px;" maxlength="64">
+						<input type="file" name="files" id="file" style="width:80%; height: 35px;margin-top: 10px;" maxlength="64">
 						<small class="error1 text-danger"></small>
 					</div>
 				</div>
@@ -19,24 +19,23 @@
 					<label class="control-label col-md-3"><span class="required">*</span>名称:</label>
 					<div class="col-md-6">
 						<input class="form-control" type="text" id="name" name="name" style="width:80%; height: 35px;margin-top: 5px;" maxlength="64">
-						<small class="error1 text-danger"></small>
+						<small class="error2 text-danger"></small>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-md-3"><span class="required">*</span>描述:</label>
 					<div class="col-md-6">
 						<input class="form-control" type="text" id="desc" name="desc" style="width:80%; height: 35px;margin-top: 5px;" maxlength="64">
-						<small class="error1 text-danger"></small>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="col-md-6 col-md-offset-3">
-						<button class="btn btn-primary" id="btnOperateDepartSubmit">提交</button>
-						<button class="btn btn-default" id="btnOperateDepartCancel">取消</button>
+						<small class="error3 text-danger"></small>
 					</div>
 				</div>
             </form>
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    <button class="btn btn-primary" id="submit" onclick="submit()">提交</button>
+                    <button class="btn btn-default" id="cancel">取消</button>
+                </div>
+            </div>
 		</div>
 	</div>
 </div>
@@ -63,5 +62,5 @@
 </footer>
 </div>
 
-<script src="${rootRoute}/view/js/index.js"></script>
+<script src="${rootRoute}/view/js/manage.js"></script>
 

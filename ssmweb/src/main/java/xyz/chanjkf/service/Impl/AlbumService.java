@@ -9,6 +9,7 @@ import xyz.chanjkf.service.common.AbstractService;
 import xyz.chanjkf.utils.page.Page;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 /**
@@ -34,7 +35,7 @@ public class AlbumService extends AbstractService<AlbumEntity> implements IAlbum
     public Long getMaxIdFromDb() {
         String sql = "select max(id) from album where active_flag = 1";
 
-        Long a = (Long)getCurrentSession().createSQLQuery(sql).uniqueResult();
+        Long a = ((BigInteger)getCurrentSession().createSQLQuery(sql).uniqueResult()).longValue();
         if (a == null) {
             return 0L;
         } else {

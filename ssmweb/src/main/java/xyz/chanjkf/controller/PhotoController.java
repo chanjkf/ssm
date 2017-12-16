@@ -69,10 +69,6 @@ public class PhotoController {
                                @RequestParam(value = "files") MultipartFile[] files,
                                @RequestParam(value = "name") String name,
                                @RequestParam(value = "desc") String desc){
-
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("result","success");
-        response.setContentType("text/html;charset=UTF-8");
         try {
             List<String> addrss = saveImage(request, files);
             AlbumEntity albumEntity = new AlbumEntity();
@@ -84,15 +80,18 @@ public class PhotoController {
         } catch (IOException e) {
             e.getStackTrace();
             e.getMessage();
-            map.put("result", "failed");
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        try {
+            response.sendRedirect("/photo/manage/index");
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
 
-
-
-        return JsonUtil.getJsonStr(map);
     }
 
     private List<String> saveImage(HttpServletRequest request, MultipartFile[] files) throws IOException, InterruptedException {
