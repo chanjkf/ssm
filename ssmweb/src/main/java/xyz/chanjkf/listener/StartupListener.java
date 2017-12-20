@@ -25,15 +25,15 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
     final static DXPLog dxpLog = new DXPLog(StartupListener.class);
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        if(!isStart) {
-            isStart = true;
-            try {
-                quartzService.addJob("WriteVideoAddrJob", WriteVideoAddrJob.class, "0 0 0 * * ?");
-            } catch (SchedulerException e) {
-                dxpLog.error(e);
-            }
-        }
-        startPrint();
+//        if(!isStart) {
+//            isStart = true;
+//            try {
+//                quartzService.addJob("WriteVideoAddrJob", WriteVideoAddrJob.class, "0 0 0 * * ?");
+//            } catch (SchedulerException e) {
+//                dxpLog.error(e);
+//            }
+//        }
+//        startPrint();
     }
 
     private void startPrint() {
