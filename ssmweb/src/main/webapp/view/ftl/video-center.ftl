@@ -9,21 +9,30 @@
         <div class="container">
             <div class="services-padding">
                 <div class="row">
-
                     <#list entityList as data>
                         <div class="col-md-4 animate-box">
                             <div class="feature-left">
                             <#--<h2>Default Skin</h2>-->
-
-                                <video width="380" height="210" src=${data.address} type="video/mp4"
+                                <video width="380" height="210" src=${rootRoute}${data.address} type="video/mp4"
                                        id="player1" poster="${rootRoute}/view/img/index/blog-1.jpg"
                                        controls="controls" preload="none"></video>
                             </div>
+                            <div class="blog-text" style="margin-left: 65px;padding-top: 4px;">
+                                <span class="posted_on">Feb. 15th 2016</span>
+                                <h3><a href="#">${data.imgName}</a></h3>
+                                <p>${data.description}</p>
+                                <#--<ul class="stuff">-->
+                                    <#--<li><i class="icon-heart2"></i>0</li>-->
+                                    <#--<li><i class="icon-eye2"></i>0</li>-->
+                                <#--</ul>-->
+                            </div>
                         </div>
                     </#list>
-
-
                 </div>
+                <form id="listForm" action="${rootRoute}/video/page" method="get">
+                    <#--<input id="" type="hidden" name="directoryInfo" value="${directoryInfo}"/>-->
+                <#include "pagination.ftl">
+                </form>
             </div>
         </div>
     </div>

@@ -31,8 +31,8 @@ public class RegisterService implements IRegisterService {
     @Override
     public UserEntity registerUser(String name, String password) {
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setName("ROLE_ADMIN");
-        roleEntity.setDescription("平台管理员");
+        roleEntity.setName("ROLE_USER");
+        roleEntity.setDescription("普通用户");
         roleService.create(roleEntity);
 
         UserEntity user = new UserEntity();

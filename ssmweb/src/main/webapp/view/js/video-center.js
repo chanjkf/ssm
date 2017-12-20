@@ -18,6 +18,28 @@ $().ready(function () {
     //     "json");
 })
 
+// (function(){
+//     var video, output;
+//     var scale = 0.8;
+//     var initialize = function() {
+//         output = document.getElementById("player1");
+//         video = document.getElementById("video");
+//         video.addEventListener('loadeddata',captureImage);
+//     };
+//     var captureImage = function() {
+//         var canvas = document.createElement("canvas");
+//         canvas.width = video.videoWidth * scale;
+//         canvas.height = video.videoHeight * scale;
+//         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+//
+//         var img = document.createElement("img");
+//         img.src = canvas.toDataURL("image/png");
+//         img.width = 400;
+//         img.height = 300;
+//         output.appendChild(img);
+//     };
+//     initialize();
+// })();
 
 
 

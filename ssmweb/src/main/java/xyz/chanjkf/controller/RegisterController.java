@@ -60,6 +60,7 @@ public class RegisterController {
         ModelAndView mv = new ModelAndView("register");
         return mv;
     }
+
     @RequestMapping(value = "/checkName",method = RequestMethod.GET)
     @ResponseBody
     public String checkName(HttpServletRequest request, HttpServletResponse response,

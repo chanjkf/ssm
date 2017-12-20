@@ -17,6 +17,7 @@
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="${rootRoute}/view/css/style.css">
+    <#--<link rel="stylesheet" href="${rootRoute}/view/css/dt-style.css">-->
     <link rel="stylesheet" href="${rootRoute}/view/css/login-register.css">
 
     <!-- Modernizr JS -->
@@ -38,6 +39,12 @@
 <script src="${rootRoute}/view/js/jquery.flexslider-min.js"></script>
 <!-- Main -->
 <script src="${rootRoute}/view/js/main.js"></script>
+
+<script src="${rootRoute}/view/js/common.js"></script>
+<script src="${rootRoute}/view/js/list.js"></script>
+
+<script src="${rootRoute}/view/js/jquery-form.js" type="text/javascript"></script>
+<script src="${rootRoute}/view/js/bootstrap-notify.js" type="text/javascript"></script>
 </body>
 
 </html>

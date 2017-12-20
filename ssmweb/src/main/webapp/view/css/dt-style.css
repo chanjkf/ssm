@@ -1182,8 +1182,10 @@ label {
 }
 
 /********************* 分页 *********************/
+
 .pagination {
-    margin: 0px 0;
+    padding: 5px 13px;
+    /*margin: 5px 13px;*/
 }
 
 .pagination > li > a,
@@ -2729,4 +2731,7 @@ td.border-top{
 }
 #isStandard:checked + label:after{
     content:"\2714";
+}
+.data-table .blog_css{
+    float: left;
 }

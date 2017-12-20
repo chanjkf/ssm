@@ -14,7 +14,7 @@
                             <a href="${rootRoute}/video/page">视频中心</a>
                         </li>
                         <li class="has-dropdown" id="photo">
-                            <a href="blog.html">Blog</a>
+                            <a href="${rootRoute}/album/index">Blog</a>
                             <ul class="dropdown">
                                 <li><a href="${rootRoute}/album/index">个人图片</a></li>
                                 <li><a href="#">日志</a></li>
@@ -22,7 +22,14 @@
                                 <li><a href="#">API</a></li>
                             </ul>
                         </li>
-                        <li><a href="${rootRoute}/manage/index">管理</a></li>
+                        <li class="has-dropdown">
+                            <a href="${rootRoute}/manage/album">管理</a>
+                            <ul class="dropdown">
+                                <li><a href="${rootRoute}/manage/album">图片管理</a></li>
+                                <li><a href="${rootRoute}/manage/video">视频管理</a></li>
+                                <li><a href="${rootRoute}/manage/album/type">图片类型</a></li>
+                            </ul>
+                        </li>
                         <li class="btn-cta" style="margin-left: 50px">
                         <#if SPRING_SECURITY_CONTEXT.authentication.principal.username == "">
                             <a href="${rootRoute}/toLogin/page" ><span>Login</span></a>

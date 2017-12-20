@@ -8,8 +8,8 @@
 <!--    http://www.qos.ch/shop/products/professionalSupport         -->
 <!--                                                                -->
 <configuration debug="true" scan="true" scanPeriod="60 seconds">
-    <contextName>DMALL</contextName>
-    <property name="LOG_HOME" value="d:\\logs/photo" />
+    <contextName>Photo</contextName>
+    <property name="LOG_HOME" value="/usr/local/tomcat/photo/logs" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">

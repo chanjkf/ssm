@@ -3,14 +3,6 @@ var arr = pathname.split("/");
 var proName = arr[1];
 var rootPath = "http://" + window.location.host + "/" + proName;
 $().ready(function () {
-    $.get("/video/address",
-        function (data, status) {
-            if (data.result == "success") {
-                console.log(123);
-            } else {
-            }
-        },
-        "json");
 })
 function showRegisterForm(){
     $('.loginBox').fadeOut('fast',function(){

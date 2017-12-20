@@ -18,6 +18,9 @@ public class AlbumEntity extends DXPEntity{
     @Column(name = "description")
     private String description;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private PhotoType type;
+
     @Column(name = "url")
     private String url;
 
@@ -62,5 +65,13 @@ public class AlbumEntity extends DXPEntity{
 
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public PhotoType getType() {
+        return type;
+    }
+
+    public void setType(PhotoType type) {
+        this.type = type;
     }
 }

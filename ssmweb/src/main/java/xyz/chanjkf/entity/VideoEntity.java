@@ -1,7 +1,5 @@
 package xyz.chanjkf.entity;
 
-
-
 import xyz.chanjkf.entity.common.DXPEntity;
 
 import javax.persistence.*;
@@ -18,6 +16,9 @@ public class VideoEntity extends DXPEntity {
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "name")
     private String name;
@@ -55,5 +56,13 @@ public class VideoEntity extends DXPEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

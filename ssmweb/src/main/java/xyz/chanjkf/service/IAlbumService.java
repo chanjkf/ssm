@@ -11,5 +11,7 @@ public interface IAlbumService extends IOperations<AlbumEntity> {
 
     Page<AlbumEntity> getPhotoData(Page<AlbumEntity> page);
 
+    Page<AlbumEntity> getAlbumPages(Integer pageNum, Integer pageSize);
+
     Long getMaxIdFromDb();
 }

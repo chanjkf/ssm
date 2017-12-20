@@ -1,5 +1,6 @@
 package xyz.chanjkf.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -10,10 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import xyz.chanjkf.entity.AlbumEntity;
+import xyz.chanjkf.entity.PhotoType;
 import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IVideoService;
 import xyz.chanjkf.utils.DXPConst;
+import xyz.chanjkf.utils.DXPTime;
 import xyz.chanjkf.utils.JsonUtil;
 //import xyz.chanjkf.utils.RedisCacheUtil;
 import xyz.chanjkf.utils.page.Page;
@@ -22,10 +28,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -37,52 +40,23 @@ public class VideoController {
     static ObjectMapper mapper = new ObjectMapper();
 
     @Resource(name = "VideoService")
-    private IVideoService service;
+    private IVideoService videoService;
 
 //    @Autowired
 //    private RedisCacheUtil<String> util;
 
-    @RequestMapping(value = "/address",method = RequestMethod.GET)
-    @ResponseBody
-    private String writeAddress(HttpServletRequest request, HttpServletResponse response){
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("result","success");
-        String path = request.getSession().getServletContext().getRealPath("");
-        String videoPath = path+"/video";
-        File f = new File(videoPath);
-        File fa[] = f.listFiles();
-        List<VideoEntity> videoList = service.getDistinctActive();
-        List<String> nameList = new ArrayList<String>();
-        for (VideoEntity en : videoList) {
-            nameList.add(en.getName());
-        }
-        for (int i = 0; i < fa.length; i++) {
-            File fs = fa[i];
-            if (fs.isDirectory()) {
-
-            } else {
-                String name = fs.getName();
-                String fileName = name.substring(name.lastIndexOf("/")+1);
-                if(!nameList.contains(fileName)){
-                    VideoEntity entity = new VideoEntity();
-                    entity.setName(fileName);
-                    String str = request.getRequestURL().toString();
-                    String webPath = str.substring(0,str.indexOf("/",12))+"/video/"+fileName;
-                    entity.setAddress(webPath);
-                    entity.setViewCount(0);
-                    service.create(entity);
-                }
-            }
-        }
-
-        return JsonUtil.getJsonStr(map);
-    }
 
     @RequestMapping(value = "/page",method = RequestMethod.GET)
     private ModelAndView toVideoPage(HttpServletRequest request, HttpServletResponse response,
-                                     @RequestParam(value = "pageNumber", required = false) String pageNumber,
-                                     @RequestParam(value = "pageSize", required = false) String pageSize){
+                                     @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+                                     @RequestParam(value = "pageSize", required = false) Integer pageSize){
         ModelAndView mv= new ModelAndView("video-center");
+        if (pageNumber == null || pageNumber <= 0) {
+            pageNumber = 1;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = 6;
+        }
         Page<VideoEntity> entityPage = null;
 //        try {
 //            String videoAddr = util.getCacheObject("movieAddr");
@@ -96,7 +70,7 @@ public class VideoController {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        int totalPages = entityPage.getPageSize();
+        int totalPages = entityPage.getTotalPages();
         List<VideoEntity> entityList = entityPage.getResult();
         mv.addObject("totalPages",totalPages);
         mv.addObject("pageNumber",pageNumber);
@@ -105,20 +79,11 @@ public class VideoController {
         return mv;
     }
 
-    private Page<VideoEntity> getMovieAddrFromDb(String pageNumber,String pageSize){
-        int pageNum = 0;
-        int size = 0;
-        try {
-            pageNum = Integer.parseInt(pageNumber);
-        }catch (Exception e){
-            pageNum = 0;
-        }
-        try {
-            size = Integer.parseInt(pageSize);
-        } catch (NumberFormatException e) {
-            size = 6;
-        }
-        Page<VideoEntity> entityPage = service.getVideoPage(pageNum,size);
+
+
+    private Page<VideoEntity> getMovieAddrFromDb(Integer pageNumber,Integer pageSize){
+
+        Page<VideoEntity> entityPage = videoService.getVideoPage(pageNumber, pageSize);
         return entityPage;
     }
 }

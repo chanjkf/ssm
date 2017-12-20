@@ -34,12 +34,16 @@ public class AlbumService extends AbstractService<AlbumEntity> implements IAlbum
     @Override
     public Long getMaxIdFromDb() {
         String sql = "select max(id) from album where active_flag = 1";
-
-        Long a = ((BigInteger)getCurrentSession().createSQLQuery(sql).uniqueResult()).longValue();
-        if (a == null) {
+        Object result = getCurrentSession().createSQLQuery(sql).uniqueResult();
+        if (result == null) {
             return 0L;
         } else {
-            return a;
+            return ((BigInteger)result).longValue();
         }
+    }
+    @Override
+    public Page<AlbumEntity> getAlbumPages(Integer pageNum, Integer pageSize) {
+        Page<AlbumEntity> page = new Page<>(pageNum, pageSize);
+        return dao.getAlbumPages(page);
     }
 }
