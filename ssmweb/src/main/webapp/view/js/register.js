@@ -11,7 +11,7 @@ function checkUserName(){
         $(".erro_pass2").html("*用户名格式错误");
         $(".erro_pass2").css("display", "block");
     }else{
-        $.get(rootPath+"/checkName",
+        $.get(rootPath+"/register/checkName",
             {
                 username:string
             },
@@ -106,7 +106,7 @@ function register(){
         $(".erro_pass2").css("display", "block");
         return false;
     }
-    $.post("/register/data",
+    $.post(rootPath+"/register/data",
         {
             username:userName,
             password:password1
@@ -114,7 +114,7 @@ function register(){
         function (data, status) {
 
             if (data.result == "success") {
-                window.location.href = "/index";
+                window.location.href = rootPath+"/index";
             } else {
                 dmallError(data.result);
             }

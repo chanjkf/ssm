@@ -18,7 +18,7 @@
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="${rootRoute}/view/css/style.css">
-    <#--<link rel="stylesheet" href="${rootRoute}/view/css/dt-style.css">-->
+    <link rel="stylesheet" href="${rootRoute}/view/css/dt-style.css">
     <link rel="stylesheet" href="${rootRoute}/view/css/login-register.css">
 
     <!-- Modernizr JS -->

@@ -11,6 +11,7 @@ import xyz.chanjkf.service.IUserService;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,9 +31,17 @@ public class RegisterService implements IRegisterService {
 
     @Override
     public UserEntity registerUser(String name, String password) {
+        List<UserEntity> users = userService.getDistinctActive();
+
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setName("ROLE_USER");
-        roleEntity.setDescription("普通用户");
+        if (users == null || users.size() == 0) {
+            roleEntity.setName("ROLE_ADMIN");
+            roleEntity.setDescription("系统管理员");
+        } else {
+            roleEntity.setName("ROLE_USER");
+            roleEntity.setDescription("普通用户");
+        }
+
         roleService.create(roleEntity);
 
         UserEntity user = new UserEntity();

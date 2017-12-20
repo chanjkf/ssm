@@ -10,10 +10,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import xyz.chanjkf.entity.AlbumEntity;
 import xyz.chanjkf.entity.PhotoType;
+import xyz.chanjkf.entity.RoleEntity;
 import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IAlbumService;
 import xyz.chanjkf.service.IPhotoTypeService;
+import xyz.chanjkf.service.IRoleService;
 import xyz.chanjkf.service.IVideoService;
+import xyz.chanjkf.service.Impl.RoleService;
 import xyz.chanjkf.utils.DXPConst;
 import xyz.chanjkf.utils.DXPTime;
 import xyz.chanjkf.utils.JsonUtil;
@@ -42,6 +45,10 @@ public class ManageController {
 
     @Resource(name = "VideoService")
     private IVideoService videoService;
+
+    @Resource(name = "RoleService")
+    private IRoleService roleService;
+
 
 
     @RequestMapping(value = "/album/upload",method = RequestMethod.POST)
@@ -85,7 +92,19 @@ public class ManageController {
                                      @RequestParam(value = "pageNumber", required = false) Integer pageNum,
                                      @RequestParam(value = "pageSize", required = false) Integer pageSize){
         ModelAndView mv = new ModelAndView("photo_type");
-
+        Long id = (Long)request.getSession().getAttribute("Id");
+        List<RoleEntity> roleByUser = roleService.getRoleByUser(id);
+        boolean flag = false;
+        for (RoleEntity role:roleByUser) {
+            if ("ROLE_ADMIN".equals(role.getName())) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            mv = new ModelAndView("access-forbidden");
+            return mv;
+        }
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
@@ -105,6 +124,19 @@ public class ManageController {
                                      @RequestParam(value = "pageNumber", required = false) Integer pageNum,
                                      @RequestParam(value = "pageSize", required = false) Integer pageSize){
         ModelAndView mv = new ModelAndView("album_manage");
+        Long id = (Long)request.getSession().getAttribute("Id");
+        List<RoleEntity> roleByUser = roleService.getRoleByUser(id);
+        boolean flag = false;
+        for (RoleEntity role:roleByUser) {
+            if ("ROLE_ADMIN".equals(role.getName())) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            mv = new ModelAndView("access-forbidden");
+            return mv;
+        }
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
@@ -139,6 +171,19 @@ public class ManageController {
                                 @RequestParam(value = "pageSize", required = false) Integer pageSize){
 
         ModelAndView mv= new ModelAndView("video_manage");
+        Long id = (Long)request.getSession().getAttribute("Id");
+        List<RoleEntity> roleByUser = roleService.getRoleByUser(id);
+        boolean flag = false;
+        for (RoleEntity role:roleByUser) {
+            if ("ROLE_ADMIN".equals(role.getName())) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            mv = new ModelAndView("access-forbidden");
+            return mv;
+        }
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
