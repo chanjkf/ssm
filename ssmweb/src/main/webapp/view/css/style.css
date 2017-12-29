@@ -1500,4 +1500,15 @@ input[type="text"] {
 .js .animate-box {
   opacity: 0;
 }
+
+html, body, .page-body {
+  height: 100%;
+}
+
+.page-body {
+  min-height: 100%;
+  height: 100%;
+  height: auto !important;
+  margin: 0 auto -60px;
+}
 /*# sourceMappingURL=style.css.map */

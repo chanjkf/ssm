@@ -12,4 +12,6 @@ public interface IVideoService extends IOperations<VideoEntity> {
     Page<VideoEntity> getVideoPage(int pageNum, int size);
 
     Long getMaxIdFromDb();
+
+    void increateViewCount(Integer id);
 }

@@ -1,10 +1,9 @@
+<#import "layout.ftl" as layout>
+<@layout.layout title="首页" topMenu="index">
 <#assign rootRoute=request.contextPath />
-<#include "base1.ftl">
 <div class="fh5co-loader"></div>
 <div id="page">
-<#include "base_head.ftl">
-
-<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner">
+	<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner">
 	<div class="overlay"></div>
 	<div class="container">
 		<div class="row">
@@ -21,7 +20,7 @@
 	</div>
 </header>
 
-<div id="fh5co-features">
+	<div id="fh5co-features">
 	<div class="container">
 		<div class="services-padding">
 			<div class="row">
@@ -94,7 +93,7 @@
 	</div>
 </div>
 
-<div id="fh5co-wireframe">
+	<div id="fh5co-wireframe">
 	<div class="container">
 		<div class="row animate-box">
 			<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -122,7 +121,7 @@
 	</div>
 </div>
 
-<div id="fh5co-slider">
+	<div id="fh5co-slider">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 animate-box">
@@ -188,7 +187,7 @@
 	</div>
 </div>
 
-<div id="fh5co-blog">
+	<div id="fh5co-blog">
 	<div class="container">
 		<div class="row animate-box">
 			<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -245,27 +244,6 @@
 		</div>
 	</div>
 </div>
-<footer id="fh5co-footer" role="contentinfo">
-	<div class="container">
-		<div class="row copyright">
-			<div class="col-md-12 text-center">
-				<p>
-					<small class="block">&copy; 2017 All Rights Reserved.</small>
-					<small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
-				</p>
-				<p>
-					<ul class="fh5co-social-icons">
-						<li><a href="#"><i class="icon-twitter"></i></a></li>
-						<li><a href="#"><i class="icon-facebook"></i></a></li>
-						<li><a href="#"><i class="icon-linkedin"></i></a></li>
-						<li><a href="#"><i class="icon-dribbble"></i></a></li>
-					</ul>
-				</p>
-			</div>
-		</div>
-
-	</div>
-</footer>
 </div>
 
 <div class="gototop js-top">
@@ -335,4 +313,4 @@
     </div>
 </div>
 <script src="${rootRoute}/view/js/index.js"></script>
-
+</@layout.layout>

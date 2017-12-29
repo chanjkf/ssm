@@ -8,6 +8,9 @@ import xyz.chanjkf.service.IRegisterService;
 import xyz.chanjkf.service.IRoleService;
 import xyz.chanjkf.service.IUserRoleService;
 import xyz.chanjkf.service.IUserService;
+import xyz.chanjkf.utils.DXPException;
+import xyz.chanjkf.utils.MD5Util;
+import xyz.chanjkf.utils.email.EmailSender;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
@@ -15,7 +18,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by yi on 2017/6/7.
+ *
+ * @author yi
+ * @date 2017/6/7
  */
 @Service("RegisterService")
 public class RegisterService implements IRegisterService {
@@ -30,8 +35,9 @@ public class RegisterService implements IRegisterService {
     private IUserRoleService userRoleService;
 
     @Override
-    public UserEntity registerUser(String name, String password) {
+    public UserEntity registerUser(String name, String password, String email) throws DXPException {
         List<UserEntity> users = userService.getDistinctActive();
+        String validateCode = MD5Util.MD5Encode(email,"utf-8");
 
         RoleEntity roleEntity = new RoleEntity();
         if (users == null || users.size() == 0) {
@@ -45,9 +51,20 @@ public class RegisterService implements IRegisterService {
         roleService.create(roleEntity);
 
         UserEntity user = new UserEntity();
+        user.setValidateCode(validateCode);
         user.setUserName(name);
         user.setUserPassword(password);
+        user.setUseFlag(false);
+        user.setEmail(email);
         userService.create(user);
+        try {
+            EmailSender.send(email,user.getId(), validateCode);
+        } catch (Exception r) {
+            throw new DXPException("发送激活邮件失败");
+        }
+
+
+
         Long userId = user.getId();
 
         UserRoleEntity userRoleEntity = new UserRoleEntity();

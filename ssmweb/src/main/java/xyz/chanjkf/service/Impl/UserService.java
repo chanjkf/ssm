@@ -44,6 +44,7 @@ public class UserService extends AbstractService<UserEntity> implements IUserSer
                 return null;
             }
             return userList.get(0);
+
         } catch (Exception e) {
             e.getMessage();
             e.getStackTrace();

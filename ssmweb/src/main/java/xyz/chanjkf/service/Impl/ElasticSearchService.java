@@ -26,6 +26,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 import xyz.chanjkf.entity.UserEntity;
+import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.model.ElasticSearchResetModel;
 import xyz.chanjkf.service.IElasticSearchService;
 import xyz.chanjkf.utils.DXPConst;
@@ -43,23 +44,23 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by yi on 2017/9/12.
+ *
+ * @author yi
+ * @date 2017/9/12
  */
 @Service("ElasticSearchService")
-public class ElasticSearch implements IElasticSearchService{
+public class ElasticSearchService implements IElasticSearchService{
 
     DXPLog dxpLog = new DXPLog();
 
     private Client client = null;
-
-    private String dmallClusterName = "photo";
 
     private ElasticSearchResetModel elasticSearchResetModel = new ElasticSearchResetModel();
 
     @Override
     public boolean health() {
         ClusterHealthResponse healthResponse = client.admin().cluster().health(new ClusterHealthRequest()).actionGet();
-        if(!"RED".equalsIgnoreCase(healthResponse.getStatus().name()) && dmallClusterName.equals(healthResponse.getClusterName())) {
+        if(!"RED".equalsIgnoreCase(healthResponse.getStatus().name())) {
             return true;
         }
 
@@ -90,15 +91,18 @@ public class ElasticSearch implements IElasticSearchService{
         return "搜索引擎尚未进行数据重置！";
     }
 
+
+
+
     @Override
-    public boolean saveUser(UserEntity entity) {
+    public boolean saveVideo(VideoEntity entity) {
         if (entity == null) {
             return true;
         }
         Map<String, Object> userMap = new HashMap<String, Object>();
         userMap.put("id",entity.getId());
-        userMap.put("userName",entity.getUserName());
-        userMap.put("userPassword",entity.getUserPassword());
+        userMap.put("name",entity.getName());
+        userMap.put("description",entity.getDescription());
         try {
             client.prepareIndex(DXPConst.INDEX_ALIAS, DXPConst.USER_TABLE)
                     .setSource(userMap).setId(entity.getId().toString())
@@ -109,11 +113,10 @@ public class ElasticSearch implements IElasticSearchService{
             dxpLog.error("[ES]: add user[userId=" + entity.getId() + "] failed", e);
             return false;
         }
-
     }
 
     @Override
-    public void initUserStructure() throws DXPException {
+    public void initVideoStructure() throws DXPException {
         deleteIndex(DXPConst.INDEX_ALIAS);
         createUserStructure(DXPConst.INDEX_ALIAS, DXPConst.USER_TABLE);
         dxpLog.info("[ES]: initialize index[" + DXPConst.INDEX_ALIAS + "] and type[" + DXPConst.USER_TABLE + "] success！");
@@ -134,28 +137,27 @@ public class ElasticSearch implements IElasticSearchService{
     }
 
     @Override
-    public Page<UserEntity> searchUser(Page<UserEntity> page, String keyWord, String searchType) throws DXPException {
+    public Page<VideoEntity> searchVideo(Page<VideoEntity> page, String keyWord, String searchType) throws DXPException {
         SearchRequestBuilder builder = this.client.prepareSearch(DXPConst.INDEX_ALIAS).setTypes(DXPConst.USER_TABLE);
         BoolQueryBuilder query = QueryBuilders.boolQuery();
         if(StringUtils.isNotEmpty(keyWord)) {
             BoolQueryBuilder keyWordBuilder = QueryBuilders.boolQuery()
                     .should(QueryBuilders.matchQuery("search_name", keyWord).operator(MatchQueryBuilder.Operator.AND))
-                    .should(QueryBuilders.wildcardQuery("resourceName", "*" + keyWord + "*"));
+                    .should(QueryBuilders.wildcardQuery("name", "*" + keyWord + "*"));
             query.must(keyWordBuilder);
         }
 
         SearchHit[] searchHits;
         try {
             SearchResponse response = builder.setQuery(query).addFields(
-                    "id", "userName", "userPassword").setFrom(page.getStartRow())
+                    "id", "name", "description").setFrom(page.getStartRow())
                     .setSize(page.getPageSize()).execute().actionGet();
             page.setTotalRows(response.getHits().totalHits());
             searchHits = response.getHits().getHits();
         } catch (ElasticsearchException e) {
             throw new DXPException("[ES]: search data failed!", e);
         }
-
-        UserEntity model;
+        VideoEntity model;
         if (searchHits.length > 0) {
             for (SearchHit searchHit : searchHits) {
                 try {
@@ -170,11 +172,11 @@ public class ElasticSearch implements IElasticSearchService{
 
         return page;
     }
-    private UserEntity parseSearchFields(Map<String, SearchHitField> fields) throws InvocationTargetException, IllegalAccessException {
-        UserEntity model = new UserEntity();
+    private VideoEntity parseSearchFields(Map<String, SearchHitField> fields) throws InvocationTargetException, IllegalAccessException {
+        VideoEntity model = new VideoEntity();
 
         SearchHitField hitField;
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<String, Object>(500);
         for(Map.Entry<String, SearchHitField> entry : fields.entrySet()) {
             hitField = entry.getValue();
             resultMap.put(entry.getKey(), hitField.getValue());
@@ -188,17 +190,17 @@ public class ElasticSearch implements IElasticSearchService{
     /**
      * 根据索引名进行结构初始化
      *
-     * @param indexname
+     * @param indexName
      */
-    private void createUserStructure(String indexname, String typeName) throws DXPException {
+    private void createUserStructure(String indexName, String typeName) throws DXPException {
         try {
-            client.admin().indices().prepareCreate(indexname).execute().actionGet();
+            client.admin().indices().prepareCreate(indexName).execute().actionGet();
 
-            PutMappingRequest putMappingRequest = Requests.putMappingRequest(indexname).type(typeName)
+            PutMappingRequest putMappingRequest = Requests.putMappingRequest(indexName).type(typeName)
                     .source(createXContentBuilder(typeName));
             client.admin().indices().putMapping(putMappingRequest).actionGet();
         } catch (Exception e) {
-            throw new DXPException("[ES]: initialize index[" + indexname + "] and type[" + typeName + "] failed！", e);
+            throw new DXPException("[ES]: initialize index[" + indexName + "] and type[" + typeName + "] failed！", e);
         }
     }
 
@@ -210,16 +212,19 @@ public class ElasticSearch implements IElasticSearchService{
                 .startObject("id")
                 .field("type", "long")
                 .endObject()
-                .startObject("userName")
+                .startObject("name")
+                .field("analyzer", "ik")
+                .field("index", "analyzed")
                 .field("type", "String")
                 .endObject()
-                .startObject("password")
+                .startObject("description")
                 .field("type", "string")
-                .field("index", "not_analyzed")
+                .field("analyzer", "ik")
+                .field("index", "analyzed")
                 .endObject();
         return builder;
     }
-//    @PostConstruct
+    @PostConstruct
     public void initClient() {
         try {
             String path = this.getClass().getResource("/").getPath() + "es.properties";
@@ -227,10 +232,6 @@ public class ElasticSearch implements IElasticSearchService{
             Resource resource = new FileSystemResource(path);
             Properties configs = PropertiesLoaderUtils.loadProperties(resource);
 
-            String configClusterName = configs.getProperty("es_cluster_name");
-            if(StringUtils.isNotBlank(configClusterName)) {
-                dmallClusterName = configClusterName;
-            }
 
             String target = configs.getProperty("es_transport_client");
             if (StringUtils.isEmpty(target)) {
@@ -244,10 +245,7 @@ public class ElasticSearch implements IElasticSearchService{
                 mylist[i] = new InetSocketTransportAddress(loop, port);
                 i++;
             }
-
-            Settings settings = ImmutableSettings.settingsBuilder().put("cluster.name", dmallClusterName).build();
-
-            this.client = new TransportClient(settings).addTransportAddresses(mylist);
+            this.client = new TransportClient().addTransportAddresses(mylist);
         } catch (ElasticsearchException e) {
             dxpLog.error("[ES]: get search cluster client failed.", e);
         } catch (Exception e) {

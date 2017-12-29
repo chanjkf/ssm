@@ -77,9 +77,9 @@
         <li><a href="javascript: $.pageSkip(${pageNumber + 1});">&gt;</a></li>
     </#if>
 
-    <span class="pageSkip" style="margin-left: -20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到第&nbsp;
+    <span class="pageSkip" style="margin-left: -20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到第&nbsp;
 		<input type="hidden" id="pageNumber" name="pageNumber" value="${pageNumber}"/>
-		<input type="number" id="pageNumberInput" value="${pageNumberInput}" min="1" style="width: 7%;height: 34px;">&nbsp;&nbsp;页&nbsp;&nbsp;
+		<input type="number" id="pageNumberInput" value="${pageNumberInput}" min="1" style="width: 7%;height: 33px;padding-top: 8px;margin-top: 0px;">&nbsp;&nbsp;页&nbsp;&nbsp;
 		<button type="submit" id="submitButton" class="btn btn-default" >确定</button>
 	</span>
 </ul>

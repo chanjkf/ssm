@@ -1,6 +1,7 @@
 package xyz.chanjkf.service;
 
 import xyz.chanjkf.entity.UserEntity;
+import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.utils.DXPException;
 import xyz.chanjkf.utils.page.Page;
 
@@ -15,9 +16,26 @@ public interface IElasticSearchService {
 
     String getResetStatus();
 
-    boolean saveUser(UserEntity entity);
+    /**
+     * 保存视频信息到es
+     * @param entity
+     * @return
+     */
+    boolean saveVideo(VideoEntity entity);
 
-    void initUserStructure()throws DXPException;
+    /**
+     * 删除之前的缩影初始化
+     * @throws DXPException
+     */
+    void initVideoStructure()throws DXPException;
 
-    Page<UserEntity> searchUser(Page<UserEntity> page, String keyWord, String searchType) throws DXPException;
+    /**
+     * 查询
+     * @param page
+     * @param keyWord
+     * @param searchType
+     * @return
+     * @throws DXPException
+     */
+    Page<VideoEntity> searchVideo(Page<VideoEntity> page, String keyWord, String searchType) throws DXPException;
 }

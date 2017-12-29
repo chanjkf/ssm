@@ -50,9 +50,16 @@ public class VideoService extends AbstractService<VideoEntity> implements IVideo
         builder.addOrderBy("id",true);
         List<VideoEntity> entityList = getDistinctActive(builder);
         if(entityList == null || entityList.size() == 0){
-            return 1l;
+            return 1L;
         } else {
             return entityList.get(0).getId();
         }
+    }
+
+    @Override
+    public void increateViewCount(Integer id) {
+        getCurrentSession()
+                .createSQLQuery("update video set view_count = view_count +1 where id = "+id)
+                .executeUpdate();
     }
 }

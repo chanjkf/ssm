@@ -100,16 +100,16 @@ h1 {
 	-o-border-top-right-radius: 10p
 }
 input[type="text"] {
-	  width: 70%;
-	  padding: 1em 2em 1em 3em;
-	  color: #9199aa;
-	  font-size: 18px;
-	  outline: none;
-	  background: url(/view/img/login/adm.png) no-repeat 10px 15px;
-	  border: none;
-	  font-weight: 100;
-	  border-bottom: 1px solid#484856;
-	  margin-top: 2em;
+	width: 70%;
+	padding: 1em 2em 1em 3em;
+	color: #9199aa;
+	font-size: 18px;
+	outline: none;
+	background: url(/view/img/login/key.png) no-repeat 10px 23px;
+	border: none;
+	font-weight: 100;
+	border-bottom: 1px solid#484856;
+	margin-bottom: 0em;
 }
  input[type="password"]{
 	  width: 70%;

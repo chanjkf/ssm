@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import sun.reflect.generics.tree.VoidDescriptor;
 import xyz.chanjkf.entity.UserEntity;
+import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IElasticSearchService;
 import xyz.chanjkf.utils.DXPConst;
 import xyz.chanjkf.utils.DXPException;
@@ -21,11 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * @author yi
+ */
 @RestController("ElasticSearchController")
 @RequestMapping("/search")
-/**
- * Created by yi on 2017/9/12.
- */
 public class ElasticSearchController {
     final static DXPLog dxpLog = new DXPLog (ElasticSearchController.class);
 
@@ -41,11 +43,11 @@ public class ElasticSearchController {
      */
     @RequestMapping(value = "init", method = RequestMethod.GET)
     public String initStructure(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>(10);
         map.put("result", "success");
 
         try {
-            elasticSearchService.initUserStructure();
+            elasticSearchService.initVideoStructure();
         } catch (DXPException e) {
             dxpLog.error(e);
             map.put("result", e.getMessage());
@@ -74,9 +76,9 @@ public class ElasticSearchController {
             pageNumber = 1;
         }
 
-        Page<UserEntity> page = new Page<UserEntity>(pageNumber, DXPConst.PAGE_SIZE);
+        Page<VideoEntity> page = new Page<VideoEntity>(pageNumber, DXPConst.PAGE_SIZE);
         try {
-            page = elasticSearchService.searchUser(page, searchKeys, searchType);
+            page = elasticSearchService.searchVideo(page, searchKeys, searchType);
         } catch (DXPException e) {
             dxpLog.error(e);
         }

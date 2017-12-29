@@ -8,14 +8,14 @@ $().ready(function () {
 function submit_type() {
 
     var type = $("#type").val();
-    $.post(rootPath+"/album/type",
+    $.post(rootPath+"/manage/album/type",
         {
             type:type
         },
 
         function (data, status) {
             if (data.result == "success") {
-
+                window.location.reload();
             } else {
             }
         },

@@ -78,7 +78,15 @@ public class VideoController {
 
         return mv;
     }
-
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    private ModelAndView videoDetail(HttpServletRequest request, HttpServletResponse response,
+                                     @RequestParam(value = "id", required = false) Integer id){
+        ModelAndView mv= new ModelAndView("video-detail");
+        VideoEntity entity = videoService.getActive(id);
+        videoService.increateViewCount(id);
+        mv.addObject("data", entity);
+        return mv;
+    }
 
 
     private Page<VideoEntity> getMovieAddrFromDb(Integer pageNumber,Integer pageSize){

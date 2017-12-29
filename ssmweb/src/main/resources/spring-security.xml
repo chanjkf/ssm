@@ -35,6 +35,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <security:intercept-url pattern="/register/page" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/register/data" method="POST" access="permitAll"/>
         <security:intercept-url pattern="/register/checkName" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/register/activate" method="GET" access="permitAll"/>
         <!--指定登录页面-->
         <security:form-login login-page="/toLogin/page"/>
 

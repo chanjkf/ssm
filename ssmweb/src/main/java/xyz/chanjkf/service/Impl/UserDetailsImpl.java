@@ -40,6 +40,7 @@ public class UserDetailsImpl implements UserDetailsService {
     private HttpServletRequest request;
 
 
+    @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Set<GrantedAuthority> auths = new HashSet<GrantedAuthority>();
 

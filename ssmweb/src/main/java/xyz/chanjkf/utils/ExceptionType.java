@@ -20,8 +20,12 @@ public enum ExceptionType {
     ERROR_PROJECT_LIST(76, "项目列表获取异常"),
     ERROR_EXTERNAL_CALL(77, "外部接口调用错误"),
     ERROR_JSON_PARSER(78, "结果解析错误"),
-    ERROR_OBJECT_CHANGE_EXCEPTION(79, "对象转换异常");
+    ERROR_OBJECT_CHANGE_EXCEPTION(79, "对象转换异常"),
 
+    ERROR_ACTIVATE_USER(100, "对象转换异常"),
+    ERROR_VALIDATE_OUTTIME(101, "校验码超时"),
+    ERROR_VALIDATE_EXIST(102, "校验已通过"),
+    ERROR_VALIDATE(150, "校验码错误");
     private int code;
     private String message;
 

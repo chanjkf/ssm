@@ -16,6 +16,9 @@
     <form method="post" action="${rootRoute}/login">
         <input type="text" id="username" class="text" value="" placeholder="用户名" autocomplete="off">
         <div class="key">
+            <input type="text" id="email" value="" placeholder="邮箱" autocomplete="off">
+        </div>
+        <div class="key">
             <input type="password" id="password1" value="" placeholder="密码" autocomplete="off">
         </div>
         <div class="key">
@@ -30,12 +33,7 @@
 
     </form>
 
+
 </div>
 
-<div class="copy-rights">
-    <p>
-        <small class="block">&copy; 2017 All Rights Reserved.</small>
-        <small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
-    </p>
-</div>
 <script src="${rootRoute}/view/js/register.js"></script>

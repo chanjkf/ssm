@@ -1,10 +1,9 @@
-<#assign rootRoute=request.contextPath />
-<#include "base1.ftl">
+<#import "layout.ftl" as layout>
+<@layout.layout title="首页" topMenu="index">
+    <#assign rootRoute=request.contextPath />
 <div class="fh5co-loader"></div>
 <div id="page">
-<#include "base_head.ftl">
-
-<div id="fh5co-blog" class="blog_css" style="">
+    <div id="fh5co-blog" class="blog_css" style="">
 	<div class="container">
         <div class="col-lg-12" style="padding-left: 0px;margin-bottom: 20px;">
             <a href="javascript:void(0)" onclick="openCreate()" button type="button" class="btn btn-primary pull-right" >创建</a>
@@ -122,7 +121,7 @@
                     <span id="percentage" style="color:blue;"></span> <br>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    <button type="button" id="closeModel" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                 </div>
             </div>
@@ -131,28 +130,7 @@
         <!-- /.modal -->
     </div>
 </div>
-<footer id="fh5co-footer" role="contentinfo">
-	<div class="container">
-		<div class="row copyright">
-			<div class="col-md-12 text-center">
-				<p>
-					<small class="block">&copy; 2017 All Rights Reserved.</small>
-					<small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
-				</p>
-				<p>
-					<ul class="fh5co-social-icons">
-						<li><a href="#"><i class="icon-twitter"></i></a></li>
-						<li><a href="#"><i class="icon-facebook"></i></a></li>
-						<li><a href="#"><i class="icon-linkedin"></i></a></li>
-						<li><a href="#"><i class="icon-dribbble"></i></a></li>
-					</ul>
-				</p>
-			</div>
-		</div>
-
-	</div>
-</footer>
 </div>
 
 <script src="${rootRoute}/view/js/video_manage.js"></script>
-
+</@layout.layout>

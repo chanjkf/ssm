@@ -1,9 +1,8 @@
-<#assign rootRoute=request.contextPath />
-<#include "base1.ftl">
+<#import "layout.ftl" as layout>
+<@layout.layout title="首页" topMenu="index">
+	<#assign rootRoute=request.contextPath />
 <div class="fh5co-loader"></div>
 <div id="page">
-<#include "base_head.ftl">
-
 	<div id="fh5co-blog" class="data-table-content blog_css" style="">
 		<div class="container">
 			<div class="bg-white form-horizontal">
@@ -68,28 +67,7 @@
             <!-- /.modal -->
         </div>
 	</div>
-<footer id="fh5co-footer" role="contentinfo">
-	<div class="container">
-		<div class="row copyright">
-			<div class="col-md-12 text-center">
-				<p>
-					<small class="block">&copy; 2017 All Rights Reserved.</small>
-					<small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
-				</p>
-				<p>
-					<ul class="fh5co-social-icons">
-						<li><a href="#"><i class="icon-twitter"></i></a></li>
-						<li><a href="#"><i class="icon-facebook"></i></a></li>
-						<li><a href="#"><i class="icon-linkedin"></i></a></li>
-						<li><a href="#"><i class="icon-dribbble"></i></a></li>
-					</ul>
-				</p>
-			</div>
-		</div>
-
-	</div>
-</footer>
 </div>
 
 <script src="${rootRoute}/view/js/video.js"></script>
-
+</@layout.layout>

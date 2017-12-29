@@ -12,11 +12,9 @@ import xyz.chanjkf.entity.AlbumEntity;
 import xyz.chanjkf.entity.PhotoType;
 import xyz.chanjkf.entity.RoleEntity;
 import xyz.chanjkf.entity.VideoEntity;
-import xyz.chanjkf.service.IAlbumService;
-import xyz.chanjkf.service.IPhotoTypeService;
-import xyz.chanjkf.service.IRoleService;
-import xyz.chanjkf.service.IVideoService;
+import xyz.chanjkf.service.*;
 import xyz.chanjkf.service.Impl.RoleService;
+import xyz.chanjkf.utils.AddressUtil;
 import xyz.chanjkf.utils.DXPConst;
 import xyz.chanjkf.utils.DXPTime;
 import xyz.chanjkf.utils.JsonUtil;
@@ -31,7 +29,9 @@ import java.io.PrintWriter;
 import java.util.*;
 
 /**
- * Created by YI on 2017/8/1.
+ *
+ * @author YI
+ * @date 2017/8/1
  */
 @Controller
 @RequestMapping("/manage")
@@ -49,6 +49,10 @@ public class ManageController {
     @Resource(name = "RoleService")
     private IRoleService roleService;
 
+    @Resource(name = "ElasticSearchService")
+    private IElasticSearchService elasticService;
+
+
 
 
     @RequestMapping(value = "/album/upload",method = RequestMethod.POST)
@@ -58,7 +62,7 @@ public class ManageController {
                                @RequestParam(value = "name", required = false) String name,
                                @RequestParam(value = "type", required = false) Long type,
                                @RequestParam(value = "desc", required = false) String desc){
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("result", "success");
         Long id = (Long)request.getSession().getAttribute("Id");
         try {
@@ -157,7 +161,7 @@ public class ManageController {
     @ResponseBody
     private String saveVideoType(HttpServletRequest request, HttpServletResponse response,
                                  @RequestParam(value = "type", required = false) String type){
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("result","success");
         PhotoType photoType = new PhotoType();
         photoType.setTypeName(type);
@@ -238,21 +242,23 @@ public class ManageController {
         String fileName = "video"+ userId+(Id+1)+time+originalFilename;
         // 此时文件暂存在服务器的内存中
 //                File tempFile = new File(fileName);// 构造临时对象
-        String uploadPath = request.getServletContext().getRealPath("/video");
+        String uploadPath = AddressUtil.videoAddress;
         String fileAdd = DXPTime.formatDateTime(new Date(),"yyyyMMdd");
         File file1 = new File(uploadPath + File.separator + fileAdd);
         if (!file1.exists() && !file1 .isDirectory()){
             file1.mkdir();
         }
-        File fileTraget = new File(uploadPath+ File.separator + fileAdd + File.separator + fileName);
-        String address = "/video" + "/" + fileAdd + "/" + fileName;
-        multipartFile.transferTo(fileTraget);
+        File fileTarget = new File(uploadPath+ File.separator + fileAdd + File.separator + fileName);
+        String address = "/videos" + "/" + fileAdd + "/" + fileName;
+        multipartFile.transferTo(fileTarget);
         VideoEntity videoEntity = new VideoEntity();
         videoEntity.setName(name);
         videoEntity.setDescription(desc);
         videoEntity.setAddress(address);
         videoEntity.setCreator_id(userId);
         videoService.create(videoEntity);
+        //保存到es
+        elasticService.saveVideo(videoEntity);
         return true;
     }
     private List<String> saveImage(HttpServletRequest request, MultipartFile files) throws IOException, InterruptedException {
@@ -272,17 +278,16 @@ public class ManageController {
         String fileName = "photo"+ userId+(Id+1)+time+originalFilename;
         // 此时文件暂存在服务器的内存中
 //                File tempFile = new File(fileName);// 构造临时对象
-        String uploadPath = request.getServletContext().getRealPath("/photo");
+
+        String uploadPath = AddressUtil.photoAddress;
         String fileAdd = DXPTime.formatDateTime(new Date(),"yyyyMMdd");
         File file1 = new File(uploadPath + File.separator + fileAdd);
-        if (!file1.exists() && !file1 .isDirectory()){
+        if (!file1.exists() && !file1.isDirectory()){
             file1.mkdir();
         }
-        File fileTraget = new File(uploadPath+ File.separator + fileAdd + File.separator + fileName);
-        multipartFile.transferTo(fileTraget);
-        addrStrs.add("/photo" + "/" + fileAdd + "/" + fileName);
-        Thread.sleep(520);     //线程休眠1秒
-
+        File fileTarget = new File(uploadPath+ File.separator + fileAdd + File.separator + fileName);
+        multipartFile.transferTo(fileTarget);
+        addrStrs.add("/images" + "/" + fileAdd + "/" + fileName);
 //        }
         return addrStrs;
     }

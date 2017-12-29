@@ -1,7 +1,9 @@
 package xyz.chanjkf.utils;
 
 /**
- * Created by yi on 2017/6/8.
+ *
+ * @author yi
+ * @date 2017/6/8
  */
 public class DXPConst {
     public static final int USERNAME_MAX = 32;
@@ -15,22 +17,22 @@ public class DXPConst {
 
     public static final String SUCCESS = "success";
 
-    // 时间周期单位u
-    public static final String DATE_UNIT_DAY = "day";
-    public static final String DATE_UNIT_WEEK = "week";
-    public static final String DATE_UNIT_MONTH = "month";
-
-
-    // 用户管理模块及本地角色表存放的角色名称，必须与roleConfig.xml中一致
-    public static final String DXP_PLATADMIN_ROLE_NAME = "平台管理员";
-    // 索引库的别名
-    public final static String INDEX_ALIAS = "photo_ga";
-    // es中的存储目录的type名称
-    public final static String USER_TABLE = "user";
-
-    //Session信息
+    /**
+     * 索引库的别名
+     */
+    public final static String INDEX_ALIAS = "media";
+    /**
+     * es中的存储目录的type名称
+     */
+    public final static String USER_TABLE = "video";
+    /**
+     * Session信息
+     */
     public static final String SESSION_USERID = "Id";
     public static final String SESSION_USERNAME = "User";
+
+    public static final Long DAT_TIME = 24 * 3600000L;
+
 
 
 

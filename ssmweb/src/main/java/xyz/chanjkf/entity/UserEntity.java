@@ -18,6 +18,15 @@ public class UserEntity extends DXPEntity{
     @Column(name = "password")
     private String userPassword;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "use_flag")
+    private Boolean useFlag;
+
+    @Column(name = "validate_code")
+    private String validateCode;
+
     public String getUserName() {
         return userName;
     }
@@ -42,4 +51,27 @@ public class UserEntity extends DXPEntity{
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUseFlag(Boolean useFlag) {
+        this.useFlag = useFlag;
+    }
+
+    public Boolean isUseFlag() {
+        return useFlag;
+    }
+
+    public String getValidateCode() {
+        return validateCode;
+    }
+
+    public void setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
+    }
 }

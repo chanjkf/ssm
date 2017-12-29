@@ -252,12 +252,13 @@
             <version>1.2</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.3</version>
-            <scope>provided</scope>
+            <version>1.4.7</version>
         </dependency>
+
         <dependency>
             <groupId>javax.xml</groupId>
             <artifactId>webservices-api-osgi</artifactId>
@@ -377,6 +378,11 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

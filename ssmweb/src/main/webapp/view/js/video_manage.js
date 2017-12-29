@@ -46,6 +46,9 @@ function progressFunction(evt) {
 function openCreate() {
     $('#createModel').modal({backdrop: 'static', keyboard: false});
 }
+$("#closeModel").click(function () {
+    window.location.reload();
+})
 
 function modifyData (obj, id, pageNum){
     $('#modifyModel').modal({backdrop: 'static', keyboard: false});

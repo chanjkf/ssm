@@ -28,7 +28,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <small class="block">&copy; 2017 All Rights Reserved.</small>
-                        <small class="block">More Templates <a href="http://www.chanjkf.xyz/index" target="_blank" title="chanjkf">chanjkf</a></small>
+                        <small class="block"> ICP证：<a href="http://www.miitbeian.gov.cn/" target="_blank" title="chanjkf">浙ICP备17060564号</a></small>
                     </p>
                     <p>
                     <ul class="fh5co-social-icons">

@@ -23,6 +23,7 @@ function submitPic() {
         clearForm:true,
         success:function(data){
             dmallNotify("上传成功");
+            window.location.reload();
         }
     };
     form.ajaxSubmit(options);
