@@ -138,7 +138,8 @@ function register(){
             if (data.result == "success") {
                 window.location.href = rootPath+"/index";
             } else {
-                dmallError(data.result);
+                $(".erro_pass2").html("*"+data.result);
+                $(".erro_pass2").css("display", "block");
             }
         },
         "json");

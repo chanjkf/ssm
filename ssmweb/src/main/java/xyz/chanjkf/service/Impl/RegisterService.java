@@ -35,10 +35,9 @@ public class RegisterService implements IRegisterService {
     private IUserRoleService userRoleService;
 
     @Override
-    public UserEntity registerUser(String name, String password, String email) throws DXPException {
+    public UserEntity registerUser(String name, String password, String email, String path) throws DXPException {
         List<UserEntity> users = userService.getDistinctActive();
         String validateCode = MD5Util.MD5Encode(email,"utf-8");
-
         RoleEntity roleEntity = new RoleEntity();
         if (users == null || users.size() == 0) {
             roleEntity.setName("ROLE_ADMIN");
@@ -58,7 +57,7 @@ public class RegisterService implements IRegisterService {
         user.setEmail(email);
         userService.create(user);
         try {
-            EmailSender.send(email,user.getId(), validateCode);
+            EmailSender.send(email, user.getId(), validateCode, path, user.getUserName());
         } catch (Exception r) {
             throw new DXPException("发送激活邮件失败");
         }

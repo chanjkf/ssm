@@ -19,6 +19,13 @@
     <mvc:resources location="/view/img/" mapping="/webapp/view/img/**"/>
 	<mvc:resources location="/view/css/" mapping="/webapp/view/css/**"/>
 	<mvc:resources location="/view/js/" mapping="/webapp/view/js/**"/>
+    <!--处理responseBody乱码-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="xyz.chanjkf.utils.JsonStringHttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
     <!-- 定义视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/view/" />

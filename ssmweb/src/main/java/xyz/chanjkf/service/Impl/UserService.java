@@ -8,11 +8,13 @@ import xyz.chanjkf.dao.common.IOperations;
 import xyz.chanjkf.entity.UserEntity;
 import xyz.chanjkf.service.IUserService;
 import xyz.chanjkf.service.common.AbstractService;
+import xyz.chanjkf.utils.*;
 import xyz.chanjkf.utils.page.CrParams;
 import xyz.chanjkf.utils.page.DBCriteriaBuilder;
 import xyz.chanjkf.utils.page.Parameter;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,5 +60,28 @@ public class UserService extends AbstractService<UserEntity> implements IUserSer
         String sql = "select max(id) from user ";
         Long id = (Long) getCurrentSession().createSQLQuery(sql).uniqueResult();
         return id;
+    }
+
+    @Override
+    public void activateUser(String validate, Long user_id) throws DXPException {
+        UserEntity entity = this.getActive(user_id);
+        if (entity == null) {
+            throw new DXPException(ExceptionType.ERROR_ACTIVATE_USER);
+        }
+        if (entity.isUseFlag()) {
+            throw new DXPException(ExceptionType.ERROR_VALIDATE_EXIST.getMessage());
+        }
+        if (!validate.equals(entity.getValidateCode())) {
+            throw new DXPException(ExceptionType.ERROR_VALIDATE.getMessage());
+        }
+        Date create_Date = entity.getCreate_time();
+        long create_time = create_Date.getTime();
+        Date currentDate = new Date();
+        Long currentTime = currentDate.getTime();
+        long  between = currentTime - create_time;
+        if(between > DXPConst.DAT_TIME){
+            throw new DXPException(ExceptionType.ERROR_VALIDATE_OUTTIME.getMessage());
+        }
+        getCurrentSession().createQuery("update user set use_flag=1 where id="+user_id).executeUpdate();
     }
 }

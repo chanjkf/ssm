@@ -126,6 +126,7 @@
 			<tx:method name="register*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="increate*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="merge*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="activate*" propagation="REQUIRED" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 	<aop:aspectj-autoproxy proxy-target-class="true" />

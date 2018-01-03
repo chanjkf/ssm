@@ -16,6 +16,8 @@ import xyz.chanjkf.utils.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,11 +48,19 @@ public class RegisterController {
                           ){
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("result","success");
-        UserEntity entity = null;
+        UserEntity entity = userService.findUser(name);
+        if (entity != null) {
+            map.put("result", ExceptionType.ERROR_USER_EXIST.getMessage());
+            return JsonUtil.getJsonStr(map);
+        }
+        String path = request.getRequestURL().toString();
+        path = path.substring(0, path.lastIndexOf("/"));
+        path = path + "/activate";
         try {
-            entity = registerService.registerUser(name, password, email);
+            entity = registerService.registerUser(name, password, email, path);
         } catch (DXPException e) {
             map.put("result", e.getMessage());
+            return JsonUtil.getJsonStr(map);
         }
 
         request.getSession().setAttribute("user",entity);
@@ -79,42 +89,32 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/activate",method = RequestMethod.GET)
-    @ResponseBody
-    public String activateUser(HttpServletRequest request, HttpServletResponse response,
+    public void activateUser(HttpServletRequest request, HttpServletResponse response,
                             @RequestParam(value = "validate", required = true) String validate,
                             @RequestParam(value = "user_id", required = true) Long user_id) {
         Map<String,Object> map = new HashMap<String,Object>(16);
+        response.setContentType("text/html; charset=utf-8");
         map.put("result", DXPConst.SUCCESS);
-        UserEntity entity = userService.getActive(user_id);
-        if (entity == null) {
-            map.put("result", ExceptionType.ERROR_ACTIVATE_USER.getMessage());
-            return JsonUtil.getJsonStr(map);
-        }
-        if (entity.isUseFlag()) {
-            map.put("result", ExceptionType.ERROR_ACTIVATE_USER.getMessage());
-            return JsonUtil.getJsonStr(map);
-        }
-        if (!validate.equals(entity.getValidateCode())) {
-            map.put("result", ExceptionType.ERROR_VALIDATE.getMessage());
-            return JsonUtil.getJsonStr(map);
-        }
-        Date create_Date = entity.getCreate_time();
-        long create_time = create_Date.getTime();
-        Date currentDate = new Date();
-        Long currentTime = currentDate.getTime();
-        long  between = currentTime - create_time;
-        if(between > DXPConst.DAT_TIME){
-            map.put("result", ExceptionType.ERROR_VALIDATE_OUTTIME.getMessage());
-        }
-        UserEntity entityNew = new UserEntity();
-        try {
-            DmallBeanUtils.copyProperties(entityNew, entity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        entityNew.setUseFlag(true);
-        userService.update(entityNew);
 
-        return JsonUtil.getJsonStr(map);
+        String message = null;
+        try {
+            userService.activateUser(validate, user_id);
+        } catch (DXPException e) {
+            message = e.getMessage();
+        }
+        try {
+            PrintWriter out = response.getWriter();
+
+            if (message != null) {
+                out.write(message);
+
+            } else {
+                out.write("注册成功,3秒后跳转至首页<a href='../index'>立刻跳转</a>");
+            }
+            response.setHeader("refresh", "3;url=../index");
+        } catch (IOException e) {
+
+        }
+
     }
 }

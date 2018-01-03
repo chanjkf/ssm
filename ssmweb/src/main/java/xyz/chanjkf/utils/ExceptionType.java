@@ -1,11 +1,12 @@
 package xyz.chanjkf.utils;
 
 /**
- * Created by yunwei0270 on 2015/8/25.
+ * Created by yi on 2015/8/25.
  */
 
 /**
  * dxp 错误码、错误信息公共类
+ * @author yi
  */
 public enum ExceptionType {
     ERROR_PARAMS_FORMAT(1, "参数不正确"),
@@ -22,10 +23,12 @@ public enum ExceptionType {
     ERROR_JSON_PARSER(78, "结果解析错误"),
     ERROR_OBJECT_CHANGE_EXCEPTION(79, "对象转换异常"),
 
-    ERROR_ACTIVATE_USER(100, "对象转换异常"),
+    ERROR_ACTIVATE_USER(100, "对象查询异常"),
     ERROR_VALIDATE_OUTTIME(101, "校验码超时"),
     ERROR_VALIDATE_EXIST(102, "校验已通过"),
-    ERROR_VALIDATE(150, "校验码错误");
+    ERROR_VALIDATE(150, "校验码错误"),
+
+    ERROR_USER_EXIST(300, "该用户名已存在");
     private int code;
     private String message;
 

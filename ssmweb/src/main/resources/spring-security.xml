@@ -10,8 +10,9 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
     <debug />
     <!--放行静态资源-->
-    <http security="none" pattern="/view/img/index/*.*" />
-    <http security="none" pattern="/view/img/video/*.*" />
+    <http security="none" pattern="/view/img/login/*.*"/>
+    <http security="none" pattern="/view/img/index/*.*"/>
+    <http security="none" pattern="/view/img/video/*.*"/>
     <http security="none" pattern="/**/*.css" />
     <http security="none" pattern="/**/login.html" />
     <http security="none" pattern="/**/*.js" />
