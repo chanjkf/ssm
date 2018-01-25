@@ -5,13 +5,7 @@ package xyz.chanjkf.utils;
  * @author yi
  * @date 2017/6/8
  */
-public class DXPConst {
-    public static final int USERNAME_MAX = 32;
-    public static final int NAME_MAX = 64;
-    public static final int SUMMARY_MAX = 200;
-    public static final int DESCRIBE_MAX = 1024;
-    public static final int REASON_MAX = 2048;
-    public static final int STRING_MAX = 2048;
+public class Const {
 
     public static final int PAGE_SIZE = 10;
 
@@ -33,6 +27,9 @@ public class DXPConst {
 
     public static final Long DAT_TIME = 24 * 3600000L;
 
+    public static final Integer NOT_USE = 0;
+
+    public static final Integer USEING = 1;
 
 
 

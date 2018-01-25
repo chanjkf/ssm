@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by xunzhi on 2015/8/15.
+ * Created by yi on 2017/7/31.
  */
 public class CrParams {
     private String entityName;

@@ -1,6 +1,6 @@
 package xyz.chanjkf.entity;
 
-import xyz.chanjkf.entity.common.DXPEntity;
+import xyz.chanjkf.entity.common.BaseEntity;
 
 import javax.persistence.*;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
  *
  */
 @Entity(name = "video")
-public class VideoEntity extends DXPEntity {
+public class VideoEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

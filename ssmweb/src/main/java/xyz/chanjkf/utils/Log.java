@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  */
-public class DXPLog {
+public class Log {
     private Logger logger;
 
     public Logger getLogger() {
@@ -16,11 +16,11 @@ public class DXPLog {
         this.logger = logger;
     }
 
-    public DXPLog() {
+    public Log() {
     }
 
     /*哪个类需要打印日志，就需要在该类中创建日志*/
-    public DXPLog(Class clazz) {
+    public Log(Class clazz) {
        this.logger = LoggerFactory.getLogger(clazz);
     }
 

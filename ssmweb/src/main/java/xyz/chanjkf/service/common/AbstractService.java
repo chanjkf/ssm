@@ -180,4 +180,5 @@ public abstract class AbstractService<T extends Serializable> implements IOperat
         getDao().updateAllCreatorId(newCreatorId, entityName, conditions);
     }
 
+
 }

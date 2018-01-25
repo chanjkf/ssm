@@ -3,6 +3,12 @@ var arr = pathname.split("/");
 var proName = arr[1];
 var rootPath = "http://" + window.location.host + "/" + proName;
 $().ready(function () {
+    getWeather();
+    console.log(arr)
+    if (arr[2] != "index") {
+        $("#weather").hide();
+    }
+
 })
 function showRegisterForm(){
     $('.loginBox').fadeOut('fast',function(){
@@ -55,7 +61,7 @@ function loginAjax(){
                     $('#loginModal').modal('hide');
                 }, 230);
             } else {
-                dmallError(data.result);
+                messageError(data.result);
             }
         },
         "json");
@@ -71,4 +77,21 @@ function shakeModal(message){
         $('#loginModal .modal-dialog').removeClass('shake');
     }, 1000 );
 }
+
+function getWeather() {
+    $.get(rootPath+"/weather",
+        {
+
+        },
+    function (data, status) {
+        if (data.result == "success") {
+            var result = data.weather;
+            console.log(result.weather);
+        } else {
+            messageError(data.result);
+        }
+    },"json")
+}
+
+
 

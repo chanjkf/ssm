@@ -1,21 +1,6 @@
 var url = window.location.href;
 $().ready(function () {
-    var str = url.split("/");
-    if(str[3] == 'video'){
-        $("#video123").addClass("active");
-        // $("#photo").removeClass("active");
-        // $("#home").removeClass("active");
 
-    }
-
-    // $.get("/video/page",
-    //     function (data, status) {
-    //         if (data.result == "success") {
-    //             initDirectoryPage(data.pageNumber,data.totalPages);
-    //         } else {
-    //         }
-    //     },
-    //     "json");
 })
 
 // (function(){

@@ -9,9 +9,9 @@ import sun.reflect.generics.tree.VoidDescriptor;
 import xyz.chanjkf.entity.UserEntity;
 import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IElasticSearchService;
-import xyz.chanjkf.utils.DXPConst;
-import xyz.chanjkf.utils.DXPException;
-import xyz.chanjkf.utils.DXPLog;
+import xyz.chanjkf.utils.Const;
+import xyz.chanjkf.utils.BaseException;
+import xyz.chanjkf.utils.Log;
 import xyz.chanjkf.utils.JsonUtil;
 import xyz.chanjkf.utils.page.Page;
 
@@ -29,7 +29,7 @@ import java.util.Map;
 @RestController("ElasticSearchController")
 @RequestMapping("/search")
 public class ElasticSearchController {
-    final static DXPLog dxpLog = new DXPLog (ElasticSearchController.class);
+    final static Log log = new Log (ElasticSearchController.class);
 
     @Resource(name = "ElasticSearchService")
     private IElasticSearchService elasticSearchService;
@@ -48,8 +48,8 @@ public class ElasticSearchController {
 
         try {
             elasticSearchService.initVideoStructure();
-        } catch (DXPException e) {
-            dxpLog.error(e);
+        } catch (BaseException e) {
+            log.error(e);
             map.put("result", e.getMessage());
         }
 
@@ -76,11 +76,11 @@ public class ElasticSearchController {
             pageNumber = 1;
         }
 
-        Page<VideoEntity> page = new Page<VideoEntity>(pageNumber, DXPConst.PAGE_SIZE);
+        Page<VideoEntity> page = new Page<VideoEntity>(pageNumber, Const.PAGE_SIZE);
         try {
             page = elasticSearchService.searchVideo(page, searchKeys, searchType);
-        } catch (DXPException e) {
-            dxpLog.error(e);
+        } catch (BaseException e) {
+            log.error(e);
         }
 
 

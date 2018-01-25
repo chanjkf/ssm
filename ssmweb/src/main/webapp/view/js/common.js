@@ -1,19 +1,10 @@
-
-/*
- *  ———————————————————————————
- *  Copyright  2017 Hangzhou DtDream Technology Co.,Lt d. All rights reserved.
- *   ———————————————————————————
- *        Product: datamall
- *    Module Name: dmall
- *   Date Created: 2017-8-18
- *    Description:
- *   ———————————————————————————
- *  Modification History
- *  DATE            Name           Description
- *   ———————————————————————————
- *  2017-8-18    z0253
- *   ———————————————————————————
- */
+var pathname = window.location.pathname;
+var arr = pathname.split("/");
+var proName = arr[1];
+var rootPath = "http://" + window.location.host + "/" + proName;
+$().ready(function () {
+    activeTitle(arr[2])
+})
 
 function exchangeState2CN(english){
 	var cn = "";
@@ -56,7 +47,7 @@ function exchangeState2CN(english){
 //提示type: "success", "info", "warning", "bangTidy", "blackgloss"
 
 //成功消息通知，2s关闭
-function dmallNotify(message) {
+function messageNotify(message) {
 	$('.bottom-right').notify({
 		type: "info",
 		closable: true,
@@ -65,7 +56,7 @@ function dmallNotify(message) {
 	}).show();
 }
 //成功消息通知，500ms后关闭并跳转页面
-function dmallNotifyAndLocation(message, url) {
+function messageNotifyAndLocation(message, url) {
 	function locationNewUrl() {
 		location.href = url;
 	};
@@ -79,7 +70,7 @@ function dmallNotifyAndLocation(message, url) {
 	}).show();
 }
 //错误消息通知，不自动消失
-function dmallError(message) {
+function messageError(message) {
 	$('.bottom-right').notify({
 		type: "danger",
 		closable: true,
@@ -89,7 +80,7 @@ function dmallError(message) {
 }
 
 //错误消息通知，不自动消失
-function dmallAjaxError() {
+function messageAjaxError() {
     $('.bottom-right').notify({
         type: "danger",
         closable: true,
@@ -465,4 +456,26 @@ function htmlDecode(str) {
     var div = document.createElement("div");
     div.innerHTML = str;
     return div.innerText;
+}
+
+function activeTitle(str) {
+	if (str != "index") {
+        $("#weather").hide();
+	}
+    if (str == "index") {
+        $("#home").addClass("active");
+	}
+
+    if (str == "video") {
+        $("#video123").addClass("active");
+    }
+
+    if (str == "album") {
+        $("#photo").addClass("active");
+    }
+
+    if (str == "manage") {
+        $("#manage").addClass("active");
+    }
+
 }

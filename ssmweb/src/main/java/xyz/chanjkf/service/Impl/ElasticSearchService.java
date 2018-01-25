@@ -29,11 +29,8 @@ import xyz.chanjkf.entity.UserEntity;
 import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.model.ElasticSearchResetModel;
 import xyz.chanjkf.service.IElasticSearchService;
-import xyz.chanjkf.utils.DXPConst;
-import xyz.chanjkf.utils.DXPException;
+import xyz.chanjkf.utils.*;
 import org.elasticsearch.client.Client;
-import xyz.chanjkf.utils.DXPLog;
-import xyz.chanjkf.utils.DXPTime;
 import xyz.chanjkf.utils.page.Page;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -51,7 +48,7 @@ import java.util.Properties;
 @Service("ElasticSearchService")
 public class ElasticSearchService implements IElasticSearchService{
 
-    DXPLog dxpLog = new DXPLog();
+    Log log = new Log();
 
     private Client client = null;
 
@@ -70,21 +67,21 @@ public class ElasticSearchService implements IElasticSearchService{
     @Override
     public String getResetStatus() {
         if ("RUNNING".equals(elasticSearchResetModel.getStatus())) {
-            return "搜索引擎正在进行数据重置中，当前状态：" + elasticSearchResetModel.getStatus() + "；开始时间：" + DXPTime
+            return "搜索引擎正在进行数据重置中，当前状态：" + elasticSearchResetModel.getStatus() + "；开始时间：" + BaseTime
                     .formatDateTime(elasticSearchResetModel
                             .getBeginTime());
         }
 
         if ("SUCCESS".equals(elasticSearchResetModel.getStatus())) {
             return "搜索引擎数据重置成功，当前状态：" + elasticSearchResetModel.getStatus() + "；开始时间："
-                    + DXPTime.formatDateTime(elasticSearchResetModel.getBeginTime())
-                    + "；结束时间：" + DXPTime.formatDateTime(elasticSearchResetModel.getFinishedTime());
+                    + BaseTime.formatDateTime(elasticSearchResetModel.getBeginTime())
+                    + "；结束时间：" + BaseTime.formatDateTime(elasticSearchResetModel.getFinishedTime());
         }
 
         if ("FAILED".equals(elasticSearchResetModel.getStatus())) {
             return "搜索引擎数据重置失败，当前状态：" + elasticSearchResetModel.getStatus() + "；开始时间："
-                    + DXPTime.formatDateTime(elasticSearchResetModel.getBeginTime())
-                    + "；结束时间：" + DXPTime.formatDateTime(elasticSearchResetModel.getFinishedTime())
+                    + BaseTime.formatDateTime(elasticSearchResetModel.getBeginTime())
+                    + "；结束时间：" + BaseTime.formatDateTime(elasticSearchResetModel.getFinishedTime())
                     + "；失败原因：" + elasticSearchResetModel.getErrorReason();
         }
 
@@ -104,22 +101,22 @@ public class ElasticSearchService implements IElasticSearchService{
         userMap.put("name",entity.getName());
         userMap.put("description",entity.getDescription());
         try {
-            client.prepareIndex(DXPConst.INDEX_ALIAS, DXPConst.USER_TABLE)
+            client.prepareIndex(Const.INDEX_ALIAS, Const.USER_TABLE)
                     .setSource(userMap).setId(entity.getId().toString())
                     .execute()
                     .actionGet();
             return true;
         } catch (ElasticsearchException e) {
-            dxpLog.error("[ES]: add user[userId=" + entity.getId() + "] failed", e);
+            log.error("[ES]: add user[userId=" + entity.getId() + "] failed", e);
             return false;
         }
     }
 
     @Override
-    public void initVideoStructure() throws DXPException {
-        deleteIndex(DXPConst.INDEX_ALIAS);
-        createUserStructure(DXPConst.INDEX_ALIAS, DXPConst.USER_TABLE);
-        dxpLog.info("[ES]: initialize index[" + DXPConst.INDEX_ALIAS + "] and type[" + DXPConst.USER_TABLE + "] success！");
+    public void initVideoStructure() throws BaseException {
+        deleteIndex(Const.INDEX_ALIAS);
+        createUserStructure(Const.INDEX_ALIAS, Const.USER_TABLE);
+        log.info("[ES]: initialize index[" + Const.INDEX_ALIAS + "] and type[" + Const.USER_TABLE + "] success！");
 
     }
     /**
@@ -127,18 +124,18 @@ public class ElasticSearchService implements IElasticSearchService{
      *
      * @param indexName
      */
-    private void deleteIndex(String indexName) throws DXPException {
+    private void deleteIndex(String indexName) throws BaseException {
 
         try {
             client.admin().indices().prepareDelete(indexName).execute().actionGet();
         } catch (ElasticsearchException e) {
-            dxpLog.error("[ES]: delete index [" + indexName + "] failed", e);
+            log.error("[ES]: delete index [" + indexName + "] failed", e);
         }
     }
 
     @Override
-    public Page<VideoEntity> searchVideo(Page<VideoEntity> page, String keyWord, String searchType) throws DXPException {
-        SearchRequestBuilder builder = this.client.prepareSearch(DXPConst.INDEX_ALIAS).setTypes(DXPConst.USER_TABLE);
+    public Page<VideoEntity> searchVideo(Page<VideoEntity> page, String keyWord, String searchType) throws BaseException {
+        SearchRequestBuilder builder = this.client.prepareSearch(Const.INDEX_ALIAS).setTypes(Const.USER_TABLE);
         BoolQueryBuilder query = QueryBuilders.boolQuery();
         if(StringUtils.isNotEmpty(keyWord)) {
             BoolQueryBuilder keyWordBuilder = QueryBuilders.boolQuery()
@@ -155,7 +152,7 @@ public class ElasticSearchService implements IElasticSearchService{
             page.setTotalRows(response.getHits().totalHits());
             searchHits = response.getHits().getHits();
         } catch (ElasticsearchException e) {
-            throw new DXPException("[ES]: search data failed!", e);
+            throw new BaseException("[ES]: search data failed!", e);
         }
         VideoEntity model;
         if (searchHits.length > 0) {
@@ -165,7 +162,7 @@ public class ElasticSearchService implements IElasticSearchService{
                     model = parseSearchFields(fields);
                     page.getResult().add(model);
                 } catch (Exception e) {
-                    dxpLog.error("[ES]: search result translate failed!", e);
+                    log.error("[ES]: search result translate failed!", e);
                 }
             }
         }
@@ -192,7 +189,7 @@ public class ElasticSearchService implements IElasticSearchService{
      *
      * @param indexName
      */
-    private void createUserStructure(String indexName, String typeName) throws DXPException {
+    private void createUserStructure(String indexName, String typeName) throws BaseException {
         try {
             client.admin().indices().prepareCreate(indexName).execute().actionGet();
 
@@ -200,7 +197,7 @@ public class ElasticSearchService implements IElasticSearchService{
                     .source(createXContentBuilder(typeName));
             client.admin().indices().putMapping(putMappingRequest).actionGet();
         } catch (Exception e) {
-            throw new DXPException("[ES]: initialize index[" + indexName + "] and type[" + typeName + "] failed！", e);
+            throw new BaseException("[ES]: initialize index[" + indexName + "] and type[" + typeName + "] failed！", e);
         }
     }
 
@@ -226,31 +223,39 @@ public class ElasticSearchService implements IElasticSearchService{
     }
     @PostConstruct
     public void initClient() {
-        try {
-            String path = this.getClass().getResource("/").getPath() + "es.properties";
-            path = URLDecoder.decode(path, "utf-8");
-            Resource resource = new FileSystemResource(path);
-            Properties configs = PropertiesLoaderUtils.loadProperties(resource);
-
-
-            String target = configs.getProperty("es_transport_client");
-            if (StringUtils.isEmpty(target)) {
-                dxpLog.warn("[ES]: search cluster config failed.");
-            }
-            String[] targetlist = target.split(";");
-            int port = (Integer.parseInt(configs.getProperty("es_transport_port")));
-            TransportAddress[] mylist = new TransportAddress[targetlist.length];
-            int i = 0;
-            for (String loop : targetlist) {
-                mylist[i] = new InetSocketTransportAddress(loop, port);
-                i++;
-            }
-            this.client = new TransportClient().addTransportAddresses(mylist);
-        } catch (ElasticsearchException e) {
-            dxpLog.error("[ES]: get search cluster client failed.", e);
-        } catch (Exception e) {
-            dxpLog.error(e);
+        Integer useFlag = CommonUtil.USE_FLAG;
+        boolean flag = false;
+        if (useFlag != null && useFlag == 1) {
+            flag = true;
         }
+        if (flag) {
+            try {
+                String path = this.getClass().getResource("/").getPath() + "es.properties";
+                path = URLDecoder.decode(path, "utf-8");
+                Resource resource = new FileSystemResource(path);
+                Properties configs = PropertiesLoaderUtils.loadProperties(resource);
+
+
+                String target = configs.getProperty("es_transport_client");
+                if (StringUtils.isEmpty(target)) {
+                    log.warn("[ES]: search cluster config failed.");
+                }
+                String[] targetlist = target.split(";");
+                int port = (Integer.parseInt(configs.getProperty("es_transport_port")));
+                TransportAddress[] mylist = new TransportAddress[targetlist.length];
+                int i = 0;
+                for (String loop : targetlist) {
+                    mylist[i] = new InetSocketTransportAddress(loop, port);
+                    i++;
+                }
+                this.client = new TransportClient().addTransportAddresses(mylist);
+            } catch (ElasticsearchException e) {
+                log.error("[ES]: get search cluster client failed.", e);
+            } catch (Exception e) {
+                log.error(e);
+            }
+        }
+
     }
 
     @PreDestroy

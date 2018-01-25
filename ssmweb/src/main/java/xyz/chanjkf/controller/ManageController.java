@@ -15,8 +15,8 @@ import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.*;
 import xyz.chanjkf.service.Impl.RoleService;
 import xyz.chanjkf.utils.AddressUtil;
-import xyz.chanjkf.utils.DXPConst;
-import xyz.chanjkf.utils.DXPTime;
+import xyz.chanjkf.utils.Const;
+import xyz.chanjkf.utils.BaseTime;
 import xyz.chanjkf.utils.JsonUtil;
 import xyz.chanjkf.utils.page.Page;
 
@@ -51,9 +51,6 @@ public class ManageController {
 
     @Resource(name = "ElasticSearchService")
     private IElasticSearchService elasticService;
-
-
-
 
     @RequestMapping(value = "/album/upload",method = RequestMethod.POST)
     @ResponseBody
@@ -236,14 +233,14 @@ public class ManageController {
 
         Long Id = videoService.getMaxIdFromDb();
 
-        String userIdStr = request.getSession().getAttribute(DXPConst.SESSION_USERID).toString();
+        String userIdStr = request.getSession().getAttribute(Const.SESSION_USERID).toString();
         Long userId = Long.parseLong(userIdStr);
         Long time = System.currentTimeMillis();
         String fileName = "video"+ userId+(Id+1)+time+originalFilename;
         // 此时文件暂存在服务器的内存中
 //                File tempFile = new File(fileName);// 构造临时对象
         String uploadPath = AddressUtil.videoAddress;
-        String fileAdd = DXPTime.formatDateTime(new Date(),"yyyyMMdd");
+        String fileAdd = BaseTime.formatDateTime(new Date(),"yyyyMMdd");
         File file1 = new File(uploadPath + File.separator + fileAdd);
         if (!file1.exists() && !file1 .isDirectory()){
             file1.mkdir();
@@ -272,7 +269,7 @@ public class ManageController {
 
         Long Id = albumService.getMaxIdFromDb();
 
-        String userIdStr = request.getSession().getAttribute(DXPConst.SESSION_USERID).toString();
+        String userIdStr = request.getSession().getAttribute(Const.SESSION_USERID).toString();
         int userId = Integer.parseInt(userIdStr);
         Long time = System.currentTimeMillis();
         String fileName = "photo"+ userId+(Id+1)+time+originalFilename;
@@ -280,7 +277,7 @@ public class ManageController {
 //                File tempFile = new File(fileName);// 构造临时对象
 
         String uploadPath = AddressUtil.photoAddress;
-        String fileAdd = DXPTime.formatDateTime(new Date(),"yyyyMMdd");
+        String fileAdd = BaseTime.formatDateTime(new Date(),"yyyyMMdd");
         File file1 = new File(uploadPath + File.separator + fileAdd);
         if (!file1.exists() && !file1.isDirectory()){
             file1.mkdir();

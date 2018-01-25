@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import xyz.chanjkf.entity.common.DXPEntity;
+import xyz.chanjkf.entity.common.BaseEntity;
 import xyz.chanjkf.utils.page.DBCriteriaBuilder;
 import xyz.chanjkf.utils.page.Page;
 import xyz.chanjkf.utils.page.Parameter;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
-public abstract class AbstractHibernateDao<T extends DXPEntity> implements IOperations<T> {
+public abstract class AbstractHibernateDao<T extends BaseEntity> implements IOperations<T> {
 
     private Class<T> clazz;
 
@@ -286,6 +286,7 @@ public abstract class AbstractHibernateDao<T extends DXPEntity> implements IOper
 
         Session curSession = getCurrentSession();
         curSession.merge(entity);
+
 
         return entity;
     }

@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by yunwei0270 on 2015/6/15.
+ * Created by yi on 2017/7/31.
  */
-public class DXPTime {
+public class BaseTime {
 
     private static Calendar cal;
     public final static String TIME_DATE = "yyyy-MM-dd";

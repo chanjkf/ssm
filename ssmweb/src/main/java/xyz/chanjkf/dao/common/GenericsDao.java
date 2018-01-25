@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import xyz.chanjkf.entity.common.DXPEntity;
+import xyz.chanjkf.entity.common.BaseEntity;
 import xyz.chanjkf.utils.page.DBCriteriaBuilder;
 import xyz.chanjkf.utils.page.Page;
 import xyz.chanjkf.utils.page.Parameter;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class GenericsDao<T extends DXPEntity> implements IGenerics<T> {
+public abstract class GenericsDao<T extends BaseEntity> implements IGenerics<T> {
 
     @Resource(name = "sessionFactory")
     protected SessionFactory sessionFactory;

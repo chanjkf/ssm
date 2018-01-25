@@ -8,7 +8,7 @@ import xyz.chanjkf.service.IRegisterService;
 import xyz.chanjkf.service.IRoleService;
 import xyz.chanjkf.service.IUserRoleService;
 import xyz.chanjkf.service.IUserService;
-import xyz.chanjkf.utils.DXPException;
+import xyz.chanjkf.utils.BaseException;
 import xyz.chanjkf.utils.MD5Util;
 import xyz.chanjkf.utils.email.EmailSender;
 
@@ -35,7 +35,7 @@ public class RegisterService implements IRegisterService {
     private IUserRoleService userRoleService;
 
     @Override
-    public UserEntity registerUser(String name, String password, String email, String path) throws DXPException {
+    public UserEntity registerUser(String name, String password, String email, String path) throws BaseException {
         List<UserEntity> users = userService.getDistinctActive();
         String validateCode = MD5Util.MD5Encode(email,"utf-8");
         RoleEntity roleEntity = new RoleEntity();
@@ -59,7 +59,7 @@ public class RegisterService implements IRegisterService {
         try {
             EmailSender.send(email, user.getId(), validateCode, path, user.getUserName());
         } catch (Exception r) {
-            throw new DXPException("发送激活邮件失败");
+            throw new BaseException("发送激活邮件失败");
         }
 
 

@@ -5,7 +5,7 @@ package xyz.chanjkf.utils;
  */
 
 /**
- * dxp 错误码、错误信息公共类
+ * 错误码、错误信息公共类
  * @author yi
  */
 public enum ExceptionType {

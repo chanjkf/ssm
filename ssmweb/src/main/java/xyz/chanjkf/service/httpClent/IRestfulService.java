@@ -7,18 +7,15 @@ import javax.annotation.PostConstruct;
  */
 public interface IRestfulService {
 
-    String getRequestUrl(String actionUrl);
+    String getIpMsg(String ip);
 
-    String get(String actionUrl, String userName);
+    String get(String actionUrl, String appCode);
 
     String post(String requestUrl, String jsonBody, String userName);
 
     String put(String requestUrl, String jsonBody, String userName);
 
     String delete(String requestUrl, String resourceNo, String userName);
-
-//    String deleteWithBody(String actionUrl, String jsonBody, String userName);
-
 
 
 }

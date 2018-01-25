@@ -58,7 +58,7 @@ public class RegisterController {
         path = path + "/activate";
         try {
             entity = registerService.registerUser(name, password, email, path);
-        } catch (DXPException e) {
+        } catch (BaseException e) {
             map.put("result", e.getMessage());
             return JsonUtil.getJsonStr(map);
         }
@@ -94,12 +94,12 @@ public class RegisterController {
                             @RequestParam(value = "user_id", required = true) Long user_id) {
         Map<String,Object> map = new HashMap<String,Object>(16);
         response.setContentType("text/html; charset=utf-8");
-        map.put("result", DXPConst.SUCCESS);
+        map.put("result", Const.SUCCESS);
 
         String message = null;
         try {
             userService.activateUser(validate, user_id);
-        } catch (DXPException e) {
+        } catch (BaseException e) {
             message = e.getMessage();
         }
         try {
@@ -109,12 +109,22 @@ public class RegisterController {
                 out.write(message);
 
             } else {
-                out.write("×¢²á³É¹¦,3ÃëºóÌø×ªÖÁÊ×Ò³<a href='../index'>Á¢¿ÌÌø×ª</a>");
+                out.write("×¢ï¿½ï¿½É¹ï¿½,3ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ò³<a href='../index'>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª</a>");
             }
             response.setHeader("refresh", "3;url=../index");
         } catch (IOException e) {
 
         }
 
+    }
+
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
+    @ResponseBody
+    public String toIndex(HttpServletRequest request, HttpServletResponse response,
+                          @RequestParam(value = "userId", required = false) Long userId){
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("result","success");
+        userService.deleteById(userId);
+        return JsonUtil.getJsonStr(map);
     }
 }

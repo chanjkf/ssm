@@ -63,25 +63,33 @@ public class UserService extends AbstractService<UserEntity> implements IUserSer
     }
 
     @Override
-    public void activateUser(String validate, Long user_id) throws DXPException {
+    public void activateUser(String validate, Long user_id) throws BaseException {
         UserEntity entity = this.getActive(user_id);
         if (entity == null) {
-            throw new DXPException(ExceptionType.ERROR_ACTIVATE_USER);
+            throw new BaseException(ExceptionType.ERROR_ACTIVATE_USER);
         }
         if (entity.isUseFlag()) {
-            throw new DXPException(ExceptionType.ERROR_VALIDATE_EXIST.getMessage());
+            throw new BaseException(ExceptionType.ERROR_VALIDATE_EXIST.getMessage());
         }
         if (!validate.equals(entity.getValidateCode())) {
-            throw new DXPException(ExceptionType.ERROR_VALIDATE.getMessage());
+            throw new BaseException(ExceptionType.ERROR_VALIDATE.getMessage());
         }
         Date create_Date = entity.getCreate_time();
         long create_time = create_Date.getTime();
         Date currentDate = new Date();
         Long currentTime = currentDate.getTime();
         long  between = currentTime - create_time;
-        if(between > DXPConst.DAT_TIME){
-            throw new DXPException(ExceptionType.ERROR_VALIDATE_OUTTIME.getMessage());
+        if(between > Const.DAT_TIME){
+            throw new BaseException(ExceptionType.ERROR_VALIDATE_OUTTIME.getMessage());
         }
         getCurrentSession().createQuery("update user set use_flag=1 where id="+user_id).executeUpdate();
+    }
+
+    public UserEntity findUserByNameAndPass(String username, String password) {
+        UserEntity user = findUser(username);
+        if (password == null || !password.equals(user.getUserPassword())) {
+            return null;
+        }
+        return user;
     }
 }

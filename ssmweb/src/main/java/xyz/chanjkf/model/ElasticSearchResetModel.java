@@ -3,7 +3,7 @@ package xyz.chanjkf.model;
 import java.util.Date;
 
 /**
- * Created by l0350 on 2016/11/10.
+ * Created by yi on 2017/7/31.
  */
 public class ElasticSearchResetModel {
 

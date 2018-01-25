@@ -1,6 +1,6 @@
 package xyz.chanjkf.entity;
 
-import xyz.chanjkf.entity.common.DXPEntity;
+import xyz.chanjkf.entity.common.BaseEntity;
 
 import javax.persistence.*;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by yi on 2017/12/18.
  */
 @Entity(name = "photo_type")
-public class PhotoType extends DXPEntity {
+public class PhotoType extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

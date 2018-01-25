@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by yunwei0270 on 2015/9/28.
+ * Created by yi on 2017/7/31.
  */
-/*dxp公共函数类*/
-public class DXPUtil {
+public class BaseUtil {
 
 
 
@@ -46,13 +45,6 @@ public class DXPUtil {
         String s = UUID.randomUUID().toString();
         // 去掉"-"符号
         return s.replace("-", "");
-    }
-
-
-
-
-    public static String getDataBridgeName(Long exchangeId) {
-        return "dmall_" + exchangeId + "_" + getUuid();
     }
 
 
@@ -106,23 +98,23 @@ public class DXPUtil {
             //开始时间和结束时间不相同
             if (startTime.equals(endTime)) {
                 //查询指定日期
-                startTimeStr = DXPTime.dateAddDaysTranStr(startTime, 0, "yyyy-MM-dd");
-                endTimeStr = DXPTime.dateAddDaysTranStr(startTime, 1, "yyyy-MM-dd");
+                startTimeStr = BaseTime.dateAddDaysTranStr(startTime, 0, "yyyy-MM-dd");
+                endTimeStr = BaseTime.dateAddDaysTranStr(startTime, 1, "yyyy-MM-dd");
                 query.append(entityStr).append(" between '").append(startTimeStr).append("' and '").append(endTimeStr)
                         .append("'");
             } else {
-                startTimeStr = DXPTime.dateAddDaysTranStr(startTime, 0, "yyyy-MM-dd");
-                endTimeStr = DXPTime.dateAddDaysTranStr(endTime, 1, "yyyy-MM-dd");
+                startTimeStr = BaseTime.dateAddDaysTranStr(startTime, 0, "yyyy-MM-dd");
+                endTimeStr = BaseTime.dateAddDaysTranStr(endTime, 1, "yyyy-MM-dd");
                 query.append(entityStr).append(" between '").append(startTimeStr).append("' and '").append(endTimeStr)
                         .append("'");
             }
         } else if ((null == startTime) && (null != endTime)) {
             //查询指定日期
-            endTimeStr = DXPTime.dateAddDaysTranStr(endTime, 1, "yyyy-MM-dd");
+            endTimeStr = BaseTime.dateAddDaysTranStr(endTime, 1, "yyyy-MM-dd");
             query.append(entityStr).append(" < '").append(endTimeStr).append("'");
         } else if ((null != startTime) && (null == endTime)) {
             //查询指定日期
-            startTimeStr = DXPTime.dateAddDaysTranStr(startTime, 0, "yyyy-MM-dd");
+            startTimeStr = BaseTime.dateAddDaysTranStr(startTime, 0, "yyyy-MM-dd");
             query.append(entityStr).append(" >= '").append(startTimeStr).append("'");
         }
 

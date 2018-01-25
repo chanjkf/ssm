@@ -7,7 +7,15 @@
                 <div class="col-xs-2">
                     <div id="fh5co-logo" style="margin-left: 50px;"><a href="index.ftl">Air<span>.</span></a></div>
                 </div>
-                <div class="col-xs-10 text-right menu-1">
+
+                <div class="col-xs-2" >
+                    <div id="weather" style="margin-top: -15px;">
+                        <iframe allowtransparency="true" frameborder="0" width="290" height="96" scrolling="no"
+                                src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=2&bd=0&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=290&h=96&align=center"></iframe>
+                    </div>
+
+                </div>
+                <div class="col-xs-8 text-right menu-1">
                     <ul>
                         <li class="" id="home"><a href="${rootRoute}/index">Home</a></li>
                         <li class="" id="video123">
@@ -22,7 +30,7 @@
                                 <li><a href="#">API</a></li>
                             </ul>
                         </li>
-                        <li class="has-dropdown">
+                        <li class="has-dropdown" id="manage">
                             <a href="${rootRoute}/manage/album">管理</a>
                             <ul class="dropdown">
                                 <li><a href="${rootRoute}/manage/album">图片管理</a></li>
@@ -32,7 +40,7 @@
                         </li>
                         <li class="btn-cta" style="margin-left: 50px">
                         <#if SPRING_SECURITY_CONTEXT.authentication.principal.username == "">
-                            <a href="${rootRoute}/toLogin/page" ><span>Login</span></a>
+                            <a href="${rootRoute}/toLogin/page"><span>Login</span></a>
                         <#else>
                             <a href="javascript:void(0)">
 										<span>

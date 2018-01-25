@@ -2,7 +2,7 @@ package xyz.chanjkf.service;
 
 import xyz.chanjkf.dao.common.IOperations;
 import xyz.chanjkf.entity.UserEntity;
-import xyz.chanjkf.utils.DXPException;
+import xyz.chanjkf.utils.BaseException;
 
 /**
  * Created by yi on 2017/6/7.
@@ -12,5 +12,5 @@ public interface IUserService extends IOperations<UserEntity> {
 
     Long findMaxId();
 
-    void activateUser(String validate, Long user_id) throws DXPException;
+    void activateUser(String validate, Long user_id) throws BaseException;
 }

@@ -2,7 +2,7 @@ package xyz.chanjkf.service;
 
 import xyz.chanjkf.entity.UserEntity;
 import xyz.chanjkf.entity.VideoEntity;
-import xyz.chanjkf.utils.DXPException;
+import xyz.chanjkf.utils.BaseException;
 import xyz.chanjkf.utils.page.Page;
 
 import java.util.List;
@@ -25,9 +25,9 @@ public interface IElasticSearchService {
 
     /**
      * 删除之前的缩影初始化
-     * @throws DXPException
+     * @throws BaseException
      */
-    void initVideoStructure()throws DXPException;
+    void initVideoStructure()throws BaseException;
 
     /**
      * 查询
@@ -35,7 +35,7 @@ public interface IElasticSearchService {
      * @param keyWord
      * @param searchType
      * @return
-     * @throws DXPException
+     * @throws BaseException
      */
-    Page<VideoEntity> searchVideo(Page<VideoEntity> page, String keyWord, String searchType) throws DXPException;
+    Page<VideoEntity> searchVideo(Page<VideoEntity> page, String keyWord, String searchType) throws BaseException;
 }

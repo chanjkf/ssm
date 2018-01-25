@@ -1,11 +1,11 @@
 package xyz.chanjkf.entity;
 
-import xyz.chanjkf.entity.common.DXPEntity;
+import xyz.chanjkf.entity.common.BaseEntity;
 
 import javax.persistence.*;
 
 @Entity(name = "user")
-public class UserEntity extends DXPEntity{
+public class UserEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

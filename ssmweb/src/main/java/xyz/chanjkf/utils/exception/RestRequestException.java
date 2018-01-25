@@ -1,9 +1,9 @@
 package xyz.chanjkf.utils.exception;
 
 /**
- * Created by yunwei0270 on 2015/8/15.
+ * Created by yi on 2017/7/31.
  */
-public class RestRequestException extends DXPException {
+public class RestRequestException extends BaseException {
     public RestRequestException(){}
     public RestRequestException(Class req, String message){
         super(req.getName() + "request" + message);

@@ -2,7 +2,7 @@ package xyz.chanjkf.utils.quarz;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import xyz.chanjkf.utils.DXPLog;
+import xyz.chanjkf.utils.Log;
 
 import javax.servlet.ServletContext;
 
@@ -11,7 +11,7 @@ import javax.servlet.ServletContext;
  */
 @DisallowConcurrentExecution
 public class WriteVideoAddrJob implements InterruptableJob{
-    private DXPLog logger = new DXPLog(WriteVideoAddrJob.class);
+    private Log logger = new Log(WriteVideoAddrJob.class);
     private volatile boolean _interrupted = false;
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {

@@ -22,7 +22,7 @@ function submitPic() {
         dataType: 'json',
         clearForm:true,
         success:function(data){
-            dmallNotify("上传成功");
+            messageNotify("上传成功");
             window.location.reload();
         }
     };

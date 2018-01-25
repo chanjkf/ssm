@@ -5,7 +5,7 @@
 //import java.util.Date;
 //
 ///**
-// * Created by Administrator on 2015/8/12.
+// * Created by yi on 2017/7/31.
 // */
 //public interface IQuartzService {
 //    public void addJobByMinute(String jobName, Class clazz, int minute) throws SchedulerException;

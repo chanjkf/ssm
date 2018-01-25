@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.*;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.persister.entity.SingleTableEntityPersister;
-import xyz.chanjkf.utils.DXPUtil;
+import xyz.chanjkf.utils.BaseUtil;
 
 import java.util.*;
 
@@ -76,9 +76,9 @@ public class DBCriteriaBuilder {
                 }else if (parameter.getCondition() == ConditionType.between){
                     SubCr.add(Restrictions.between(parameter.getName(), parameter.getValue(), parameter.getValue2()));
                 }else if (parameter.getCondition() == ConditionType.like){
-                    SubCr.add(Restrictions.like(parameter.getName(), DXPUtil.escapeSQL(parameter.getValue().toString()), MatchMode.ANYWHERE));
+                    SubCr.add(Restrictions.like(parameter.getName(), BaseUtil.escapeSQL(parameter.getValue().toString()), MatchMode.ANYWHERE));
                 }else if (parameter.getCondition() == ConditionType.ilike){
-                    SubCr.add(Restrictions.ilike(parameter.getName(), DXPUtil.escapeSQL(parameter.getValue().toString()), MatchMode.ANYWHERE));
+                    SubCr.add(Restrictions.ilike(parameter.getName(), BaseUtil.escapeSQL(parameter.getValue().toString()), MatchMode.ANYWHERE));
                 }else if (parameter.getCondition() == ConditionType.ne){
                     SubCr.add(Restrictions.ne(parameter.getName(), parameter.getValue()));
                 }else if (parameter.getCondition() == ConditionType.gt){

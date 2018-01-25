@@ -1,7 +1,7 @@
 package xyz.chanjkf.utils.page;
 
 /**
- * Created by xunzhi on 2015/8/15.
+ * Created by yi on 2017/7/31.
  */
 public enum ConditionType {
     eq,             //==

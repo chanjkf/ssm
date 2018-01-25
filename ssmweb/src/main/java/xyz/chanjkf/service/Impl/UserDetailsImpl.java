@@ -13,7 +13,7 @@ import xyz.chanjkf.entity.RoleEntity;
 import xyz.chanjkf.entity.UserEntity;
 import xyz.chanjkf.service.IRoleService;
 import xyz.chanjkf.service.IUserService;
-import xyz.chanjkf.utils.DXPConst;
+import xyz.chanjkf.utils.Const;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class UserDetailsImpl implements UserDetailsService {
         User user = new User(userEntity.getUserName(), userEntity.getUserPassword(), auths);
 
         if (null != session) {
-            session.setAttribute(DXPConst.SESSION_USERID, userEntity.getId());
+            session.setAttribute(Const.SESSION_USERID, userEntity.getId());
         }
         return user;
     }

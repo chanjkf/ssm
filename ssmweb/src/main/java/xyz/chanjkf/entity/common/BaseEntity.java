@@ -5,11 +5,8 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by bingo on 2015/7/7.
- */
 @MappedSuperclass
-public class DXPEntity implements Serializable {
+public class BaseEntity implements Serializable {
     private static final long serialVersionUID = -8742242989447584754L;
 
     @Column(name = "creator_id")
@@ -24,27 +21,27 @@ public class DXPEntity implements Serializable {
     @Column(name = "active_flag")
     private boolean active_flag;
 
-    public DXPEntity() {
+    public BaseEntity() {
         setCreate_time(new Date());
         setUpdate_time(new Date());
         setActive_flag(true);
     }
 
-    public DXPEntity(Long creator_id) {
+    public BaseEntity(Long creator_id) {
         this.creator_id = creator_id;
         setCreate_time(new Date());
         setUpdate_time(new Date());
         setActive_flag(true);
     }
 
-    public DXPEntity(Long creator_id, boolean active_flag){
+    public BaseEntity(Long creator_id, boolean active_flag){
         this.creator_id = creator_id;
         this.active_flag = active_flag;
         setCreate_time(new Date());
         setUpdate_time(new Date());
     }
 
-    public DXPEntity(Long creator_id, Date create_time, Date update_time, boolean active_flag) {
+    public BaseEntity(Long creator_id, Date create_time, Date update_time, boolean active_flag) {
         this.create_time = create_time;
         this.creator_id = creator_id;
         this.active_flag = active_flag;

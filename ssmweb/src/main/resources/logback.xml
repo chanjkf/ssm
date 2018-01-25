@@ -9,7 +9,7 @@
 <!--                                                                -->
 <configuration debug="true" scan="true" scanPeriod="60 seconds">
     <contextName>Photo</contextName>
-    <property name="LOG_HOME" value="/usr/local/tomcat/photo/logs" />
+    <property name="LOG_HOME" value="d:/logs/photo" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">

@@ -4,10 +4,10 @@
 <html>
 <head lang="en" >
     <meta charset="UTF-8">
-    <title>photo</title>
+    <title>chanjkf</title>
 
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
-    <link rel="icon" type="image/png" href="${rootRoute}/view/img/index/head.jpg">
+    <link rel="icon" type="image/png" href="${rootRoute}/view/img/index/head.png">
     <!-- Animate.css -->
     <link rel="stylesheet" href="${rootRoute}/view/css/animate.css">
     <!-- Icomoon Icon Fonts-->

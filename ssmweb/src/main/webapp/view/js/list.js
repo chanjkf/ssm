@@ -1,18 +1,4 @@
-/*
- *  ———————————————————————————
- *  Copyright  2017 Hangzhou DtDream Technology Co.,Lt d. All rights reserved.
- *   ———————————————————————————
- *        Product: datamall
- *    Module Name: dmall
- *   Date Created: 2017-10-12
- *    Description:
- *   ———————————————————————————
- *  Modification History
- *  DATE            Name           Description
- *   ———————————————————————————
- *  2017-10-12    z0253
- *   ———————————————————————————
- */
+
 
 /*
  * 
