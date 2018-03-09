@@ -14,12 +14,12 @@ import xyz.chanjkf.entity.UserEntity;
 import xyz.chanjkf.service.IRoleService;
 import xyz.chanjkf.service.IUserService;
 import xyz.chanjkf.utils.Const;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 @Service("UserDetailsImpl")
 public class UserDetailsImpl implements UserDetailsService {
@@ -56,10 +56,11 @@ public class UserDetailsImpl implements UserDetailsService {
         }
 
         User user = new User(userEntity.getUserName(), userEntity.getUserPassword(), auths);
+        request.getSession(true).setAttribute(Const.SESSION_USERID, userEntity.getId());
 
-        if (null != session) {
-            session.setAttribute(Const.SESSION_USERID, userEntity.getId());
-        }
+//        if (null != session) {
+//            session.setAttribute(Const.SESSION_USERID, userEntity.getId());
+//        }
         return user;
     }
 }

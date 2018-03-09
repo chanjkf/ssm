@@ -11,6 +11,7 @@ import xyz.chanjkf.service.common.AbstractService;
 import xyz.chanjkf.utils.*;
 import xyz.chanjkf.utils.page.CrParams;
 import xyz.chanjkf.utils.page.DBCriteriaBuilder;
+import xyz.chanjkf.utils.page.Page;
 import xyz.chanjkf.utils.page.Parameter;
 
 import javax.annotation.Resource;
@@ -83,6 +84,32 @@ public class UserService extends AbstractService<UserEntity> implements IUserSer
             throw new BaseException(ExceptionType.ERROR_VALIDATE_OUTTIME.getMessage());
         }
         getCurrentSession().createQuery("update user set use_flag=1 where id="+user_id).executeUpdate();
+    }
+
+    @Override
+    public void updateUserState(Long userId, boolean onlineFlag) {
+        dao.updateUserState(userId, onlineFlag);
+    }
+
+    @Override
+    public void initUserStatus() {
+        dao.initUserStatus();
+    }
+
+    @Override
+    public Integer getOnlineNum() {
+        return dao.getOnlineNum();
+    }
+
+    @Override
+    public Page<UserEntity> getUserPages(Integer pageNum, Integer pageSize, boolean onlineFlag) {
+        Page<UserEntity> pages = new Page<>(pageNum, pageSize);
+        DBCriteriaBuilder builder = new DBCriteriaBuilder();
+        CrParams params = new CrParams("UserEntity");
+        Parameter parameter = new Parameter("useFlag", onlineFlag);
+        params.addParam(parameter);
+        builder.getFilterParams().add(params);
+        return getDistinctActivePage(pages, builder);
     }
 
     public UserEntity findUserByNameAndPass(String username, String password) {

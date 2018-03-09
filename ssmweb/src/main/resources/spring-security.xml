@@ -38,6 +38,9 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <security:intercept-url pattern="/register/checkName" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/register/activate" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/weather/**" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/test/**" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/test/**" method="POST" access="permitAll"/>
+        <security:intercept-url pattern="/manage/online/**" method="GET" access="permitAll"/>
         <!--指定登录页面-->
         <security:form-login login-page="/toLogin/page"/>
 
@@ -46,13 +49,14 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
         <!--登录后默认页面-->
-        <form-login default-target-url="/index"/>
+        <form-login default-target-url="/index/pre"/>
 
         <!-- 同一时间内允许同一账号保持1个在线,error-if-maximum-exceeded="true"表示第1个以后的登不进去 -->
         <session-management invalid-session-url="/index">
             <concurrency-control max-sessions="2"
                                  error-if-maximum-exceeded="false" />
         </session-management>
+
         <csrf disabled="true"/>
 
     </http>
@@ -63,7 +67,5 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     </authentication-manager>
     <!--为权限认证提供用户名、密码和所拥有的权限等信息-->
     <beans:bean id="userDetailsService" class="xyz.chanjkf.service.Impl.UserDetailsImpl" />
-
-
 
 </beans:beans>

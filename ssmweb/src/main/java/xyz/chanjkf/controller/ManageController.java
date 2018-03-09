@@ -8,19 +8,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.chanjkf.entity.AlbumEntity;
-import xyz.chanjkf.entity.PhotoType;
-import xyz.chanjkf.entity.RoleEntity;
-import xyz.chanjkf.entity.VideoEntity;
+import xyz.chanjkf.entity.*;
 import xyz.chanjkf.service.*;
-import xyz.chanjkf.service.Impl.RoleService;
 import xyz.chanjkf.utils.AddressUtil;
 import xyz.chanjkf.utils.Const;
 import xyz.chanjkf.utils.BaseTime;
 import xyz.chanjkf.utils.JsonUtil;
 import xyz.chanjkf.utils.page.Page;
-
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -39,6 +35,9 @@ public class ManageController {
 
     @Resource(name = "PhotoTypeService")
     private IPhotoTypeService photoTypeService;
+
+    @Resource(name = "UserService")
+    private IUserService userService;
 
     @Resource(name = "AlbumService")
     IAlbumService albumService;
@@ -224,6 +223,38 @@ public class ManageController {
             map.put("result", "上传失败"+e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/online/num", method = RequestMethod.GET)
+    @ResponseBody
+    public String getOnlineNum (HttpServletRequest request, HttpServletResponse response){
+        Map<String, Object> map = new HashMap<>(10);
+        ServletContext servletContext = request.getServletContext();
+        int onlineNum = (int)servletContext.getAttribute("online_num");
+        map.put("result", "success");
+        map.put("online", onlineNum);
+        return JsonUtil.getJsonStr(map);
+    }
+
+    @RequestMapping(value = "/online/users", method = RequestMethod.GET)
+    @ResponseBody
+    public String getOnlineUsers (HttpServletRequest request, HttpServletResponse response,
+                                  @RequestParam(value = "pageNumber", required = false) Integer pageNum,
+                                  @RequestParam(value = "pageSize", required = false) Integer pageSize){
+        Map<String, Object> map = new HashMap<>(10);
+        if (pageNum == null || pageNum <= 0) {
+            pageNum = 1;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = 10;
+        }
+        Page<UserEntity> userPages = userService.getUserPages(pageNum, pageSize, true);
+        map.put("userList", userPages.getResult());
+        map.put("totalPages",userPages.getTotalPages());
+        map.put("pageNumber",pageNum);
+        map.put("result", "success");
+        return JsonUtil.getJsonStr(map);
+    }
+
     private boolean saveVideo(HttpServletRequest request, CommonsMultipartFile  files, String name, String desc) throws IOException, InterruptedException {
         MultipartFile multipartFile = files;
 

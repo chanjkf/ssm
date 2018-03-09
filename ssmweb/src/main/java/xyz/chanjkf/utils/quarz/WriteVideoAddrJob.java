@@ -27,11 +27,6 @@ public class WriteVideoAddrJob implements InterruptableJob{
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-
-
-
-
-
     }
     @Override
     public void interrupt() throws UnableToInterruptJobException {

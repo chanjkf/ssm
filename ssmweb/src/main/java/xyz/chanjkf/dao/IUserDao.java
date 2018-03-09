@@ -7,4 +7,9 @@ import xyz.chanjkf.entity.UserEntity;
  * Created by yi on 2017/6/7.
  */
 public interface IUserDao  extends IOperations<UserEntity> {
+    void updateUserState(Long userId, boolean onlineFlag);
+
+    void initUserStatus();
+
+    Integer getOnlineNum();
 }

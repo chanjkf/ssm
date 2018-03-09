@@ -21,6 +21,7 @@
 	<!--<mvc:resources location="/view/css/" mapping="/webapp/view/css/**"/>-->
 	<!--<mvc:resources location="/view/js/" mapping="/webapp/view/js/**"/>-->
     <!--处理responseBody乱码-->
+
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="xyz.chanjkf.utils.JsonStringHttpMessageConverter"/>

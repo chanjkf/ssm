@@ -4,6 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="printJobTimer" class="xyz.chanjkf.utils.quarz.PrintJobTimer"/>
+    <bean id="checkOnlineNum" class="xyz.chanjkf.utils.quarz.CheckOnlineNum"></bean>
+
     <bean id="printJobTimerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <!--  被调度类：PrintJobTimer -->
         <property name="targetObject" ref="printJobTimer"/>
@@ -11,6 +13,16 @@
         <property name="targetMethod" value="print"/>
         <property name="concurrent" value="false"/>
     </bean>
+
+    <bean id="checkOnlineNumDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--  被调度类：PrintJobTimer -->
+        <property name="targetObject" ref="checkOnlineNum"/>
+        <!--  被调度方法：print（） -->
+        <property name="targetMethod" value="check"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+
 
     <!-- ======================== 调度触发器 ======================== -->
     <bean id="printJobTimerTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
@@ -20,12 +32,21 @@
         </property>
     </bean>
 
+    <bean id="checkOnlineNumTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="checkOnlineNumDetail"></property>
+        <property name="cronExpression">
+            <value>0 0 1 * * ?</value>
+        </property>
+    </bean>
+
     <!-- ======================== 调度工厂 ======================== -->
     <bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="printJobTimerTrigger"/>
+                <ref bean="checkOnlineNumTrigger"/>
             </list>
         </property>
     </bean>
+
 </beans>

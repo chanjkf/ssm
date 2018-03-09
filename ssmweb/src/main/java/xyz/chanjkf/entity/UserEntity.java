@@ -74,4 +74,16 @@ public class UserEntity extends BaseEntity{
     public void setValidateCode(String validateCode) {
         this.validateCode = validateCode;
     }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", useFlag=" + useFlag +
+                ", validateCode='" + validateCode + '\'' +
+                '}';
+    }
 }

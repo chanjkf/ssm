@@ -5,7 +5,7 @@
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xmlns:mvc="http://www.springframework.org/schema/mvc"
-	   xmlns:cache="http://www.springframework.org/schema/cache"
+	   xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
@@ -25,22 +25,61 @@
 	</context:component-scan>
 	<context:property-placeholder location="classpath:persistence-*.properties" ignore-unresolvable="true"/>
 
+	<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
+	<!-- 连接池 ,本质是对GenericObjectPoolConfig的属性的设置-->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="minIdle" value="${redis.minIdle}" />
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
 
-	<!--<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>-->
+	<!-- REDIS连接工厂 -->
+	<bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<!-- 基础连接参数 -->
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<!--<property name="password" value="${redis.password}" />-->
+		<!-- 是否启用连接池 -->
+		<property name="usePool" value="true" />
+		<property name="poolConfig" ref="poolConfig" />
+	</bean>
 
-	<!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-		<!--<property name="maxIdle" value="${redis.maxIdle}" />-->
-		<!--<property name="maxActive" value="${redis.maxActive}" />-->
-		<!--<property name="maxWait" value="${redis.maxWait}" />-->
-		<!--<property name="testOnBorrow" value="${redis.testOnBorrow}" />-->
-	<!--</bean>-->
+	<!-- 对String类型处理的RedisTemplate -->
+	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="jedisConnFactory" />
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="valueSerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="hashKeySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="hashValueSerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+	</bean>
 
-	<!--<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
-		  <!--p:host-name="${redis.host}" p:port="${redis.port}"  p:pool-config-ref="poolConfig"/>-->
-
-	<!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
-		<!--<property name="connectionFactory"   ref="connectionFactory" />-->
-	<!--</bean>-->
+	<!-- 对LIST,SET,ZSET,HASH等类型的处理RedisTemplate -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnFactory"/>
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+		</property>
+		<property name="hashKeySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+		</property>
+		<property name="valueSerializer">
+			<!-- 对象序列化方案 -->
+			<bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+		</property>
+		<property name="hashValueSerializer">
+			<bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+		</property>
+	</bean>
 
 
 
@@ -102,6 +141,7 @@
 			<tx:method name="increate*" propagation="REQUIRED"/>
 			<tx:method name="merge*" propagation="REQUIRED"/>
 			<tx:method name="activate*" propagation="REQUIRED"/>
+			<tx:method name="init*" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 
