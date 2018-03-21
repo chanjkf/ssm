@@ -13,9 +13,12 @@ import xyz.chanjkf.utils.MD5Util;
 import xyz.chanjkf.utils.email.EmailSender;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -35,9 +38,19 @@ public class RegisterService implements IRegisterService {
     private IUserRoleService userRoleService;
 
     @Override
-    public UserEntity registerUser(String name, String password, String email, String path) throws BaseException {
-        List<UserEntity> users = userService.getDistinctActive();
+    public UserEntity registerUser(String name, String password, String email, String path) throws BaseException, MessagingException {
         String validateCode = MD5Util.MD5Encode(email,"utf-8");
+
+        UserEntity user = new UserEntity();
+        user.setValidateCode(validateCode);
+        user.setUserName(name);
+        user.setUserPassword(password);
+        user.setUseFlag(false);
+        user.setEmail(email);
+        EmailSender.send(email, user.getId(), validateCode, path, user.getUserName());
+        userService.create(user);
+
+        List<UserEntity> users = userService.getDistinctActive();
         RoleEntity roleEntity = new RoleEntity();
         if (users == null || users.size() == 0) {
             roleEntity.setName("ROLE_ADMIN");
@@ -46,26 +59,9 @@ public class RegisterService implements IRegisterService {
             roleEntity.setName("ROLE_USER");
             roleEntity.setDescription("普通用户");
         }
-
         roleService.create(roleEntity);
 
-        UserEntity user = new UserEntity();
-        user.setValidateCode(validateCode);
-        user.setUserName(name);
-        user.setUserPassword(password);
-        user.setUseFlag(false);
-        user.setEmail(email);
-        userService.create(user);
-        try {
-            EmailSender.send(email, user.getId(), validateCode, path, user.getUserName());
-        } catch (Exception r) {
-            throw new BaseException("发送激活邮件失败");
-        }
-
-
-
         Long userId = user.getId();
-
         UserRoleEntity userRoleEntity = new UserRoleEntity();
         userRoleEntity.setUserName(name);
         userRoleEntity.setRoleEntity(roleEntity);

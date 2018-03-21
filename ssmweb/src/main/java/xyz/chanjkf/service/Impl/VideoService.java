@@ -1,5 +1,8 @@
 package xyz.chanjkf.service.Impl;
 
+import com.qiniu.common.QiniuException;
+import com.qiniu.storage.BucketManager;
+import com.qiniu.util.Auth;
 import org.springframework.stereotype.Service;
 import xyz.chanjkf.dao.IUserDao;
 import xyz.chanjkf.dao.IVideoDao;
@@ -9,6 +12,7 @@ import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IUserService;
 import xyz.chanjkf.service.IVideoService;
 import xyz.chanjkf.service.common.AbstractService;
+import xyz.chanjkf.utils.QiNiuOSSUtil;
 import xyz.chanjkf.utils.page.CrParams;
 import xyz.chanjkf.utils.page.DBCriteriaBuilder;
 import xyz.chanjkf.utils.page.Page;
@@ -61,5 +65,12 @@ public class VideoService extends AbstractService<VideoEntity> implements IVideo
         getCurrentSession()
                 .createSQLQuery("update video set view_count = view_count +1 where id = "+id)
                 .executeUpdate();
+    }
+
+    @Override
+    public void deletePhoto(String qiNiuKey) throws QiniuException {
+        Auth auth = Auth.create(QiNiuOSSUtil.accessKey, QiNiuOSSUtil.secretKey);
+        BucketManager bucketManager = new BucketManager(auth, QiNiuOSSUtil.getConfiguration());
+        bucketManager.delete(QiNiuOSSUtil.bucket, qiNiuKey);
     }
 }

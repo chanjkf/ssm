@@ -64,8 +64,6 @@ public class LoginFilter implements Filter {
 					public void run() {
 						try {
 							String ip = getRemoteHost(request);
-							ip = "183.131.17.228";
-
 							String url = "https://dm-81.data.aliyun.com/rest/160601/ip/getIpInfo.json";
 							String appcode = "b3ebe78c03fd46adabe9403ca2bf73ff";
 							url = url+"?ip="+ip;

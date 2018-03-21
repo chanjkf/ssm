@@ -28,7 +28,7 @@
 					<div class="feature-left">
                         <#--<h2>Default Skin</h2>-->
 
-                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                        <video width="380" height="210" src="http://p5xe9vmr2.bkt.clouddn.com/index_binke.mp4" type="video/mp4"
                                id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
 					</div>
@@ -38,7 +38,7 @@
                     <div class="feature-left">
                         <#--<h2>Default Skin</h2>-->
 
-                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                        <video width="380" height="210" src="http://p5xe9vmr2.bkt.clouddn.com/index_binke.mp4" type="video/mp4"
                                id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
 					</div>
@@ -48,7 +48,7 @@
                     <div class="feature-left">
                         <#--<h2>Default Skin</h2>-->
 
-                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                        <video width="380" height="210" src="http://p5xe9vmr2.bkt.clouddn.com/index_binke.mp4" type="video/mp4"
                                id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
@@ -62,7 +62,7 @@
                     <div class="feature-left">
                         <#--<h2>Default Skin</h2>-->
 
-                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                        <video width="380" height="210" src="http://p5xe9vmr2.bkt.clouddn.com/index_binke.mp4" type="video/mp4"
                                id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
@@ -73,7 +73,7 @@
                     <div class="feature-left">
                         <#--<h2>Default Skin</h2>-->
 
-                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                        <video width="380" height="210" src="http://p5xe9vmr2.bkt.clouddn.com/index_binke.mp4" type="video/mp4"
                                id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="feature-left">
                         <#--<h2>Default Skin</h2>-->
 
-                        <video width="380" height="210" src="${rootRoute}/video/binke_1.mp4" type="video/mp4"
+                        <video width="380" height="210" src="http://p5xe9vmr2.bkt.clouddn.com/index_binke.mp4" type="video/mp4"
                                id="player1" poster="${rootRoute}/view/img/video_img/libinke.png"
                                controls="controls" preload="none"></video>
                     </div>

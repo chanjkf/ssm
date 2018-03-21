@@ -14,6 +14,7 @@ import xyz.chanjkf.service.IUserService;
 import xyz.chanjkf.utils.*;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -55,10 +56,16 @@ public class RegisterController {
         }
         String path = request.getRequestURL().toString();
         path = path.substring(0, path.lastIndexOf("/"));
-        path = path + "/activate";
+        path = "www.chanjkf.top/photo/register/activate";
         try {
             entity = registerService.registerUser(name, password, email, path);
         } catch (BaseException e) {
+            map.put("result", e.getMessage());
+            return JsonUtil.getJsonStr(map);
+        } catch (MessagingException e) {
+            map.put("result", e.getMessage());
+            return JsonUtil.getJsonStr(map);
+        } catch (Exception e) {
             map.put("result", e.getMessage());
             return JsonUtil.getJsonStr(map);
         }

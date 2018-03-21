@@ -21,6 +21,9 @@ public class AlbumEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER)
     private PhotoType type;
 
+    @Column(name = "qi_niu_key")
+    private String qiNiuKey;
+
     @Column(name = "url")
     private String url;
 
@@ -73,5 +76,13 @@ public class AlbumEntity extends BaseEntity{
 
     public void setType(PhotoType type) {
         this.type = type;
+    }
+
+    public String getQiNiuKey() {
+        return qiNiuKey;
+    }
+
+    public void setQiNiuKey(String qiNiuKey) {
+        this.qiNiuKey = qiNiuKey;
     }
 }

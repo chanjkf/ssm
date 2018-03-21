@@ -1,5 +1,7 @@
 package xyz.chanjkf.utils.email;
 
+import xyz.chanjkf.utils.PropertiesUtils;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -16,39 +18,34 @@ import java.util.Properties;
 public class EmailSender {
     public static final String HOST = "smtp.163.com";
     public static final String PROTOCOL = "smtp";
-    public static final int PORT = 25;
-    /**
-     * 发件人的email
-     */
-    public static final String FROM = "chanjkf@163.com";
-    /**
-     * 发件人密码
-     */
-    public static final String PWD = "chanjkf7019";
+    public static final int PORT = 465;
     /**
      * 获取Session
      * @return
      */
     private static Session getSession() {
+        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
         Properties props = new Properties();
         /**
          * 设置服务器地址
          */
         props.put("mail.smtp.host", HOST);
-        /**
-         * 设置协议
-         */
-        props.put("mail.store.protocol" , PROTOCOL);
+
+        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
         /**
          * 设置端口
          */
         props.put("mail.smtp.port", PORT);
+
+        props.setProperty("mail.smtp.socketFactory.port", String.valueOf(PORT));
         props.put("mail.smtp.auth" , true);
 
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(FROM, PWD);
+                return new PasswordAuthentication(PropertiesUtils.username, PropertiesUtils.password);
             }
 
         };
@@ -63,7 +60,7 @@ public class EmailSender {
         Message  msg = new MimeMessage(session);
 
         //Set message attributes
-        msg.setFrom(new InternetAddress(FROM));
+        msg.setFrom(new InternetAddress(PropertiesUtils.username));
         InternetAddress[] address = {new InternetAddress(toEmail)};
         msg.setRecipients(Message.RecipientType.TO, address);
         msg.setSubject("账号激活邮件");

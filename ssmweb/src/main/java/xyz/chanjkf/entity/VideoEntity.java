@@ -23,6 +23,9 @@ public class VideoEntity extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "qi_niu_key")
+    private String qiNiuKey;
+
     @Column(name = "view_count")
     private int viewCount;
 
@@ -64,5 +67,13 @@ public class VideoEntity extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getQiNiuKey() {
+        return qiNiuKey;
+    }
+
+    public void setQiNiuKey(String qiNiuKey) {
+        this.qiNiuKey = qiNiuKey;
     }
 }

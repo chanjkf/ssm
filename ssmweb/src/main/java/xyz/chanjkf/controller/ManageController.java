@@ -1,5 +1,15 @@
 package xyz.chanjkf.controller;
 
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.BucketManager;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
+import freemarker.ext.beans.HashAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,18 +20,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import xyz.chanjkf.entity.*;
 import xyz.chanjkf.service.*;
-import xyz.chanjkf.utils.AddressUtil;
-import xyz.chanjkf.utils.Const;
-import xyz.chanjkf.utils.BaseTime;
-import xyz.chanjkf.utils.JsonUtil;
+import xyz.chanjkf.service.Impl.AlbumService;
+import xyz.chanjkf.utils.*;
 import xyz.chanjkf.utils.page.Page;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -61,27 +67,42 @@ public class ManageController {
         Map<String, Object> map = new HashMap<>(16);
         map.put("result", "success");
         Long id = (Long)request.getSession().getAttribute("Id");
-        try {
-            List<String> addrss = saveImage(request, files);
-            AlbumEntity albumEntity = new AlbumEntity();
-            albumEntity.setImgName(name);
-            albumEntity.setDescription(desc);
-            albumEntity.setUrl(addrss.get(0));
-            albumEntity.setCreator_id(id);
-            PhotoType photoType = photoTypeService.getActive(type);
-            albumEntity.setType(photoType);
-            albumService.create(albumEntity);
 
-        } catch (IOException e) {
-            e.getStackTrace();
-            e.getMessage();
-            map.put("result", "上传失败"+e.getMessage());
+        Configuration cfg = new Configuration(Zone.zone2());
+        UploadManager uploadManager = new UploadManager(cfg);
+        String key = null;
+        try {
+            byte[] uploadBytes = files.getBytes();
+            ByteArrayInputStream byteInputStream=new ByteArrayInputStream(uploadBytes);
+            Auth auth = Auth.create(QiNiuOSSUtil.accessKey, QiNiuOSSUtil.secretKey);
+            String upToken = auth.uploadToken(QiNiuOSSUtil.bucket);
+            try {
+                Response response1 = uploadManager.put(byteInputStream,key,upToken,null, null);
+                //解析上传成功的结果
+                DefaultPutRet putRet = new Gson().fromJson(response1.bodyString(), DefaultPutRet.class);
+                String qiNiuUrl = "http://p5xe9vmr2.bkt.clouddn.com/"+putRet.key;
+                AlbumEntity albumEntity = new AlbumEntity();
+                albumEntity.setImgName(name);
+                albumEntity.setDescription(desc);
+                albumEntity.setUrl(qiNiuUrl);
+                albumEntity.setQiNiuKey(putRet.key);
+                albumEntity.setCreator_id(id);
+                PhotoType photoType = photoTypeService.getActive(type);
+                albumEntity.setType(photoType);
+                albumService.create(albumEntity);
+            } catch (QiniuException ex) {
+                Response r = ex.response;
+                map.put("result", "上传失败："+r.bodyString());
+                return JsonUtil.getJsonStr(map);
+            }
+        } catch (UnsupportedEncodingException ex) {
+            map.put("result", "上传失败："+ex.getMessage());
             return JsonUtil.getJsonStr(map);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            map.put("result", "上传失败"+e.getMessage());
+        } catch (IOException e) {
+            map.put("result", "上传失败："+e.getMessage());
             return JsonUtil.getJsonStr(map);
         }
+
         return JsonUtil.getJsonStr(map);
 
     }
@@ -118,6 +139,28 @@ public class ManageController {
         mv.addObject("totalPages", page.getTotalPages());
         return mv;
     }
+
+    @RequestMapping(value = "/album/delete", method = RequestMethod.POST)
+    private String deleteAlbum(HttpServletRequest request, HttpServletResponse response,
+                               @RequestParam(value = "id") Long id){
+        Map<String, Object> map = new HashMap<>(6);
+        AlbumEntity album = albumService.getActive(id);
+        if (album == null) {
+            map.put("result", "未找到该图片");
+            return JsonUtil.getJsonStr(map);
+        }
+        String qiNiuKey = album.getQiNiuKey();
+        try {
+            albumService.deletePhoto(qiNiuKey);
+        } catch (QiniuException ex) {
+            map.put("result", "删除失败"+ex.getMessage());
+            return JsonUtil.getJsonStr(map);
+        }
+        albumService.deleteById(id);
+        return JsonUtil.getJsonStr(map);
+    }
+
+
     @RequestMapping(value = "/album",method = RequestMethod.GET)
     @ResponseBody
     private ModelAndView manageAblum(HttpServletRequest request, HttpServletResponse response,
@@ -203,25 +246,59 @@ public class ManageController {
                                @RequestParam(value = "file", required = false) CommonsMultipartFile files,
                                @RequestParam(value = "name", required = false) String name,
                                @RequestParam(value = "desc", required = false) String desc){
+        Long id = (Long)request.getSession().getAttribute("Id");
         Map<String, Object> map = new HashMap<>();
         map.put("result", "success");
-        PrintWriter out;
+        Configuration cfg = new Configuration(Zone.zone2());
+        UploadManager uploadManager = new UploadManager(cfg);
+        String accessKey = "nc7Mv1scNTxq-BwLuNgQ-tmWwXWHvCLc7RF-1GAw";
+        String secretKey = "H5twB2EYhEx2waDMk8pJ3O0KrxcwFZsq27sNZnv1";
+        String bucket = "chanjkf";
+        String key = null;
+        byte[] uploadBytes = files.getBytes();
+        ByteArrayInputStream byteInputStream=new ByteArrayInputStream(uploadBytes);
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket);
         try {
-            boolean flag = saveVideo(request, files, name, desc);
-            out = response.getWriter();
-            if (true == flag) {
-                out.print("1");
-            } else {
-                out.print("2");
+            Response response1 = uploadManager.put(byteInputStream, key, upToken, null, null);
+            //解析上传成功的结果
+            DefaultPutRet putRet = new Gson().fromJson(response1.bodyString(), DefaultPutRet.class);
+            String qiNiuUrl = "http://p5xe9vmr2.bkt.clouddn.com/"+putRet.key;
+            VideoEntity videoEntity = new VideoEntity();
+            videoEntity.setName(name);
+            videoEntity.setDescription(desc);
+            videoEntity.setAddress(qiNiuUrl);
+            videoEntity.setCreator_id(id);
+            videoService.create(videoEntity);
+        } catch (QiniuException ex) {
+            Response r = ex.response;
+            System.err.println(r.toString());
+            try {
+                System.err.println(r.bodyString());
+            } catch (QiniuException ex2) {
+                //ignore
             }
-        } catch (IOException e) {
-            e.getStackTrace();
-            e.getMessage();
-            map.put("result", "上传失败"+e.getMessage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            map.put("result", "上传失败"+e.getMessage());
         }
+    }
+    @RequestMapping(value = "/video/delete", method = RequestMethod.POST)
+    private String deleteVideo(HttpServletRequest request, HttpServletResponse response,
+                               @RequestParam(value = "id") Long id){
+        Map<String, Object> map = new HashMap<>(6);
+        VideoEntity video = videoService.getActive(id);
+        if (video == null) {
+            map.put("result", "未找到该图片");
+            return JsonUtil.getJsonStr(map);
+        }
+        String qiNiuKey = video.getQiNiuKey();
+        try {
+            videoService.deletePhoto(qiNiuKey);
+        } catch (QiniuException ex) {
+            map.put("result", "删除失败"+ex.getMessage());
+            return JsonUtil.getJsonStr(map);
+        }
+        videoService.deleteById(id);
+        return JsonUtil.getJsonStr(map);
+
     }
 
     @RequestMapping(value = "/online/num", method = RequestMethod.GET)
@@ -253,70 +330,5 @@ public class ManageController {
         map.put("pageNumber",pageNum);
         map.put("result", "success");
         return JsonUtil.getJsonStr(map);
-    }
-
-    private boolean saveVideo(HttpServletRequest request, CommonsMultipartFile  files, String name, String desc) throws IOException, InterruptedException {
-        MultipartFile multipartFile = files;
-
-        multipartFile.getName();
-        String originalFilename = multipartFile.getOriginalFilename();
-        originalFilename = originalFilename.substring(originalFilename.lastIndexOf("."));
-
-        Long Id = videoService.getMaxIdFromDb();
-
-        String userIdStr = request.getSession().getAttribute(Const.SESSION_USERID).toString();
-        Long userId = Long.parseLong(userIdStr);
-        Long time = System.currentTimeMillis();
-        String fileName = "video"+ userId+(Id+1)+time+originalFilename;
-        // 此时文件暂存在服务器的内存中
-//                File tempFile = new File(fileName);// 构造临时对象
-        String uploadPath = AddressUtil.videoAddress;
-        String fileAdd = BaseTime.formatDateTime(new Date(),"yyyyMMdd");
-        File file1 = new File(uploadPath + File.separator + fileAdd);
-        if (!file1.exists() && !file1 .isDirectory()){
-            file1.mkdir();
-        }
-        File fileTarget = new File(uploadPath+ File.separator + fileAdd + File.separator + fileName);
-        String address = "/videos" + "/" + fileAdd + "/" + fileName;
-        multipartFile.transferTo(fileTarget);
-        VideoEntity videoEntity = new VideoEntity();
-        videoEntity.setName(name);
-        videoEntity.setDescription(desc);
-        videoEntity.setAddress(address);
-        videoEntity.setCreator_id(userId);
-        videoService.create(videoEntity);
-        //保存到es
-        elasticService.saveVideo(videoEntity);
-        return true;
-    }
-    private List<String> saveImage(HttpServletRequest request, MultipartFile files) throws IOException, InterruptedException {
-        List<String>addrStrs = new ArrayList<>();
-//        for (int i= 0; i< files.length; i++) {
-        MultipartFile multipartFile = files;
-
-        multipartFile.getName();
-        String originalFilename = multipartFile.getOriginalFilename();
-        originalFilename = originalFilename.substring(originalFilename.lastIndexOf("."));
-
-        Long Id = albumService.getMaxIdFromDb();
-
-        String userIdStr = request.getSession().getAttribute(Const.SESSION_USERID).toString();
-        int userId = Integer.parseInt(userIdStr);
-        Long time = System.currentTimeMillis();
-        String fileName = "photo"+ userId+(Id+1)+time+originalFilename;
-        // 此时文件暂存在服务器的内存中
-//                File tempFile = new File(fileName);// 构造临时对象
-
-        String uploadPath = AddressUtil.photoAddress;
-        String fileAdd = BaseTime.formatDateTime(new Date(),"yyyyMMdd");
-        File file1 = new File(uploadPath + File.separator + fileAdd);
-        if (!file1.exists() && !file1.isDirectory()){
-            file1.mkdir();
-        }
-        File fileTarget = new File(uploadPath+ File.separator + fileAdd + File.separator + fileName);
-        multipartFile.transferTo(fileTarget);
-        addrStrs.add("/images" + "/" + fileAdd + "/" + fileName);
-//        }
-        return addrStrs;
     }
 }

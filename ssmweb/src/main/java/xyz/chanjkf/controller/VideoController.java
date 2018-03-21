@@ -1,34 +1,18 @@
 package xyz.chanjkf.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.chanjkf.entity.AlbumEntity;
-import xyz.chanjkf.entity.PhotoType;
 import xyz.chanjkf.entity.VideoEntity;
 import xyz.chanjkf.service.IVideoService;
-import xyz.chanjkf.utils.Const;
-import xyz.chanjkf.utils.BaseTime;
-import xyz.chanjkf.utils.JsonUtil;
-//import xyz.chanjkf.utils.RedisCacheUtil;
 import xyz.chanjkf.utils.page.Page;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.*;
 import java.util.*;
 
 /**

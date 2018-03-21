@@ -142,6 +142,7 @@
 			<tx:method name="merge*" propagation="REQUIRED"/>
 			<tx:method name="activate*" propagation="REQUIRED"/>
 			<tx:method name="init*" propagation="REQUIRED"/>
+			<tx:method name="send*" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 
