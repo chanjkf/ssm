@@ -32,6 +32,12 @@ public class IndexController {
         ModelAndView mv = new ModelAndView("index");
         return mv;
     }
+
+    @RequestMapping("/index/welcome")
+    public ModelAndView welcome(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new ModelAndView("index");
+        return mv;
+    }
     @RequestMapping("/index/pre")
     public void preIndex(HttpServletRequest request, HttpServletResponse response){
         Long userId = (Long)request.getAttribute(Const.SESSION_USERID);

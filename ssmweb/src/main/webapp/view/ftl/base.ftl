@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <link href="${rootRoute}/view/css/login.css" rel='stylesheet' type='text/css' />
+    <link href="${rootRoute}/view/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <link href="${rootRoute}/view/css/gloab.css" rel='stylesheet' type='text/css' />
+    <link href="${rootRoute}/view/css/index.css" rel='stylesheet' type='text/css' />
     <link rel="icon" type="image/png" href="${rootRoute}/view/img/index/head.png">
     <script src="${rootRoute}/view/js/jquery.min.js"></script>
     <script src="${rootRoute}/view/js/jquery.easing.1.3.js"></script>

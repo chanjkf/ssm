@@ -40,14 +40,14 @@
                         </li>
                         <li class="btn-cta" style="margin-left: 50px">
                         <#if SPRING_SECURITY_CONTEXT.authentication.principal.username == "">
-                            <a href="${rootRoute}/toLogin/page"><span>Login</span></a>
+                            <a href="${rootRoute}/index/welcome"><span>Login</span></a>
                         <#else>
                             <a href="javascript:void(0)">
 										<span>
                                         ${SPRING_SECURITY_CONTEXT.authentication.principal.username}
 										</span>
                             </a>
-                            <a href="${rootRoute}/logout"><span>LogOut</a></span>
+                            <a href="/photo/logout/cas"><span>LogOut</a></span>
                         </#if>
                         </li>
 

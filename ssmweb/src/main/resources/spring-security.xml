@@ -1,35 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:security="http://www.springframework.org/schema/security"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/security
-http://www.springframework.org/schema/security/spring-security.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-    <debug />
+    <!-- CAS Configuration-->
+    <bean id="casService" class="org.springframework.security.cas.ServiceProperties">
+        <!--[login/cas]是Spring Security 4.0后修改的地址、跟3.X版本完全不同、请勿修改-->
+        <property name="service" value="http://localhost:8090/photo/login/cas"/>
+        <property name="sendRenew" value="false"/>
+    </bean>
+    <!-- CAS Filter-->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="casAuthenticationProvider"/>
+    </security:authentication-manager>
+
+    <bean id="casAuthenticationProvider"
+          class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+        <property name="authenticationUserDetailsService">
+            <bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+                <constructor-arg ref="userDetailsManager" />
+            </bean>
+        </property>
+
+        <property name="serviceProperties" ref="casService"/>
+        <property name="ticketValidator">
+            <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+                <constructor-arg index="0" value="${cas.server.validator}"/>
+            </bean>
+        </property>
+        <property name="key" value="casAuthProviderKey"/>
+    </bean>
+
+    <!--为权限认证提供用户名、密码和所拥有的权限等信息-->
+    <bean id="userDetailsManager" class="xyz.chanjkf.service.Impl.UserDetailsImpl" />
+
+    <bean id="casAuthenticationFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+    </bean>
+
+    <bean id="casProcessingFilterEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+        <!-- 单点登录服务器登录URL -->
+        <property name="loginUrl" value="http://192.168.60.129:8080/cas"/>
+        <property name="serviceProperties" ref="casService"/>
+    </bean>
+
+    <bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>
+
+    <bean id="logoutRedirectStrategy" class="xyz.chanjkf.utils.RedirectStrategy">
+        <property name="targetUrlParameter" value="${cas.server.logoutindex}"/>
+    </bean>
+
+    <bean id="logoutSuccessHandle" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <property name="defaultTargetUrl" value="${cas.server.logout}"/>
+        <property name="redirectStrategy" ref="logoutRedirectStrategy"/>
+    </bean>
+
+    <bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <!--<constructor-arg value="http://192.168.60.129:8080/cas/logout" />-->
+        <constructor-arg ref="logoutSuccessHandle"></constructor-arg>
+        <constructor-arg>
+            <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="/logout/cas"/>
+    </bean>
+
+
+
     <!--放行静态资源-->
-    <http security="none" pattern="/view/img/login/*.*"/>
-    <http security="none" pattern="/view/img/index/*.*"/>
-    <http security="none" pattern="/view/img/video/*.*"/>
-    <http security="none" pattern="/**/*.css" />
-    <http security="none" pattern="/**/login.html" />
-    <http security="none" pattern="/**/*.js" />
-    <http security="none" pattern="/**/*.json" />
-    <http security="none" pattern="/**/*.jpg" />
-    <http security="none" pattern="/**/*.jpeg" />
-    <http security="none" pattern="/**/*.bmp" />
-    <http security="none" pattern="/**/*.gif" />
-    <http security="none" pattern="/**/*.png" />
-    <http security="none" pattern="/**/*.ico" />
-    <http security="none" pattern="/**/*.jsp" />
-    <http security="none" pattern="/**/*.ttf" />
-    <http security="none" pattern="/**/*.map" />
-    <http security="none" pattern="/view/fonts/*" />
+    <security:http pattern="/view/img/*.*" security="none"/>
+    <security:http pattern="/**/*.css" security="none"/>
+    <security:http pattern="/**/login.html" security="none"/>
+    <security:http pattern="/**/*.js" security="none"/>
+    <security:http pattern="/**/*.json" security="none"/>
+    <security:http pattern="/**/*.jpg" security="none"/>
+    <security:http pattern="/**/*.jpeg" security="none"/>
+    <security:http pattern="/**/*.bmp" security="none"/>
+    <security:http pattern="/**/*.gif" security="none"/>
+    <security:http pattern="/**/*.png" security="none"/>
+    <security:http pattern="/**/*.ico" security="none"/>
+    <security:http pattern="/**/*.jsp" security="none"/>
+    <security:http pattern="/**/*.ttf" security="none"/>
+    <security:http pattern="/**/*.map" security="none"/>
+    <security:http pattern="/view/fonts/*" security="none"/>
     <!--限制访问的请求-->
-    <http use-expressions="true" auto-config="true">
-        <security:csrf disabled="true"/>
+    <security:http  auto-config="false" entry-point-ref="casProcessingFilterEntryPoint">
         <security:intercept-url pattern="/index" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/video/address" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/toLogin/page*" method="GET" access="permitAll"/>
@@ -40,31 +98,13 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <security:intercept-url pattern="/weather/**" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/test/**" method="GET" access="permitAll"/>
         <security:intercept-url pattern="/manage/online/**" method="GET" access="permitAll"/>
-        <!--指定登录页面-->
-        <security:form-login login-page="/toLogin/page"/>
+        <security:intercept-url pattern="/verify/**" method="GET" access="permitAll"/>
+        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
 
-        <logout invalidate-session="true" logout-url="/logout"
-                    logout-success-url="/index" />
 
-        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
-        <!--登录后默认页面-->
-        <form-login default-target-url="/index/pre"/>
-
-        <!-- 同一时间内允许同一账号保持1个在线,error-if-maximum-exceeded="true"表示第1个以后的登不进去 -->
-        <session-management invalid-session-url="/index">
-            <concurrency-control max-sessions="2"
-                                 error-if-maximum-exceeded="false" />
-        </session-management>
-
-        <csrf disabled="true"/>
-
-    </http>
-    <!--权限管理-->
-    <authentication-manager>
-        <authentication-provider user-service-ref="userDetailsService">
-        </authentication-provider>
-    </authentication-manager>
-    <!--为权限认证提供用户名、密码和所拥有的权限等信息-->
-    <beans:bean id="userDetailsService" class="xyz.chanjkf.service.Impl.UserDetailsImpl" />
-
-</beans:beans>
+        <security:custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
+        <security:custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
+        <security:custom-filter position="CAS_FILTER" ref="casAuthenticationFilter" />
+        <security:csrf disabled="true"/>
+    </security:http>
+</beans>

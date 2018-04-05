@@ -17,7 +17,6 @@ import java.util.Properties;
  */
 public class EmailSender {
     public static final String HOST = "smtp.163.com";
-    public static final String PROTOCOL = "smtp";
     public static final int PORT = 465;
     /**
      * 获取Session

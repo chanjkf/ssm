@@ -492,6 +492,28 @@
             <version>[7.2.0, 7.2.99]</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jasig.cas/cas-server-core-authentication -->
+        <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-core-authentication</artifactId>
+            <version>4.2.7</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>3.3.3</version>
+            <!-- 排除log4j包冲突 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
     <!--<build>

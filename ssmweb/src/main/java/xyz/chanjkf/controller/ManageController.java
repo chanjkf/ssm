@@ -67,7 +67,6 @@ public class ManageController {
         Map<String, Object> map = new HashMap<>(16);
         map.put("result", "success");
         Long id = (Long)request.getSession().getAttribute("Id");
-
         Configuration cfg = new Configuration(Zone.zone2());
         UploadManager uploadManager = new UploadManager(cfg);
         String key = null;
